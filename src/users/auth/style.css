@@ -1,0 +1,30 @@
+.auth_continer
+{
+    min-width: 300px;
+    max-width: 400px;
+    width: 100%;
+    background-color: #6363631f;
+    padding: 4%;
+    margin: 66px 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.auth_item
+{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+.app-link
+{
+    font-weight: bolder;
+}
+.app-link:hover{
+    color: var(--main_color);
+}
+.taggle_auth
+{
+    text-align: center;
+    padding-top: 20px;
+}

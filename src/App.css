@@ -1,38 +1,77 @@
+:root {
+  --main_color: #ed1c25 ;
+  --main_color_dark: #c5222a ;
+  --sec_color: #fdc814 ;
+  
+}
+
 .App {
   text-align: center;
+  font-family: 'Cairo', sans-serif;
+  
+}
+.dark
+{
+  background-color: rgb(51, 51, 51) ;
+  color: #f9f9f9;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.light
+{
+  background-color: #f9f9f9 ;
+  color: rgb(51, 51, 51);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main_color
+{
+  color:var(--main_color)
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app_button_1
+{
+    --bs-btn-color: var(--main_color);
+    --bs-btn-border-color: var(--main_color);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg:var(--main_color);
+    --bs-btn-hover-border-color: var(--main_color);
+    --bs-btn-focus-shadow-rgb: 25, 135, 84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--main_color);
+    --bs-btn-active-border-color: var(--main_color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--main_color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--main_color);
+    --bs-gradient: none;
+}
+.app_button_2
+{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--main_color);
+  --bs-btn-border-color: var(--main_color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--main_color);
+  
+  --bs-btn-focus-shadow-rgb: 60, 153, 110;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--main_color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--main_color);
+  --bs-btn-disabled-border-color: var(--main_color);
+  transition:all .3s ease-in-out;
+  border-radius: 50px;
+  padding: 10px;
+}
+.app_button_2:hover
+{
+  transform: scale(1.05);
+  color: var(--sec_color);
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
