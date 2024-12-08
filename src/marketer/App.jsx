@@ -12,7 +12,6 @@ const Home=()=>{
         <>
         <div >
             <div >
-
             </div>
             <div className='admin_content'>
                 <Outlet />

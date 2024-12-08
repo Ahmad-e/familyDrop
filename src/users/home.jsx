@@ -10,7 +10,12 @@ import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 
 // import {useEffect} from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 export default function Home() {
+
+  const { t } = useTranslation();
+
   return (
     
     <div>
@@ -20,18 +25,18 @@ export default function Home() {
             <div class="col-lg-5 col-md-12 col-12 text-right">
               <div class="hero-content text-right">
                 <h1 class="wow fadeInLeft" data-wow-delay=".4s">
-                  ابدأ رحلة تجارتك الأكترونية الأن مع فاملي دروب ب 6 دول
+                { t("landing.top_1") }
                 </h1>
                 <p class="wow fadeInLeft" data-wow-delay=".6s">
-                  نوفر لجميع مسوقين لدينا كافة الخدمات تجارة الاكترونية لتلبي
-                  طموحتاكم وحصول على مزيد من الأيرادات
+                { t("landing.top_2") }
+                
                 </p>
                 <div class="button wow fadeInLeft" data-wow-delay=".8s">
                   <a
-                    href="https://www.familydroop.com/ar/customer/loginRegister"
+                    href="register"
                     class="btn"
                   >
-                    <i class="lni lni-user"></i> سجل دخول الآن
+                    <i class="lni lni-user"></i>{ t("header.regaster") }
                   </a>
                 </div>
               </div>
@@ -52,19 +57,13 @@ export default function Home() {
             <div class="col-12">
               <div class="section-title">
                 <h3 class="wow zoomIn" data-wow-delay=".2s">
-                  عن المنصة
+                { t("landing.h_1") }
                 </h3>
                 <h2 class="wow fadeInUp" data-wow-delay=".4s">
-                  تجارتك الأكترونية بأسهل طريقة
+                  { t("landing.m_th1") }
                 </h2>
                 <p class="wow fadeInUp" data-wow-delay=".6s">
-                  منصتنا توفر حلولًا مبتكرة تناسب الشباب الطموحين، ربات البيوت،
-                  الموظفين، رواد الأعمال، وطلاب الجامعات. تتيح لك العمل من
-                  المنزل تحقيق التوازن بين المسؤوليات الأسرية وزيادة الدخل
-                  المالي. كما تقدم فرصًا مثالية لرواد الأعمال المحترفين لبناء
-                  مشاريعهم الإلكترونية بدون تكاليف بدء عالية. لطلاب الجامعات،
-                  نحن نوفر منصات لبناء خبرات قيمة وزيادة الدخل أثناء الدراسة.
-                  انضم إلينا واستفد من مرونة العمل عبر الإنترنت!
+                  { t("landing.m_th2") }
                 </p>
               </div>
             </div>
@@ -73,47 +72,36 @@ export default function Home() {
             <div class="col-md-6 col-12">
               <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                 <i class="lni lni-home d-flex justify-content-center align-items-center"><HomeRoundedIcon/></i>
-                <h3>مرونة العمل من المنزل</h3>
+                <h3>{ t("landing.m_3t") }</h3>
                 <p>
-                  <span class="fw-bold">ربات البيوت والموظفين:</span> استمتع
-                  بإدارة مسؤولياتك العائلية مع مرونة العمل من المنزل. زِد من
-                  دخلك المالي وحقق الاستقرار المالي لأسرتك دون الحاجة للتخلي عن
-                  واجباتك المنزلية.
+                  { t("landing.m_3b") }
                 </p>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                 <i class="lni lni-rocket d-flex justify-content-center align-items-center"><RocketLaunchRoundedIcon/></i>
-                <h3>فرص لا محدودة لرواد الأعمال</h3>
+                <h3>{ t("landing.m_1t") }</h3>
                 <p>
-                  <span class="fw-bold">المحترفين ورواد الأعمال:</span> انطلق في
-                  عالم التجارة الإلكترونية بدون تكاليف بدء باهظة. استثمر في
-                  مهاراتك ووسع نطاق عملك بسهولة، دون الحاجة لرأس مال كبير.
+                { t("landing.m_1b") }
                 </p>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                 <i class="lni lni-graduation d-flex justify-content-center align-items-center"><SchoolRoundedIcon/></i>
-                <h3>بناء خبرات قيمة للطلاب</h3>
+                <h3>{ t("landing.m_4t") }</h3>
                 <p>
-                  <span class="fw-bold">طلاب الجامعات:</span> انطلق في رحلتك
-                  الريادية أثناء دراستك! أنشئ مشروعاتك الخاصة عبر الإنترنت
-                  بتكاليف منخفضة، وحقق دخلًا إضافيًا مع اكتساب مهارات قيمة يمكن
-                  أن تعزز من مستقبلك المهني.
+                { t("landing.m_4b") }
                 </p>
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                 <i class="lni lni-support d-flex justify-content-center align-items-center"><SupportAgentRoundedIcon/></i>
-                <h3>دعم مستمر وموارد تعليمية</h3>
+                { t("landing.m_2t") }
                 <p>
-                  <span class="fw-bold">جميع المستخدمين:</span> احصل على دعم
-                  مستمر وموارد تعليمية شاملة تعزز من مهاراتك في التجارة
-                  الإلكترونية. من دروس وندوات عبر الإنترنت إلى مقالات وإرشادات،
-                  نساعدك على تحقيق النجاح في مشروعك بسهولة وثقة.
+                { t("landing.m_2b") }
                 </p>
               </div>
             </div>
@@ -125,12 +113,9 @@ export default function Home() {
           <div class="row">
             <div class="col-lg-10 offset-lg-1 col-md-12 col-12">
               <div class="title">
-                <h2>منصة تضمن لك النجاح</h2>
+                <h2>{ t("landing.m_r_t") }</h2>
                 <p>
-                  نحن في فاملي دروب نضع نجاحك في صميم أولوياتنا. نوفر لك فريقاً
-                  متكاملاً من الخبراء لدعمك في كل خطوة، مع أدوات تسويقية متطورة
-                  وحلول لوجستية شاملة. نلتزم بتقديم خدمة عملاء متميزة على مدار
-                  الساعة لضمان نمو وازدهار تجارتك الإلكترونية
+                  { t("landing.m_r_b") }
                 </p>
               </div>
             </div>
@@ -149,7 +134,7 @@ export default function Home() {
                       </span>
                       %
                     </h3>
-                    <p>الرضا عن الخدمة</p>
+                    <p>{ t("landing.ok_t") }</p>
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
@@ -163,7 +148,7 @@ export default function Home() {
                       </span>{" "}
                       K
                     </h3>
-                    <p>المستخدمين السعداء</p>
+                    <p>{ t("landing.h_t") }</p>
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
@@ -177,7 +162,7 @@ export default function Home() {
                       </span>
                       k+
                     </h3>
-                    <p>العملاء</p>
+                    <p>{ t("landing.us_t") }</p>
                   </div>
                 </div>
               </div>
@@ -191,10 +176,10 @@ export default function Home() {
             <div class="col-12">
               <div class="section-title">
                 <h3 class="wow zoomIn text-center" data-wow-delay=".2s">
-                  منصة فاميلي دروب
+                { t("landing.total") }
                 </h3>
                 <h2 class="wow fadeInUp text-center" data-wow-delay=".4s">
-                  ماذا نقدم لك في فاميلي دروب
+                { t("landing.w_q") }
                 </h2>
               </div>
             </div>
@@ -221,7 +206,7 @@ export default function Home() {
             <div class="col-md-12 col-12">
               <div class="cta-content">
                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
-                  الاسئلة الشائعة
+                { t("landing.qs") }
                 </h2>
 
                 <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -382,10 +367,10 @@ export default function Home() {
                 </div>
                 <div class="button wow fadeInUp" data-wow-delay=".6s">
                   <a
-                    href="https://www.familydroop.com/ar/customer/loginRegister"
+                    href="register"
                     class="btn"
                   >
-                    سجل اللآن
+                    { t("header.regaster") }
                   </a>
                 </div>
               </div>

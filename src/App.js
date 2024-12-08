@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./users/style.css";
 import 'animate.css';
 import './component/style.css';
+import './marketer/style.css'
 import './App.css';
 
 
@@ -56,7 +57,7 @@ function App() {
 
   return (
     <ThemeProvider theme={ mode==="dark" ? darkTheme : lightTheme}>
-      <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"App "+mode}>
+      <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"text-xl App "+mode}>
         <BrowserRouter>
         <NavBar />
           <Routes>

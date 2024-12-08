@@ -1,0 +1,51 @@
+{
+    "header":{
+        "profile":"Profile",
+        "login":"Log in",
+        "logOut":"Log out",
+        "regaster":"Regaster now",
+        "dm":"Dark mode",
+        "lm":"Light mode"
+
+    },
+    "profile":{
+
+    },
+    "marketer":{
+        "c_order":"Cancelled orders",
+        "n_order":"New orders",
+        "w_order":"on -work ordses",
+        "e_order":"completed orders",
+        "Marketer_Profile":"Marketer Profile",
+        "withdraw_money" : "Withdraw money",
+        "all_order":"All order",
+        "v_acc_text":"You must verify your account to start your business on Family Drop",
+        "Add_new_order":"Add new order",
+        "Verify_your_account":"Verify your account"
+
+    },
+    "landing": {
+        "top_1": "Start your e-commerce journey now with Family Drop in 6 countries",
+        "top_2": "We provide all our marketers with comprehensive e-commerce services to meet your ambitions and achieve more revenue",
+        "m_th1": "Your e-commerce made easy",
+        "m_th2": "Our platform offers innovative solutions suitable for ambitious youth, housewives, employees, entrepreneurs, and university students. It allows you to work from home, balancing family responsibilities while increasing your financial income. It also provides ideal opportunities for professional entrepreneurs to build their online projects without high startup costs. For university students, we offer platforms to build valuable experiences and increase income while studying. Join us and benefit from the flexibility of online work!",
+        "m_1t": "Unlimited opportunities for entrepreneurs",
+        "m_1b": "Professionals and entrepreneurs: Dive into the world of e-commerce without hefty startup costs. Invest in your skills and expand your business easily, without the need for a large capital.",
+        "m_2b": "All users: Get continuous support and comprehensive educational resources that enhance your e-commerce skills. From lessons and webinars to articles and guides, we help you achieve success in your project easily and confidently.",
+        "m_2t": "Continuous support and educational resources",
+        "m_3t": "Flexibility of working from home",
+        "m_3b": "Housewives and employees: Enjoy managing your family responsibilities with the flexibility of working from home. Increase your financial income and achieve financial stability for your family without having to give up your household duties.",
+        "m_4t": "Building valuable experiences for students",
+        "m_4b": "University students: Start your entrepreneurial journey while studying! Create your own online projects at low costs, earn extra income while gaining valuable skills that can enhance your professional future.",
+        "m_r_t": "A platform that guarantees your success",
+        "m_r_b": "At Family Drop, we place your success at the core of our priorities. We provide you with a complete team of experts to support you at every step, with advanced marketing tools and comprehensive logistical solutions. We are committed to providing exceptional customer service around the clock to ensure the growth and prosperity of your e-commerce business.",
+        "ok_t": "Customer satisfaction",
+        "h_t": "Happy users",
+        "us_t": "Customers",
+        "total": "Family Drop platform",
+        "w_q": "What we offer you at Family Drop",
+        "qs": "Frequently Asked Questions",
+        "h_1": "About the platform"
+      }
+    
+}

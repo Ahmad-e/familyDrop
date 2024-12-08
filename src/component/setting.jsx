@@ -6,16 +6,19 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import NightsStaySharpIcon from '@mui/icons-material/NightsStaySharp';
 import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../store";
-
+import { useTranslation } from 'react-i18next';
 
 export default function PositionedMenu() {
+    const { t , i18n } = useTranslation();
     const {setLanguage,toggleMode} = modeActions;
     const dispatch = useDispatch();
     const mode = useSelector((state) => state.mode);
-    const language = useSelector((state) => state.language);
+    
+    
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,6 +29,14 @@ export default function PositionedMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const changeLanguage=(lang)=>{
+        i18n.changeLanguage(lang);
+        dispatch(setLanguage(lang));
+    }
+
+    const logOut=()=>{
+
+    }
 
     return (
         <div>
@@ -50,13 +61,14 @@ export default function PositionedMenu() {
                 horizontal: 'left',
                 }}
             >
-                <MenuItem   onClick={()=>dispatch(setLanguage("Ar"))}>العربية <TranslateRoundedIcon /> </MenuItem>
-                <MenuItem onClick={()=>dispatch(setLanguage("En"))}>English <TranslateRoundedIcon /> </MenuItem>
+                <MenuItem   onClick={()=>changeLanguage("Ar")}>العربية <TranslateRoundedIcon /> </MenuItem>
+                <MenuItem onClick={()=>changeLanguage("En")}>English <TranslateRoundedIcon /> </MenuItem>
                 {mode==="dark" ?  (
-                    <MenuItem onClick={()=>dispatch(toggleMode())}> light mode <WbSunnyRoundedIcon/> </MenuItem>
+                    <MenuItem onClick={()=>dispatch(toggleMode())}>{ t("header.lm") } <WbSunnyRoundedIcon/> </MenuItem>
                 ) : (
-                    <MenuItem onClick={()=>dispatch(toggleMode())}> dark mode <NightsStaySharpIcon/> </MenuItem>
+                    <MenuItem onClick={()=>dispatch(toggleMode())}> { t("header.dm") } <NightsStaySharpIcon/> </MenuItem>
                 )}
+                 <MenuItem onClick={()=>logOut()}> { t("header.logOut") } <LogoutIcon /> </MenuItem>
             </Menu>
         </div>
     );
