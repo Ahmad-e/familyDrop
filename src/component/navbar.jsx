@@ -8,7 +8,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Logo from '../images/images/logo.png';
 import {  useSelector } from 'react-redux';
 import Setting from './setting';
-//import i18next from 'i18next';
+import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
+
 
 import { useTranslation } from 'react-i18next';
 
@@ -49,16 +50,16 @@ export default function NavBar (){
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Nav className="justify-content-center flex-grow-1 pe-3">
-                        <Nav.Link className='nav_link' href="#action1">{ t("header.profile") }</Nav.Link>
-                        <Nav.Link className='nav_link' href="#action2">Link</Nav.Link>
-                        <Nav.Link className='nav_link' href="#action1">Home</Nav.Link>
-                        <Nav.Link className='nav_link' href="marketer">marketer</Nav.Link>
+                        <Nav.Link className='nav_link' href="/marketer">{ t("header.profile") }</Nav.Link>
+                        <Nav.Link className='nav_link' href="/marketer/products">{ t("header.products") }</Nav.Link>
+                        <Nav.Link className='nav_link' href="/marketer/orders">{ t("header.orders") }</Nav.Link>
                         
                     </Nav>
 
                     <Nav>
                       <Nav.Link style={{ padding:"8px" }} className='nav_link login_link' href="login">{ t("header.login") }</Nav.Link>
                       <button onClick={()=> window.location.href = "register" } className='btn app_button_2'>{ t("header.regaster") }</button>
+                      <Nav.Link style={{ padding:"8px" }} className='nav_link order_link '  href="orders"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
                       <Setting />
                     </Nav>
                     

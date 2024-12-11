@@ -24,6 +24,19 @@
         "Verify_your_account":"Verify your account"
 
     },
+    "merchant":{
+        "new_products":"Products under review",
+        "d_Products":"Products on display",
+        "sold_Products":"Products sold",
+        "u_sold_Products":"Products under saleing",
+        "p_products":"Pulled Products",
+        "Marketer_Profile":"Merchant Control Panel",
+        "withdraw_money" : "Receive money",
+        "all_products":"All products",
+        "v_acc_text":"You must verify your account to start your business on Family Drop",
+        "Add_new_order":"Add new product",
+        "Verify_your_account":"Verify your account"
+    },
     "landing": {
         "top_1": "Start your e-commerce journey now with Family Drop in 6 countries",
         "top_2": "We provide all our marketers with comprehensive e-commerce services to meet your ambitions and achieve more revenue",
@@ -46,6 +59,27 @@
         "w_q": "What we offer you at Family Drop",
         "qs": "Frequently Asked Questions",
         "h_1": "About the platform"
-      }
+      },
+      "orders": {
+        "o_n": "Order Number",
+        "o_date": "Order Date",
+        "o_address": "Delivery Address",
+        "o_state": "Order Status",
+        "o_p_quantity": "Product Quantity",
+        "o_s_price": "Consumer Price",
+        "o_profit": "Your Profit from the Order",
+        "O_user_name": "Consumer Name",
+        "o_user_ph_no": "Consumer Phone Number",
+        "o_message": "Messages",
+        "p_name": "Product Name",
+        "p_quantity": "Quantity",
+        "p_salling": "Consumer Price",
+        "p_source": "Wholesale Price",
+        "o_cancel": "Cancel Order",
+        "o_change": "Modify Order",
+        "o_pr": "Order Details",
+        "m_no_msg": "No messages yet. You can now contact the administrators at Family Drop.",
+        "m_s": "Write your message"
+    }
     
 }

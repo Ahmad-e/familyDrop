@@ -6,7 +6,6 @@ import Progress from '../component/progressBar'
 
 import Test from '../images/images/test.jpg';
 
-import AddAddress from '../component/selectAddress'
 import { useTranslation } from 'react-i18next';
 
 export default function Home(){

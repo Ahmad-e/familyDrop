@@ -20,11 +20,14 @@
 .nav_link:hover
 {
     color: var(--main_color);
-    font-size: large;
+    font-size: 20px;
     margin: 0px 13px;
 }
 .login_link:hover{
     margin: 0px 7px;
+}
+.order_link:hover{
+    margin: 0px 10px;
 }
 .setting_button
 {

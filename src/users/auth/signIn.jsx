@@ -1,9 +1,5 @@
-
-
 import './style.css';
 
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
 
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -16,11 +12,13 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import FormHelperText from '@mui/material/FormHelperText';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+
+import { useTranslation } from 'react-i18next';
+
 
 export default function Register (){
 
+    const { t } = useTranslation();
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -83,15 +81,15 @@ export default function Register (){
     return(
         <div className='flex justify-center'>
             <div className='auth_continer text-center'>
-                <h2 className='text-3xl text-center'  > Login Now  </h2>
+                <h2 className='text-3xl text-center'  > { t("auth.login") }  </h2>
 
                 <div className='auth_item'>
-                    <TextField helperText="Email must be valid" error={errEmail} onChange={changeEmail} value={email} fullWidth label="email" variant="standard" />
+                    <TextField helperText={ t("auth.email_t") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
                     
                 </div>
                 <div className='auth_item'>
                     <FormControl fullWidth   variant="standard">
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="standard-adornment-password">{ t("auth.password") }</InputLabel>
                         <Input
                             onChange={changePassword}
                             value={password}
@@ -115,15 +113,15 @@ export default function Register (){
                             
                             }
                         />
-                        <FormHelperText >Password must be greater than 3 characters</FormHelperText>
+                        <FormHelperText >{ t("auth.password_t") }</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='auth_item'>
-                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'>Register now</button>
+                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'> { t("auth.login") } </button>
                 </div>
                 
                 <div className="taggle_auth" >
-                    If you don`t have an account go to <a className='app-link' href='regaster'> regaster </a>
+                    { t("auth.logIn_e") }<a className='app-link' href='regaster'> { t("auth.register") } </a>
                 </div>
             </div>
         </div>

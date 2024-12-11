@@ -18,8 +18,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import { useTranslation } from 'react-i18next';
 
 export default function Register (){
+
+    const { t } = useTranslation();
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -74,8 +77,8 @@ export default function Register (){
     const [radioValue, setRadioValue] = React.useState('1');
 
     const radios = [
-        { name: 'join us marketer', value: '1' },
-        { name: 'join as merchant', value: '2' },
+        { name: t("auth.j_u_marketer") , value: '1' },
+        { name: t("auth.j_u_merchant") , value: '2' },
       ];
 
     const sendData=()=>{
@@ -99,17 +102,17 @@ export default function Register (){
     return(
         <div className='flex justify-center'>
             <div className='auth_continer text-center'>
-                <h2 className='text-3xl text-center'  > Register Now  </h2>
+                <h2 className='text-3xl text-center'  > { t("auth.register") }  </h2>
                 <div className='auth_item'>
-                    <TextField helperText="Name must be greater than 3 characters" error={errName} onChange={changeName} value={name} fullWidth label="name" variant="standard" />
+                    <TextField helperText={ t("auth.name_t") } error={errName} onChange={changeName} value={name} fullWidth label={ t("auth.name") } variant="standard" />
                 </div>
                 <div className='auth_item'>
-                    <TextField helperText="Email must be valid" error={errEmail} onChange={changeEmail} value={email} fullWidth label="email" variant="standard" />
+                    <TextField helperText={ t("auth.email") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
                     
                 </div>
                 <div className='auth_item'>
                     <FormControl fullWidth   variant="standard">
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="standard-adornment-password">{ t("auth.password") }</InputLabel>
                         <Input
                             onChange={changePassword}
                             value={password}
@@ -133,7 +136,7 @@ export default function Register (){
                             
                             }
                         />
-                        <FormHelperText >Password must be greater than 3 characters</FormHelperText>
+                        <FormHelperText >{ t("auth.password_t") }</FormHelperText>
                     </FormControl>
                 </div>
                 <div className='auth_item' dir='ltr' >
@@ -143,7 +146,7 @@ export default function Register (){
                     // onChange={phone => setPhoneNumber({ phone })}
                     />
                 </div>
-                <div className='auth_item'>
+                <div dir='ltr' className='auth_item'>
                     <ButtonGroup>
                         {radios.map((radio, idx) => (
                         <ToggleButton
@@ -163,11 +166,11 @@ export default function Register (){
                     </ButtonGroup>
                 </div>
                 <div className='auth_item'>
-                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'>Register now</button>
+                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'>{ t("auth.register") }</button>
                 </div>
                 
                 <div className="taggle_auth" >
-                    If you have an account go to <a className='app-link' href='login'> login </a>
+                    { t("auth.register_e") } <a className='app-link' href='login'> { t("auth.login") } </a>
                 </div>
             </div>
         </div>

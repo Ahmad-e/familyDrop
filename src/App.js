@@ -22,6 +22,10 @@ import MerchantHome from './merchant/home';
 
 import MarketerApp from './marketer/App'
 import MarketerHome from './marketer/home';
+import Orders from './marketer/orders'
+import OrderData from './marketer/orderDate'
+import Basket from './marketer/basket';
+import Products from './marketer/products';
 
 import AdminApp from './admin/App';
 import AdminHome from './admin/home';
@@ -36,6 +40,7 @@ import {modeActions} from "./store";
 
 import "@fontsource/cairo";
 import "@fontsource/cairo/400.css";
+
 
 
 
@@ -57,7 +62,7 @@ function App() {
 
   return (
     <ThemeProvider theme={ mode==="dark" ? darkTheme : lightTheme}>
-      <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"text-xl App "+mode}>
+      <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"text-lg App "+mode}>
         <BrowserRouter>
         <NavBar />
           <Routes>
@@ -79,6 +84,10 @@ function App() {
 
               <Route path="marketer" element={<MarketerApp />} >
                 <Route path="" element={<MarketerHome />} />
+                <Route path="products" element={<Products />} />
+                <Route path="basket" element={<Basket />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="order/:id" element={<OrderData />} />
               </Route>
 
 
