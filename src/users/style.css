@@ -25,6 +25,9 @@ p {
 .text-center {
   text-align: center !important;
 }
+.accordion{
+  --bs-accordion-border-color: none;
+}
 .accordion-button:not(.collapsed) {
   color: #ff3030 !important;
 }
@@ -34,9 +37,11 @@ p {
   background-color: #fff !important;
 }
 .accordion-button::after {
-  margin-right: auto !important;
-  margin-left: unset !important;
-  text-align: left !important;
+  margin-right: 0 !important;
+  text-align: right !important;
+}
+.accordion-body {
+  font-size: 16px;
 }
 .navbar-nav .nav-item {
   margin-right: 0 !important;
