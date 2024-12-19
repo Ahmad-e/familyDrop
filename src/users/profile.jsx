@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 export default function profile (){
     return(
         <Container>
-
             <Row>
                 <Col>
                 </Col>

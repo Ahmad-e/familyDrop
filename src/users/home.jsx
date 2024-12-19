@@ -7,6 +7,7 @@ import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 
 import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import { useState } from "react";
 
 // import {useEffect} from 'react';
 
@@ -15,6 +16,10 @@ import { useTranslation } from 'react-i18next';
 export default function Home() {
 
   const { t } = useTranslation();
+  const [open1,setOpen1] = useState(false);
+  function Open1(){
+    setOpen1(prev => !prev)
+  }
 
   return (
     
@@ -222,6 +227,7 @@ export default function Home() {
                         data-bs-target="#panelsStayOpen-collapseOne"
                         aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne"
+                        onClick={Open1}
                       >
                         هل سوف احتاج الي راس مال لكي ابدا تجارتي مع مخزون ؟
                       </button>
@@ -252,14 +258,14 @@ export default function Home() {
                         كيف استلم ارباحي في مخزون ؟
                       </button>
                     </h2>
-                    <div
+                    {open1 && <div
                       id="panelsStayOpen-collapseTwo"
                       class="accordion-collapse collapse"
                     >
                       <div class="accordion-body">
                         مخزون يوفر لك اكثر من 10 طرق مختلفه لتحويل الارباح
                       </div>
-                    </div>
+                    </div>}
                   </div>
                   <div
                     class="accordion-item bg-light fadeInUp"
@@ -287,7 +293,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-
                   <div
                     class="accordion-item bg-light fadeInUp"
                     data-wow-delay=".8s"
