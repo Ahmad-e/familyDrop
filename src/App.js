@@ -15,10 +15,19 @@ import Signin from './users/auth/signIn';
 
 import EmployeeApp from './employee/App';
 import EmployeeHome from './employee/home';
+import EmployeeLocations from './employee/locations'
+import EmployeeProducts from './employee/products'
+import EmployeeOrder from './employee/orders'
+import EmployeeA_P_Order from './employee/addProductOrders'
+import EmployeeW_P_Order from './employee/withdrowalOrder';
+
+
 
 import MerchantAdd from './merchant/App';
 import MerchantHome from './merchant/home';
-
+import MerchantProducts from './merchant/products'
+import MerchantOrders from './merchant/orders'
+import WithdrawOrder from './merchant/withdrawalOrder'
 
 import MarketerApp from './marketer/App'
 import MarketerHome from './marketer/home';
@@ -29,6 +38,7 @@ import Products from './marketer/products';
 
 import AdminApp from './admin/App';
 import AdminHome from './admin/home';
+import AdminEmployee from './admin/employees';
 
 
 
@@ -48,11 +58,26 @@ import ProductInfo from './marketer/productInfo';
 function App() {
 
   const darkTheme = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'Cairo',
+        textTransform: 'none',
+        fontSize: 15,
+      },
+    },
     palette: {
       mode: 'dark',
     },
   });
   const lightTheme = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'Cairo',
+        textTransform: 'none',
+        fontSize: 16,
+      },
+    },
+    
     palette: {
       mode: 'light',
     },
@@ -76,11 +101,22 @@ function App() {
               
               <Route path="admin" element={<AdminApp />} >
                 <Route path="" element={<AdminHome />} />
+                <Route path="employees" element={<AdminEmployee />} />
+                <Route path="products" element={<EmployeeProducts />} />
+                <Route path="orders" element={<EmployeeOrder />} />
+                <Route path="locations" element={<EmployeeLocations />} />
+                <Route path="add_product_order" element={<EmployeeA_P_Order />} />
+                <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
               </Route>
 
               
               <Route path="employee" element={<EmployeeApp />} >
                 <Route path="" element={<EmployeeHome />} />
+                <Route path="products" element={<EmployeeProducts />} />
+                <Route path="orders" element={<EmployeeOrder />} />
+                <Route path="locations" element={<EmployeeLocations />} />
+                <Route path="add_product_order" element={<EmployeeA_P_Order />} />
+                <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
               </Route>
 
 
@@ -96,6 +132,9 @@ function App() {
 
               <Route path="merchant" element={<MerchantAdd />} >
                 <Route path="" element={<MerchantHome />} />
+                <Route path="products" element={<MerchantProducts />} />
+                <Route path="orders" element={<MerchantOrders />} />
+                <Route path="withdrawOrder" element={<WithdrawOrder />} />
               </Route>
 
 

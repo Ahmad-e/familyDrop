@@ -56,6 +56,47 @@
 
 
 /* end  messages style */
+
+
+/* start basket style  */
+
+
+.product_img
+{
+    border-radius: 10px;
+    width: 85px;
+    height: 54px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.css-5j1080-MuiInputBase-root-MuiOutlinedInput-root ,
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root
+{
+    height: 40px;
+}
+.delete_button:hover{
+    color: var(--main_color);
+}
+.total_card_item
+{
+    padding: 10px;
+    border-color:#63636380 ;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+}
+.total_card
+{
+    background-color: #6363631f;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* end basket style  */
+=======
 /* start productInfo */
 .productInfo {
     min-height: 100vh;
@@ -82,3 +123,4 @@
     }
 }
 /* End productInfo */
+
