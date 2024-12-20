@@ -56,3 +56,29 @@
 
 
 /* end  messages style */
+/* start productInfo */
+.productInfo {
+    min-height: 100vh;
+}
+.price , .img-name{
+    width: 49%;
+    min-width: 350px;
+}
+.img-name .img {
+    border-radius: 50%;
+}
+.productInfo .video {
+    font-size: 18px;
+}
+@media (max-width: 1024px ) {
+    .price , .img-name{
+        width: 100%;
+    }
+}
+@media (max-width: 528px ) {
+    .img-name{
+        flex-direction: column;
+        height: fit-content;
+    }
+}
+/* End productInfo */
