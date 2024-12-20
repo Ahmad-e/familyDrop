@@ -7,6 +7,7 @@ import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 
 import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
+import { useState } from "react";
 
 // import {useEffect} from 'react';
 
@@ -15,6 +16,27 @@ import { useTranslation } from 'react-i18next';
 export default function Home() {
 
   const { t } = useTranslation();
+  const [collapsed1,setCollapsed1] = useState("")
+  const [collapsed2,setCollapsed2] = useState("collapsed")
+  const [collapsed3,setCollapsed3] = useState("collapsed")
+  const [collapsed4,setCollapsed4] = useState("collapsed")
+  const [collapsed5,setCollapsed5] = useState("collapsed")
+  const [collapsed6,setCollapsed6] = useState("collapsed")
+  function Open(i){
+    if(i === 1){
+      setCollapsed1((prev) => prev==="collapsed" ? "" : "collapsed");
+    }else if(i === 2){
+      setCollapsed2((prev) => prev==="collapsed" ? "" : "collapsed");
+    }else if(i === 3){
+      setCollapsed3((prev) => prev==="collapsed" ? "" : "collapsed");
+    }else if(i === 4){
+      setCollapsed4((prev) => prev==="collapsed" ? "" : "collapsed");
+    }else if(i === 5){
+      setCollapsed5((prev) => prev==="collapsed" ? "" : "collapsed");
+    }else if(i === 6){
+      setCollapsed6((prev) => prev==="collapsed" ? "" : "collapsed");
+    }
+  }
 
   return (
     
@@ -208,157 +230,161 @@ export default function Home() {
                 <h2 class="wow fadeInUp" data-wow-delay=".2s">
                 { t("landing.qs") }
                 </h2>
-
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay=".2s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button"
+                        class={`accordion-button ${collapsed1}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseOne"
                         aria-expanded="true"
                         aria-controls="panelsStayOpen-collapseOne"
+                        onClick={()=> Open(1)}
                       >
                         هل سوف احتاج الي راس مال لكي ابدا تجارتي مع مخزون ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseOne"
-                      class="accordion-collapse collapse show"
+                      class={`accordion-collapse ${collapsed1 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         لن تحتاج الي راس مال فنحن نوفر لك المنتجات دون الحاجه
                         الي شراءها او تخزينها او شحنها
                       </div>
                     </div>
                   </div>
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay=".4s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        class={`accordion-button ${collapsed2}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseTwo"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseTwo"
+                        onClick={()=> Open(2)}
                       >
                         كيف استلم ارباحي في مخزون ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseTwo"
-                      class="accordion-collapse collapse"
+                      class={`accordion-collapse ${collapsed2 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         مخزون يوفر لك اكثر من 10 طرق مختلفه لتحويل الارباح
                       </div>
                     </div>
                   </div>
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay=".6s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        class={`accordion-button ${collapsed3}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseThree"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseThree"
+                        onClick={()=> Open(3)}
                       >
                         هل يمكنني التسويق للمنتجات وانا خارج دول الخليج ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseThree"
-                      class="accordion-collapse collapse"
+                      class={`accordion-collapse ${collapsed3 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         نعم يمكنك ذلك ! لست بحاجه الي التواجد داخل الدوله التي
                         تسوق فيها يمكنك العمل من اي دوله
                       </div>
                     </div>
                   </div>
-
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay=".8s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        class={`accordion-button ${collapsed4}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseFour"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseFour"
+                        onClick={()=> Open(4)}
                       >
                         هل يوجد حد ادني لسحب الارباح ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseFour"
-                      class="accordion-collapse collapse"
+                      class={`accordion-collapse ${collapsed4 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         لا يوجد حد ادني لسحب الارباح
                       </div>
                     </div>
                   </div>
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay="1s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        class={`accordion-button ${collapsed5}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseFive"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseFive"
+                        onClick={()=> Open(5)}
                       >
                         متي يتم تحويل ارباحي ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseFive"
-                      class="accordion-collapse collapse"
+                      class={`accordion-collapse ${collapsed5 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         يمكنك سحب ارباحك في خلال 24 ساعة بعد تسليم الطلب
                       </div>
                     </div>
                   </div>
                   <div
-                    class="accordion-item bg-light fadeInUp"
+                    class="accordion-item fadeInUp"
                     data-wow-delay="1.2s"
                   >
                     <h2 class="accordion-header">
                       <button
-                        class="accordion-button collapsed"
+                        class={`accordion-button ${collapsed6}`}
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#panelsStayOpen-collapseSix"
                         aria-expanded="false"
                         aria-controls="panelsStayOpen-collapseSix"
+                        onClick={()=> Open(6)}
                       >
                         ما هي البلاد التي يدعمها مخزون ؟
                       </button>
                     </h2>
                     <div
                       id="panelsStayOpen-collapseSix"
-                      class="accordion-collapse collapse"
+                      class={`accordion-collapse ${collapsed6 === "collapsed" ? "collapse" : ""}`}
                     >
-                      <div class="accordion-body">
+                      <div class="accordion-body text-secondary">
                         في الوقت الحالي نوفر خدمة الدروب شيبنج في الامارات
                         والسعودية والاردن وسلطنة عمان
                       </div>

@@ -50,6 +50,7 @@ import {modeActions} from "./store";
 
 import "@fontsource/cairo";
 import "@fontsource/cairo/400.css";
+import ProductInfo from './marketer/productInfo';
 
 
 
@@ -90,6 +91,7 @@ function App() {
       <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"text-lg App "+mode}>
         <BrowserRouter>
         <NavBar />
+        <div className='padding-top'>
           <Routes>
             <Route>
               <Route path="/" element={<LandingPage />} />
@@ -124,6 +126,7 @@ function App() {
                 <Route path="basket" element={<Basket />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="order/:id" element={<OrderData />} />
+                <Route path="productInfo/:id" element={<ProductInfo/>}/>
               </Route>
 
 
@@ -137,6 +140,7 @@ function App() {
 
             </Route>
           </Routes>
+          </div>
           <Footer />
         </BrowserRouter>
       </div>

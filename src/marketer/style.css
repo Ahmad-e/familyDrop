@@ -56,7 +56,11 @@
 
 
 /* end  messages style */
+
+
 /* start basket style  */
+
+
 .product_img
 {
     border-radius: 10px;
@@ -92,3 +96,31 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 /* end basket style  */
+=======
+/* start productInfo */
+.productInfo {
+    min-height: 100vh;
+}
+.price , .img-name{
+    width: 49%;
+    min-width: 350px;
+}
+.img-name .img {
+    border-radius: 50%;
+}
+.productInfo .video {
+    font-size: 18px;
+}
+@media (max-width: 1024px ) {
+    .price , .img-name{
+        width: 100%;
+    }
+}
+@media (max-width: 528px ) {
+    .img-name{
+        flex-direction: column;
+        height: fit-content;
+    }
+}
+/* End productInfo */
+

@@ -31,7 +31,7 @@ export default function NavBar (){
             key={lg} 
             expand={lg} 
             style={ mode==="dark" ?  darkStyle : null } 
-            className={"navbar-fixed-top m-0 navbar-" + mode  }
+            className={"navbar-fixed-top m-0 navbar- navbar" + mode  }
           >
             <Container fluid>
               <Navbar.Brand href="#">
