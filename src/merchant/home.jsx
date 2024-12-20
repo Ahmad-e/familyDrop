@@ -41,7 +41,7 @@ export default function Home(){
                                     13
                                 </div>
                                 <div className='py-1.5' >
-                                    <button style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.Add_new_order") }</button>
+                                    <button onClick={()=>window.location.href="merchant/orders"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.Add_new_order") }</button>
                                 </div>
                             </div>
                         </Col>

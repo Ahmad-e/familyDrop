@@ -62,14 +62,17 @@ export default function CustomizedTables() {
             <Col lg={10} md={12}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 500 }} aria-label="customized table">
-                      
+                        <caption>
+                          <button   className='btn app_button_1 text-lg mx-2' >{ t("orders.o_change") }</button>
+                          <button   className='btn app_button_1 text-lg mx-2'>{ t("orders.o_cancel") }</button>
+                        </caption>
                         <TableHead>
-                          <TableRow>
-                              <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                              <StyledTableCell align="center">{ t("orders.p_quantity") }</StyledTableCell>
-                              <StyledTableCell align="center">{ t("orders.p_salling") }</StyledTableCell>
-                              <StyledTableCell align="center"> { t("orders.p_source") } </StyledTableCell>
-                          </TableRow>
+                            <TableRow>
+                                <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
+                                <StyledTableCell align="center">{ t("orders.p_quantity") }</StyledTableCell>
+                                <StyledTableCell align="center">{ t("orders.p_salling") }</StyledTableCell>
+                                <StyledTableCell align="center"> { t("orders.p_source") } </StyledTableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
                         {rows.map((row) => (
@@ -80,15 +83,6 @@ export default function CustomizedTables() {
                             <StyledTableCell align="center">{row.protein}</StyledTableCell>
                             </StyledTableRow>
                         ))}
-                            <StyledTableRow>
-                              <TableCell /><TableCell />
-                                <TableCell align="end">
-                                    <button   className='btn app_button_1 text-lg'>{ t("orders.o_cancel") }</button>    
-                                </TableCell>
-                                <TableCell align="end">
-                                    <button   className='btn app_button_1 text-lg'>{ t("orders.o_change") }</button>    
-                                </TableCell>
-                            </StyledTableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>

@@ -59,7 +59,7 @@ export default function NavBar (){
                     <Nav>
                       <Nav.Link style={{ padding:"8px" }} className='nav_link login_link' href="login">{ t("header.login") }</Nav.Link>
                       <button onClick={()=> window.location.href = "register" } className='btn app_button_2'>{ t("header.regaster") }</button>
-                      <Nav.Link style={{ padding:"8px" }} className='nav_link order_link '  href="orders"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
+                      <Nav.Link style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
                       <Setting />
                     </Nav>
                     

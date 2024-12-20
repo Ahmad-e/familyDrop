@@ -64,7 +64,7 @@ export default function Chat(props){
             </div>
 
             <div className="send_box " >
-                <TextField  multiline fullWidth id="outlined-basic" label={ t("orders.m_s") }  variant="outlined" />
+                <TextField  multiline fullWidth id="outlined-basic"  variant="outlined" />
                 <IconButton>
                     <SendRoundedIcon />
                 </IconButton>

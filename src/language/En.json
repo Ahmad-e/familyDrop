@@ -8,6 +8,16 @@
         "lm":"Light mode"
 
     },
+    "navBar":{
+        "family_drop":"Family drop",
+        "Dashboard":"Dashboard",
+        "employee":"Employees",
+        "Products":"Products",
+        "orders":"Orders",
+        "locations":"Locations",
+        "addproductorder":"Add product order",
+        "WithdrawalOrder":"Withdrawal order"
+    },
     "profile":{
 
     },
@@ -24,18 +34,41 @@
         "Verify_your_account":"Verify your account"
 
     },
-    "merchant":{
-        "new_products":"Products under review",
-        "d_Products":"Products on display",
-        "sold_Products":"Products sold",
-        "u_sold_Products":"Products under saleing",
-        "p_products":"Pulled Products",
-        "Marketer_Profile":"Merchant Control Panel",
-        "withdraw_money" : "Receive money",
-        "all_products":"All products",
-        "v_acc_text":"You must verify your account to start your business on Family Drop",
-        "Add_new_order":"Add new product",
-        "Verify_your_account":"Verify your account"
+    "merchant": {
+        "new_products": "Products Under Review",
+        "d_Products": "Displayed Products",
+        "sold_Products": "Sold Products",
+        "u_sold_Products": "Products for Sale",
+        "p_products": "Withdrawn Products",
+        "Marketer_Profile": "Merchant Dashboard",
+        "withdraw_money": "Receive Money",
+        "all_products": "All Goods",
+        "v_acc_text": "You need to verify your account before starting your work on Family Drop",
+        "Add_new_order": "Add New Product",
+        "Verify_your_account": "Verify Your Account",
+        "salary": "Price",
+        "address": "Product Availability Location",
+        "state": "Order Status",
+        "t_1": "Product Addition Request",
+        "t_2": "Please enter the product availability address accurately",
+        "t_3": "Enter Product Details",
+        "Add_order": "Add Order",
+        "tt_1": "If you wish to display a product available for sale on Family Drop, go to ",
+        "add_product": "Add New Product",
+        "p_desc": "Product Description",
+        "s_quant": "Sold Quantity",
+        "all_quant": "Total Quantity",
+        "q_t_w": "Quantity to Withdraw",
+        "q_a_t_w": "Withdrawable Quantity",
+        "eq_quant": "Remaining Quantity",
+        "button": "Request Product Withdrawal",
+        "button2": "Withdraw Remaining Products",
+        "dt_1": "You can withdraw ",
+        "dt_2": " piece of the product named:",
+        "c_order": "Cancel Order",
+        "t_c_order": "Are you sure you want to cancel your order to withdraw the product?",
+        "no": "Cancel",
+        "ok": "Confirm"
     },
     "landing": {
         "top_1": "Start your e-commerce journey now with Family Drop in 6 countries",
@@ -80,6 +113,45 @@
         "o_pr": "Order Details",
         "m_no_msg": "No messages yet. You can now contact the administrators at Family Drop.",
         "m_s": "Write your message"
+    },
+    "basket": {
+        "delete": "Delete",
+        "p_img": "Product Image",
+        "p_name": "Product Name",
+        "p_desc": "Product Description",
+        "min_s": "Minimum Selling Price",
+        "salary": "Selling Price",
+        "quan": "Quantity",
+        "t_s": "Total Price",
+        "o_d": "Order Details",
+        "total": "Total",
+        "Add_order": "Confirm Order",
+        "cus_info": "Customer Information",
+        "desc_1": "Order details must be correct",
+        "desc_2": "The order cannot be modified after it has started processing, and any error in the details may result in a ban",
+        "del_info": "Please enter the delivery address accurately",
+        "cus_info_input": "Enter Customer Information",
+        "Country": "Country",
+        "City": "City",
+        "Address": "Detailed Address",
+        "ok": "Confirm Order",
+        "no": "Cancel"
+    },
+    "auth": {
+        "email_t": "Email must be valid",
+        "password_t": "Password must be more than 8 characters",
+        "email": "Email",
+        "password": "Password",
+        "register": "Register Account Now",
+        "login": "Login Now",
+        "logIn_e": "If you don't have an account, go to",
+        "register_e": "If you have an account, go to",
+        "name": "Name",
+        "name_t": "Name must be more than 3 characters",
+        "j_u_marketer": "Join as a Product Marketer",
+        "j_u_merchant": "Join as a Goods Merchant",
+        "c_t": "You must select your place of residence",
+        "c": "Country of Residence"
     }
     
 }

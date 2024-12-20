@@ -14,7 +14,7 @@ const Home=()=>{
             <div >
 
             </div>
-            <div className='admin_content'>
+            <div >
                 <Outlet />
             </div>
             

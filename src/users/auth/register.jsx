@@ -8,7 +8,6 @@ import 'react-phone-input-2/lib/style.css'
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
@@ -19,6 +18,11 @@ import FormHelperText from '@mui/material/FormHelperText';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { useTranslation } from 'react-i18next';
+
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
 
 export default function Register (){
 
@@ -40,7 +44,9 @@ export default function Register (){
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('')
-    
+    const [selectedCountry, setSelectedCountry] = React.useState(0);
+
+
     const [errName, setErrName] = React.useState(false);
     const [errPassword, setErrPassword] = React.useState(false);
     const [errEmail, setErrEmail] = React.useState(false);
@@ -72,6 +78,10 @@ export default function Register (){
         else
             setErrPassword(false)
     }
+
+    const handleChangeSelectedCountry = (event) => {
+        setSelectedCountry(event.target.value);
+    };
 
 
     const [radioValue, setRadioValue] = React.useState('1');
@@ -139,12 +149,21 @@ export default function Register (){
                         <FormHelperText >{ t("auth.password_t") }</FormHelperText>
                     </FormControl>
                 </div>
-                <div className='auth_item' dir='ltr' >
-                    <PhoneInput
-                    
-                    value={phoneNumber}
-                    // onChange={phone => setPhoneNumber({ phone })}
-                    />
+                <div className='auth_item'>
+                    <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
+                        <InputLabel id="demo-simple-select-label">{ t("basket.Country") }</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={selectedCountry}
+                            label={ t("basket.Country") }
+                            onChange={handleChangeSelectedCountry}
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div dir='ltr' className='auth_item'>
                     <ButtonGroup>
