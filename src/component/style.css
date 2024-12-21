@@ -15,9 +15,11 @@
 }
 .navbar{
     position: fixed;
-    z-index: 3;
+    z-index: 10;
     width: 100%;
     background-color: inherit;
+    box-shadow:0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+
 }
 .nav_link{
     transition:all .3s ease-in-out;

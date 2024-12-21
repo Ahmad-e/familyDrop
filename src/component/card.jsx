@@ -40,8 +40,13 @@ export default function ProductCard(props) {
         </Typography>
         </CardContent>
         <CardActions className='position-absolute bottom-0 d-flex flex-column text-center w-100'>
-        <button className='btn nav_link nav-link' size="small"><LocalGroceryStoreRoundedIcon/> Add to cart</button>
-        <button className='btn mb-2  mt-3 app_button_2' size="small"><Link to={`/marketer/productInfo/${props.id}`}>More details</Link></button>
+        <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link' size="small">
+            More details 
+        </button>
+
+        <button className='btn mb-2  mt-3 app_button_2' size="small">
+            <LocalGroceryStoreRoundedIcon/> Add to cart
+        </button>
         </CardActions>
     </Card>
 );

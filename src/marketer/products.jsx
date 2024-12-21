@@ -12,6 +12,8 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -86,29 +88,33 @@ export default function Products(){
         <div className='my-3'>
         <Container className="d-flex flex-column align-items-center">
         <Paper
-        onClick={handleClickOpen}
-      component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
-    >
-      <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="Search"
-        inputProps={{ 'aria-label': 'search google maps' }}
-      /> 
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <SearchIcon />
-      </IconButton>
-      <IconButton color="primary" sx={{ p: '0px' }} aria-label="directions">
-      </IconButton>
-    </Paper>
+          
+          component="form"
+          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', minWidth: 300 , width:"100%", maxWidth:"440px" }}
+        >
+          <InputBase
+            
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search"
+            inputProps={{ 'aria-label': 'search google maps' }}
+          /> 
+          <IconButton type="button" sx={{ padding: '10px 0px' }} aria-label="search">
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <SearchIcon style={{ margin :"7px" }} />
+          </IconButton>
+
+
+          <IconButton onClick={handleClickOpen} type="button" sx={{ padding: '10px 0px' }} aria-label="search">
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <TuneRoundedIcon  style={{ margin :"7px" }}  />
+          </IconButton>
+        </Paper>
             <div className='d-flex mt-4 align-items-center justify-content-center flex-wrap'>
-                    <Card title="Test" sugg="20" total="24" id="0" disc="We provide all our marketers with comprehensive e-commerce services to meet your ambitions and achieve more" image={require("../images/images/test.jpg")}/>
-                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide all our marketers with comprehensive e-commerce services to meet your" image={require("../images/images/test.jpg")}/>
-                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide all our marketers with comprehensive e-commerce services " image={require("../images/images/test.jpg")}/>
-                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide  to meet your ambitions and achieve more revenue" image={require("../images/images/test.jpg")}/>
-                    <Card title="Test" sugg="20" total="24" id="0"  disc=" with comprehensive e-commerce services to meet your ambitions and achieve more revenue" image={require("../images/images/test.jpg")}/>
-                    <Card title="Test" sugg="20" total="24" id="0"  disc="We with comprehensive e-commerce services to meet your ambitions and achieve more revenue" image={require("../images/images/test.jpg")}/>
+                    <Card title="Test" sugg="20" total="24" id="0" disc="We provide all our marketers with comprehensive e-commerce services to meet your ambitions and achieve more" image={require("../images/images/test2.jpg")}/>
+                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide all our marketers with comprehensive e-commerce services to meet your" image={require("../images/images/test2.jpg")}/>
+                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide all our marketers with comprehensive e-commerce services " image={require("../images/images/test2.jpg")}/>
+                    <Card title="Test" sugg="20" total="24" id="0"  disc="We provide  to meet your ambitions and achieve more revenue" image={require("../images/images/test2.jpg")}/>
+                    <Card title="Test" sugg="20" total="24" id="0"  disc=" with comprehensive e-commerce services to meet your ambitions and achieve more revenue" image={require("../images/images/test2.jpg")}/>
             </div>
             <React.Fragment>
       <Dialog

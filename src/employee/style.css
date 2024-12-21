@@ -3,11 +3,12 @@
 .Admin_nav{
     background-color: var(--main_color_dark);
     color: whitesmoke;
+    width: 20%;
     
 }
 .admin_content
 {
-    max-width: 75%;
+    width: 80%;
 }
 .top_nav_item{
     padding: 12px ;
