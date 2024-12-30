@@ -1838,7 +1838,7 @@ ol {
 	Footer CSS
 ========================================*/
 .footer {
-  background: linear-gradient(0deg, rgba(8,24,40,1) 0%, rgba(8,24,40,0.79) 100%);
+  background: linear-gradient(0deg, rgba(8,24,40,1) 0%, rgba(8,24,40,100) 100%);
   position: relative;
 }
 
