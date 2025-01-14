@@ -13,6 +13,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 const TableShow = (props) => {
     const [open,setOpen] = useState(false);
     const [name,setName] = useState("");
+    const [cost,setCost] = useState("");
     const nav = useNavigate();
     function handleClose() {
         setOpen(false);
@@ -28,15 +29,24 @@ const TableShow = (props) => {
                 <thead>
                     <tr>
                         <th className="main_color">{props.header}</th>
+                        {!props.page && <th className="main_color">Cost</th>}
                         <th className="main_color">Action</th>
                     </tr>
                 </thead>}
                 <tbody>
                     {props.arr.map((el,key)=>
-                    <tr  onClick={()=> props.page ? nav(`/employee/locations/${props.page}/${el.id}`):""} key={key}>
-                        <td className="text-center w-50">{el.name}</td>
-                        <td>
-                            <button className="btn me-2 app_button_1" onClick={()=> {setName(el.name);setOpen(true)}}>Edit</button>
+                    <tr key={key}>
+                        <td onClick={()=> props.page ? nav(`/employee/locations/${props.page}/${el.id}`):""} className="text-center w-50">{el.name}</td>
+                        {!props.page && <td className="w-25">{el.cost} JOD</td>}
+                        <td className={`${props.page ? "w-50" : "w-25"}`}>
+                            <button className="btn me-2 app_button_1" onClick={()=> 
+                                {
+                                    setName(el.name);
+                                    if(!props.page){
+                                        setCost(el.cost)
+                                    }
+                                    setOpen(true)}
+                                }>Edit</button>
                             <button className="btn app_button_1">Delete</button>
                         </td>
                     </tr>)}
@@ -71,6 +81,19 @@ const TableShow = (props) => {
             },
           }}
         />
+        {!props.page && <TextField
+          label="Cost"
+          id="outlined-start-adornment"
+          className='w-100 my-3'
+          value={cost}
+          onChange={(e)=> setCost(e.target.value)}
+          sx={{ width: '25ch' }}
+          slotProps={{
+            input: {
+                startAdornment: <InputAdornment position="start">C</InputAdornment>,
+            },
+          }}
+        />}
         </form>
         </DialogContent>
         <DialogActions>

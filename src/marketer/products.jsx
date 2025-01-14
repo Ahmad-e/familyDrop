@@ -102,8 +102,6 @@ export default function Products(){
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <SearchIcon style={{ margin :"7px" }} />
           </IconButton>
-
-
           <IconButton onClick={handleClickOpen} type="button" sx={{ padding: '10px 0px' }} aria-label="search">
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <TuneRoundedIcon  style={{ margin :"7px" }}  />

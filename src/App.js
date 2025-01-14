@@ -58,6 +58,7 @@ import EmployeeAddresses from './employee/Addresses';
 import AdminCountries from './employee/Countries';
 import AdminCities from './employee/Cities';
 import AdminAddresses from './employee/Addresses';
+import ReceiveMoney from './merchant/ReceiveMoney';
 
 
 
@@ -143,6 +144,7 @@ function App() {
                 <Route path="orders" element={<Orders />} />
                 <Route path="order/:id" element={<OrderData />} />
                 <Route path="productInfo/:id" element={<ProductInfo/>}/>
+                <Route path='receiveMoney' element={<ReceiveMoney/>} />
               </Route>
 
 
@@ -151,6 +153,7 @@ function App() {
                 <Route path="products" element={<MerchantProducts />} />
                 <Route path="orders" element={<MerchantOrders />} />
                 <Route path="withdrawOrder" element={<WithdrawOrder />} />
+                <Route path='receiveMoney' element={<ReceiveMoney/>} />
               </Route>
 
 

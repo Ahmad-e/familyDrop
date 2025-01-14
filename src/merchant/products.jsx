@@ -76,8 +76,6 @@ export default function Products(){
                                     <StyledTableCell align="center">{ t("merchant.s_quant") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.eq_quant") }</StyledTableCell>
                                     <StyledTableCell align="center"> { t("merchant.salary") }</StyledTableCell>
-                                    
-                                    
                                     <StyledTableCell align="center"> { t("merchant.button") }</StyledTableCell>
                                 </TableRow>
                             </TableHead>

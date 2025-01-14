@@ -7,6 +7,7 @@ import Progress from '../component/progressBar'
 import Test from '../images/images/test.jpg';
 
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export default function Home(){
 
@@ -27,7 +28,7 @@ export default function Home(){
                             50.32$
                         </div>
                         <div>
-                            <button style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.withdraw_money") }</button>
+                            <Link to={"/merchant/receiveMoney"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.withdraw_money") }</Link>
                         </div>
                     </div>
                     <div className='profile_content flex justify-around'>
