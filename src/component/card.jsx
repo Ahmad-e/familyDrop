@@ -28,11 +28,11 @@ export default function ProductCard(props) {
         <Typography className='d-flex justify-content-between' gutterBottom variant="h5" component="div">
             <div>
                 <p className='text-secondary'>total</p>
-                <span>{props.total}$</span>
+                <span>{props.total} JOD</span>
             </div>
             <div>
                 <p className='text-secondary'>suggestion</p>
-                <span>{props.sugg}$</span>
+                <span>{props.sugg} JOD</span>
             </div>
         </Typography>
         <Typography className='mt-3 mb-4' variant="body2" sx={{ color: 'text.secondary',maxHeight: "80px",overflow: "hidden" }}>
