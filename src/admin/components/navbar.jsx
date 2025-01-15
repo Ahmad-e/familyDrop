@@ -8,7 +8,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
-
+import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 
 import { IconButton } from '@mui/material';
 
@@ -41,10 +42,16 @@ export default function Products(){
                 <span > { t("navBar.employee") } </span>
             </div>
 
+            <div onClick={()=>window.location.href="/admin/users"} className="nav_item">
+                <GroupRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <span > { t("navBar.users") } </span>
+            </div>
+
             <div onClick={()=>window.location.href="/admin/locations"} className="nav_item">
                 <PublicIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span > { t("navBar.locations") } </span>
             </div>
+
 
             <div onClick={()=>window.location.href="/admin/add_product_order"} className="nav_item">
                 <CreateNewFolderIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
@@ -53,6 +60,10 @@ export default function Products(){
             <div onClick={()=>window.location.href="/admin/withdowal_product_order"} className="nav_item">
                 <FolderDeleteIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span > { t("navBar.WithdrawalOrder") } </span>
+            </div>
+            <div onClick={()=>window.location.href="/employee/withdowal_money_order"} className="nav_item">
+                <PaidRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <span > { t("navBar.WithdrawalMonyOrder") } </span>
             </div>
         </div>
     )

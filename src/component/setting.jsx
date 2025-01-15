@@ -8,17 +8,16 @@ import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import {modeActions} from "../store";
 import { useTranslation } from 'react-i18next';
 
 export default function PositionedMenu() {
     const { t , i18n } = useTranslation();
-    const {setLanguage,toggleMode} = modeActions;
+    const {setLanguage,toggleMode,logout} = modeActions;
     const dispatch = useDispatch();
     const mode = useSelector((state) => state.mode);
-    
-    
+    var account=useSelector((state) => state.account);
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -35,7 +34,7 @@ export default function PositionedMenu() {
     }
 
     const logOut=()=>{
-
+        dispatch(logout())
     }
 
     return (
@@ -68,7 +67,7 @@ export default function PositionedMenu() {
                 ) : (
                     <MenuItem onClick={()=>dispatch(toggleMode())}> { t("header.dm") } <NightsStaySharpIcon/> </MenuItem>
                 )}
-                 <MenuItem onClick={()=>logOut()}> { t("header.logOut") } <LogoutIcon /> </MenuItem>
+                 <MenuItem hidden={!(account ==='1'  || account==="2" || account ==='3'  || account==="4")} onClick={()=>logOut()}> { t("header.logOut") } <LogoutIcon /> </MenuItem>
             </Menu>
         </div>
     );

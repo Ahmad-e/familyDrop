@@ -3,12 +3,12 @@
 .Admin_nav{
     background-color: var(--main_color_dark);
     color: whitesmoke;
-    width: 20%;
+    width: 22%;
     
 }
 .admin_content
 {
-    width: 80%;
+    width: 78%;
 }
 .top_nav_item{
     padding: 12px ;
@@ -22,7 +22,7 @@
     padding: 17px 25px;
     background-color: var(--main_color_dark);
     font-size: 20px;
-    border-bottom: solid #38383874 1px;
+    border: solid #46464652 1px;
     transition:all .3s ease-in-out;
     text-align: start;
 }
@@ -33,3 +33,57 @@
 
 }
 /* navbar end */
+
+/* start products */
+
+.add_product{
+    transition:all .3s ease-in-out;
+    padding: 10px;
+    padding-top: 33px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 20px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.close{
+    height: 33px;
+}
+.close_icon{
+    transform: rotate(180deg);
+}
+.add_item
+{
+    margin: 12px 0px;
+}
+.tuggle_button
+{
+    position: absolute;
+    top: 91px;
+    right: 0px;
+    width: 205px;
+    height: 30px;
+}
+.En_tuggle_button
+{
+    left: 0px;
+}
+
+/* end products */
+/* dash bord start */
+
+.dash_item{
+    background-color: #6363631f;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 7px;
+}
+.dash_card
+{
+    background-color: #6363631f;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+/* dash bord end */

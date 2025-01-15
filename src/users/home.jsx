@@ -42,8 +42,8 @@ export default function Home() {
     
     <div>
       <section id="home" class="hero-area">
-        <div class="container">
-          <div class="row align-items-center text-right">
+        <div class="container ">
+          <div class="row align-items-center text-right px-12">
             <div class="col-lg-5 col-md-12 col-12 text-right">
               <div class="hero-content text-right">
                 <h1 class="wow fadeInLeft" data-wow-delay=".4s">

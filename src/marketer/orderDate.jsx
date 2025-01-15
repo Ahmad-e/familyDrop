@@ -63,7 +63,6 @@ export default function CustomizedTables() {
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 500 }} aria-label="customized table">
                         <caption>
-                          <button   className='btn app_button_1 text-lg mx-2' >{ t("orders.o_change") }</button>
                           <button   className='btn app_button_1 text-lg mx-2'>{ t("orders.o_cancel") }</button>
                         </caption>
                         <TableHead>
@@ -75,14 +74,14 @@ export default function CustomizedTables() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.id}>
-                            <StyledTableCell align="center">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="center">{row.protein}</StyledTableCell>
-                            </StyledTableRow>
-                        ))}
+                          {rows.map((row) => (
+                              <StyledTableRow key={row.id}>
+                              <StyledTableCell align="center">{row.name}</StyledTableCell>
+                              <StyledTableCell align="center">{row.fat}</StyledTableCell>
+                              <StyledTableCell align="center">{row.carbs}</StyledTableCell>
+                              <StyledTableCell align="center">{row.protein}</StyledTableCell>
+                              </StyledTableRow>
+                          ))}
                         </TableBody>
                     </Table>
                 </TableContainer>

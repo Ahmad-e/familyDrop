@@ -71,7 +71,9 @@
 .padding-top {
   padding-top: 74px;
 }
-
+input[type="file"] {
+  display: none;
+}
 
 
 @tailwind base;

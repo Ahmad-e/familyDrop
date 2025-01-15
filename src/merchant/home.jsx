@@ -15,14 +15,14 @@ export default function Home(){
     return(
         <Container>
             <Row>
-                <h1 className='text-3xl'>
+                <h1 className='text-3xl m-3'>
                     { t("merchant.Marketer_Profile") }
                 </h1>
             </Row>
-            <Row>
+            <Row  className='d-flex flex-column-reverse flex-md-row'>
                 <Col lg={8} md={6} sm={12}  >
                     {/* orders and mony section */}
-                    <div className='profile_content flex justify-around'>
+                    <div className='profile_content flex justify-around items-center'>
                         <div className='text-5xl'>
                             50.32$
                         </div>

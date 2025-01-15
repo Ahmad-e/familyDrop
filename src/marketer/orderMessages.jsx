@@ -5,6 +5,8 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
 
+
+import Test from '../images/images/test.jpg'
 export default function Chat(props){
 
     const data=[
@@ -48,16 +50,41 @@ export default function Chat(props){
     const { t } = useTranslation();
 
     return(
-        <div className="chat_box">
+        <div dir='rtl' className="chat_box">
             <div className='messages_box'>   
                 <div hidden={data.length!==0} className=" p-5 ">
                     { t("orders.m_no_msg") } 
                 </div>
 
                 {data.map((item)=>{
+                    if(user_id===item.userId)
                     return(
-                        <div className={user_id===item.userId ?  "row message sended" : "row message received"}>
-                            {item.text}
+                        <div className='flex content-around'>
+                            <div className={user_id===item.userId ?  "row message sended" : "row message received"}>
+                                {item.text}
+                                <p className='text-start text-slate-400' >
+                                {item.date}
+                                </p>
+                            </div>
+                            <div>
+                                <img className='msg_user_img ' src={Test} />
+                            </div>
+                        </div>
+                    )
+
+                    return(
+                        <div className='flex content-around'>
+                            <div>
+                                <img className='msg_user_img ' src={Test} />
+                            </div>
+                            <div className={user_id===item.userId ?  "row message sended" : "row message received"}>
+                                {item.text}
+                                <p className='text-start text-slate-400' >
+                                {item.date}
+                                </p>
+
+                            </div>
+                            
                         </div>
                     )
                 })}

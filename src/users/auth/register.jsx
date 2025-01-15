@@ -24,10 +24,21 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
 
+import axios from "axios";
+import Loading from '../../component/loading'
+import { useDispatch, useSelector } from 'react-redux';
+import {modeActions} from "../../store";
+
+import Alert from '@mui/material/Alert';
+import { BorderAll } from '@mui/icons-material';
+
 export default function Register (){
+    const url = useSelector(state=>state.apiURL);
+    const [loading, setLoading] = React.useState(false);
 
     const { t } = useTranslation();
-
+    const dispatch = useDispatch();
+    const {setAccount,setUserId,setToken} = modeActions;
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -51,7 +62,7 @@ export default function Register (){
     const [errPassword, setErrPassword] = React.useState(false);
     const [errEmail, setErrEmail] = React.useState(false);
     const [errPhoneNumber, setErrPhoneNumber] = React.useState(false);
-
+    const [errServer, setErrSever] = React.useState('')
 
 
     const changeName=(e)=>{
@@ -79,50 +90,107 @@ export default function Register (){
             setErrPassword(false)
     }
 
+    const changePhoneNumber=(e)=>{
+        if (e.startsWith('972')) {
+            setErrPhoneNumber(true);
+            setPhoneNumber('');
+            return
+        }
+        setPhoneNumber(e);
+        console.log(e)
+        if(e.length<7)
+            setErrPhoneNumber(true)
+        else
+            setErrPhoneNumber(false)
+    }
+
     const handleChangeSelectedCountry = (event) => {
         setSelectedCountry(event.target.value);
     };
 
 
-    const [radioValue, setRadioValue] = React.useState('1');
+    const [radioValue, setRadioValue] = React.useState('3');
 
     const radios = [
-        { name: t("auth.j_u_marketer") , value: '1' },
-        { name: t("auth.j_u_merchant") , value: '2' },
+        { name: t("auth.j_u_marketer") , value: '3' },
+        { name: t("auth.j_u_merchant") , value: '4' },
       ];
 
     const sendData=()=>{
+
         if(password.length<7){
             setErrPassword(true)
-            return
         }
         if(email.length<1){
             setErrEmail(true)
-            return
         }
         if(name.length<1){
             setErrName(true)
-            return
         }
-        if(!errEmail && !errPassword && !errEmail )
+        if(phoneNumber.length<7){
+            setErrPhoneNumber(true)
+        }
+        if(password.length<7 || email.length<1 || name.length<1 || phoneNumber.length<7 )
+            return
+
+        setLoading(true)
             console.log(name,password,email,radioValue);
+            try {
+                const response = axios.post(url+'register', {
+                    name:name,
+                    email:email,
+                    password:password,
+                    phone_no:phoneNumber,
+                    type_id:radioValue
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Accept':"application/json"
+                    }
+                }).then((response) => {
+                    setLoading(false)
+                    if(response.data.status){     
+                        console.log(response.data);
+                        dispatch(setAccount(response.data.user_data.type_id))
+                        dispatch(setToken(response.data.access_token))
+                        dispatch(setUserId(response.data.user_data.id))
+                    }
+                    else{
+                    console.log(response.data.message);
+                    setErrSever(response.data.message)
+                        
+                    }
+        
+                }).catch((error) => {
+                    console.log(error)
+                    setLoading(false)
+                });
+                
+            } catch (e) {
+                  throw e;
+            }
+        
 
     }
 
     return(
         <div className='flex justify-center'>
+            <Loading loading={loading} />
             <div className='auth_continer text-center'>
-                <h2 className='text-3xl text-center'  > { t("auth.register") }  </h2>
+                <h2 className='text-3xl text-center mb-3'  > { t("auth.register") }  </h2>
+                <div className='auth_item'>
+                    <TextField helperText={ t("auth.email_t") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
+                    
+                </div>
+
                 <div className='auth_item'>
                     <TextField helperText={ t("auth.name_t") } error={errName} onChange={changeName} value={name} fullWidth label={ t("auth.name") } variant="standard" />
                 </div>
-                <div className='auth_item'>
-                    <TextField helperText={ t("auth.email") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
-                    
-                </div>
+                
                 <div className='auth_item'>
                     <FormControl fullWidth   variant="standard">
-                        <InputLabel htmlFor="standard-adornment-password">{ t("auth.password") }</InputLabel>
+                        <InputLabel error={errPassword} htmlFor="standard-adornment-password">{ t("auth.password") }</InputLabel>
                         <Input
                             onChange={changePassword}
                             value={password}
@@ -146,10 +214,22 @@ export default function Register (){
                             
                             }
                         />
-                        <FormHelperText >{ t("auth.password_t") }</FormHelperText>
+                        <FormHelperText error={errPassword} >{ t("auth.password_t") }</FormHelperText>
                     </FormControl>
                 </div>
-                <div className='auth_item'>
+                <div dir='ltr' className='auth_item'>
+                    <FormControl style={{ marginTop: "15px" }}>
+                        <PhoneInput
+                            country={"jo"}
+                            excludeCountries={"Is"}
+                            style={ errPhoneNumber ? { color:"gray", width:"300px" , border:"solid 1px #c5222a" } : { color:"gray", width:"300px"  }}
+                            value={phoneNumber}
+                            onChange={phone => changePhoneNumber( phone )}
+                        />
+                        <FormHelperText error={errPhoneNumber} > { t("auth.phone") } </FormHelperText>
+                    </FormControl>
+                </div>
+                {/* <div className='auth_item'>
                     <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
                         <InputLabel id="demo-simple-select-label">{ t("basket.Country") }</InputLabel>
                         <Select
@@ -164,7 +244,7 @@ export default function Register (){
                             <MenuItem value={30}>Thirty</MenuItem>
                         </Select>
                     </FormControl>
-                </div>
+                </div> */}
                 <div dir='ltr' className='auth_item'>
                     <ButtonGroup>
                         {radios.map((radio, idx) => (
@@ -187,7 +267,9 @@ export default function Register (){
                 <div className='auth_item'>
                     <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'>{ t("auth.register") }</button>
                 </div>
-                
+                <div hidden={errServer==="" } className='mt-3'>
+                    <Alert  variant="outlined"  severity="error"> {errServer} </Alert>
+                </div>
                 <div className="taggle_auth" >
                     { t("auth.register_e") } <a className='app-link' href='login'> { t("auth.login") } </a>
                 </div>

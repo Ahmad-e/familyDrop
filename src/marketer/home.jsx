@@ -19,11 +19,16 @@ export default function Home(){
                     { t("marketer.Marketer_Profile") }
                 </h1>
             </Row>
-            <Row>
+            <Row className='d-flex flex-column-reverse flex-md-row'>
                 <Col lg={8} md={6} sm={12}  >
                     {/* orders and mony section */}
-                    <div className='profile_content flex justify-around'>
-                        <div className='text-5xl'>
+                    <div className='profile_content flex justify-around items-center'>
+                        <div className='text-3xl'>
+                            <p> الأرباح القابلة للسحب </p>
+                            50.32$
+                        </div>
+                        <div className='text-3xl'>
+                            <p> الأرباح المعلقة </p>
                             50.32$
                         </div>
                         <div>
@@ -32,7 +37,6 @@ export default function Home(){
                     </div>
                     <div className='profile_content flex justify-around'>
                         <Col>
-                            
                             <div >
                                 <div className='py-4 text-5xl'>
                                     { t("marketer.all_order") }
@@ -77,8 +81,6 @@ export default function Home(){
                             <button className='btn app_button_1' > { t("marketer.Verify_your_account") } </button>
                             </div>
                         </div>
-
-
                 </Col>
             </Row>
         </Container>

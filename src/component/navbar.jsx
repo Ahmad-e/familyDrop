@@ -16,13 +16,58 @@ import { useTranslation } from 'react-i18next';
 
 export default function NavBar (){
 
+
+
     const { t } = useTranslation();
 
     var lg="lg"
     var mode=useSelector((state) => state.mode);
+    var account=useSelector((state) => state.account);
 
     const darkStyle={
       backgroundColor:"rgb(51, 51, 51)"
+    }
+
+
+    const Auth_item=()=>{
+      return(
+        <>
+          <Nav.Link style={{ padding:"8px" }} className='nav_link login_link' href="login">{ t("header.login") }</Nav.Link>
+          <button onClick={()=> window.location.href = "register" } className='btn app_button_2'>{ t("header.regaster") }</button>
+        </>
+      )
+    }
+
+
+    const New_gust=()=>{
+      return(
+        <>
+          <Nav.Link className='nav_link' href="/">{ t("header.main") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/marketer/products">{ t("header.products") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/about_us">{ t("header.abouteAs") }</Nav.Link>
+        </>
+      )
+    }
+
+    const Marketer=()=>{
+      return(
+        <>
+          <Nav.Link className='nav_link' href="/marketer">{ t("header.profile") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/marketer/products">{ t("header.products") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/marketer/orders">{ t("header.orders") }</Nav.Link>
+        </>
+      )
+    }
+
+    const Merchant=()=>{
+      return(
+        <>
+          <Nav.Link className='nav_link' href="/merchant">{ t("header.profile") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/merchant/products">{ t("header.products") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/merchant/orders">{ t("header.add_product") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/merchant/withdrawOrder">{ t("header.WithdrawalProduct") }</Nav.Link>
+        </>
+      )
     }
 
     return(
@@ -50,16 +95,16 @@ export default function NavBar (){
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Nav className="justify-content-center flex-grow-1 pe-3">
-                        <Nav.Link className='nav_link' href="/marketer">{ t("header.profile") }</Nav.Link>
-                        <Nav.Link className='nav_link' href="/marketer/products">{ t("header.products") }</Nav.Link>
-                        <Nav.Link className='nav_link' href="/marketer/orders">{ t("header.orders") }</Nav.Link>
-                        
+                        {
+                          account==="3" ? ( <Marketer /> ) : 
+                          account==="4" ? ( <Merchant /> ) :
+                          (<New_gust />) 
+                        }
                     </Nav>
 
                     <Nav>
-                      <Nav.Link style={{ padding:"8px" }} className='nav_link login_link' href="login">{ t("header.login") }</Nav.Link>
-                      <button onClick={()=> window.location.href = "register" } className='btn app_button_2'>{ t("header.regaster") }</button>
-                      <Nav.Link style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
+                      { account ==='1'  || account==="2" || account ==='3'  || account==="4" ? "" : <Auth_item />  }
+                      <Nav.Link hidden={account!=="3"} style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
                       <Setting />
                     </Nav>
                     

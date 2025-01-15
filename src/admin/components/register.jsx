@@ -1,10 +1,12 @@
-import './style.css';
 
+
+
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
@@ -12,26 +14,18 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import FormHelperText from '@mui/material/FormHelperText';
-
-
-import axios from "axios";
-import Loading from '../../component/loading'
-import { useDispatch, useSelector } from 'react-redux';
-import {modeActions} from "../../store";
-
-import Alert from '@mui/material/Alert';
-
-
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import { useTranslation } from 'react-i18next';
+
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 
 
 export default function Register (){
-    const url = useSelector(state=>state.apiURL);
-    const [loading, setLoading] = React.useState(false);
 
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const {setAccount,setUserId,setToken} = modeActions;
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -45,18 +39,27 @@ export default function Register (){
       event.preventDefault();
     };
 
-    
+    const [name, setName] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
-    
+    const [phoneNumber, setPhoneNumber] = React.useState('')
+    const [selectedCountry, setSelectedCountry] = React.useState(0);
 
+
+    const [errName, setErrName] = React.useState(false);
     const [errPassword, setErrPassword] = React.useState(false);
     const [errEmail, setErrEmail] = React.useState(false);
+    const [errPhoneNumber, setErrPhoneNumber] = React.useState(false);
 
 
-    const [errServer, setErrSever] = React.useState('')
 
-
+    const changeName=(e)=>{
+        setName(e.target.value);
+        if(e.target.value.length<3)
+            setErrName(true)
+        else
+            setErrName(false)
+    }
 
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const changeEmail=(e)=>{
@@ -75,6 +78,17 @@ export default function Register (){
             setErrPassword(false)
     }
 
+    const handleChangeSelectedCountry = (event) => {
+        setSelectedCountry(event.target.value);
+    };
+
+
+    const [radioValue, setRadioValue] = React.useState('1');
+
+    const radios = [
+        { name: t("auth.j_u_marketer") , value: '1' },
+        { name: t("auth.j_u_merchant") , value: '2' },
+      ];
 
     const sendData=()=>{
         if(password.length<7){
@@ -85,59 +99,24 @@ export default function Register (){
             setErrEmail(true)
             return
         }
-
-        if( !errPassword && !errEmail ){
-            setLoading(true)
-            console.log(password,email);
-            try {
-                const response = axios.post(url+'login', {
-                    email:email,
-                    password:password
-                  },
-                  {
-                    headers:{
-                        'Content-Type': 'application/json',
-                        'Accept':"application/json"
-                    }
-                  }).then((response) => {
-                    setLoading(false)
-                    if(response.data.status){     
-                        console.log(response.data);
-                        dispatch(setAccount(response.data.user_data.type_id))
-                        dispatch(setToken(response.data.access_token))
-                        dispatch(setUserId(response.data.user_data.id))
-                    }
-                    else{
-                      console.log(response.data.status);
-                        
-                    }
-        
-                }).catch((error) => {
-                    setLoading(false)
-                    console.log("error")
-                    setErrSever("error in email or password")
-                });
-                    
-              } catch (e) {
-                      throw e;
-              }
-
+        if(name.length<1){
+            setErrName(true)
+            return
         }
-            
+        if(!errEmail && !errPassword && !errEmail )
+            console.log(name,password,email,radioValue);
 
     }
 
     return(
         <div className='flex justify-center'>
-            <Loading loading={loading} />
             <div className='auth_continer text-center'>
-                <h2 className='text-3xl text-center mb-3'  > { t("auth.login") }  </h2>
-                
-                
-               
-
-                <div dir='ltr' className='auth_item'>
-                    <TextField helperText={ t("auth.email_t") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
+                <h2 className='text-3xl text-center'  > { t("auth.register") }  </h2>
+                <div className='auth_item'>
+                    <TextField helperText={ t("auth.name_t") } error={errName} onChange={changeName} value={name} fullWidth label={ t("auth.name") } variant="standard" />
+                </div>
+                <div className='auth_item'>
+                    <TextField helperText={ t("auth.email") } error={errEmail} onChange={changeEmail} value={email} fullWidth label={ t("auth.email") } variant="standard" />
                     
                 </div>
                 <div className='auth_item'>
@@ -170,17 +149,43 @@ export default function Register (){
                     </FormControl>
                 </div>
                 <div className='auth_item'>
-                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'> { t("auth.login") } </button>
+                    <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
+                        <InputLabel id="demo-simple-select-label">{ t("basket.Country") }</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={selectedCountry}
+                            label={ t("basket.Country") }
+                            onChange={handleChangeSelectedCountry}
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
-
-                <div hidden={errServer==="" } className='mt-3'>
-                    <Alert  variant="outlined"  severity="error"> { t("auth.err") } </Alert>
+                <div dir='ltr' className='auth_item'>
+                    <ButtonGroup>
+                        {radios.map((radio, idx) => (
+                        <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                            name="radio"
+                            value={radio.value}
+                            checked={radioValue === radio.value}
+                            className='app_button_1'
+                            onChange={(e) => setRadioValue(e.currentTarget.value)}
+                        >
+                            {radio.name}
+                        </ToggleButton>
+                        ))}
+                    </ButtonGroup>
                 </div>
-                
-                <div className="taggle_auth" >
-                    { t("auth.logIn_e") }<a className='app-link' href='register'> { t("auth.register") } </a>
+                <div className='auth_item'>
+                    <button onClick={()=>sendData()}  className='p-t-2 btn app_button_2'>{ t("auth.register") }</button>
                 </div>
-                
             </div>
         </div>
     )

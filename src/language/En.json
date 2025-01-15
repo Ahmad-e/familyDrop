@@ -5,7 +5,11 @@
         "logOut":"Log out",
         "regaster":"Regaster now",
         "dm":"Dark mode",
-        "lm":"Light mode"
+        "lm":"Light mode",
+        "main": " Home ",
+        "abouteAs": " Our Services ",
+        "add_product": " Add products ",
+        "WithdrawalProduct": " Withdraw Products  "
 
     },
     "navBar":{
@@ -15,8 +19,10 @@
         "Products":"Products",
         "orders":"Orders",
         "locations":"Locations",
+        "users":"Users",
         "addproductorder":"Add product order",
-        "WithdrawalOrder":"Withdrawal order"
+        "WithdrawalOrder":"Withdrawal order",
+        "WithdrawalMonyOrder": "Withdrawal money "
     },
     "profile":{
 
@@ -116,6 +122,7 @@
     },
     "basket": {
         "delete": "Delete",
+        "change":"Change",
         "p_img": "Product Image",
         "p_name": "Product Name",
         "p_desc": "Product Description",
@@ -151,7 +158,12 @@
         "j_u_marketer": "Join as a Product Marketer",
         "j_u_merchant": "Join as a Goods Merchant",
         "c_t": "You must select your place of residence",
-        "c": "Country of Residence"
+        "c": "Country of Residence",
+        "phone_number":"phone number",
+        "block":"Block",
+        "unBlock":"Unblock",
+        "phone":"Enter your phone number",
+        "err":"Invalid email or password"
     }
     
 }

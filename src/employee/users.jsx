@@ -28,9 +28,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
-import Register from './components/register';
 
 
 
@@ -92,18 +90,13 @@ export default function Products(){
 
         <Container>
             <Row className='flex justify-center'> 
-                <Col lg={4} md={5} sm={12}>
-                    <Register />
-                </Col>
-                <Col lg={8} md={7} sm={12}>
+            
+                <Col lg={12}  sm={12}>
                     <TableContainer 
                         sx={{ borderRadius:"20px" , boxShadow:" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"  }} 
                         component={Paper}
                     >
                         <Table  sx={{ minWidth: 600  }} aria-label="customized table">
-                            <caption className='text-center'>
-                                
-                            </caption>
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("auth.name") }</StyledTableCell>
@@ -125,7 +118,7 @@ export default function Products(){
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     <StyledTableCell align="center"> link </StyledTableCell>
                                     <StyledTableCell align="center">
-                                    099999999999999
+                                        099999999999999
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
                                         <button className='btn app_button_1' > { t("auth.block") } </button>

@@ -8,6 +8,7 @@ export default function profile (){
         <Container>
             <Row>
                 <Col>
+                    about_us
                 </Col>
             </Row>
         </Container>
