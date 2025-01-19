@@ -41,6 +41,7 @@ import Products from './marketer/products';
 import AdminApp from './admin/App';
 import AdminHome from './admin/home';
 import AdminEmployee from './admin/employees';
+import AdminLocations from './employee/locations'
 
 
 
@@ -53,6 +54,13 @@ import {modeActions} from "./store";
 import "@fontsource/cairo";
 import "@fontsource/cairo/400.css";
 import ProductInfo from './marketer/productInfo';
+import EmployeeCountries from './employee/Countries';
+import EmployeeCities from './employee/Cities';
+import EmployeeAddresses from './employee/Addresses';
+import AdminCountries from './employee/Countries';
+import AdminCities from './employee/Cities';
+import AdminAddresses from './employee/Addresses';
+import ReceiveMoney from './merchant/ReceiveMoney';
 
 
 
@@ -99,6 +107,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="login" element={<Signin />} />
               <Route path="register" element={<Register />} />
+
               <Route path="about_us" element={<AboutUs />} />
               
               <Route path="admin" element={<AdminApp />} >
@@ -106,7 +115,11 @@ function App() {
                 <Route path="employees" element={<AdminEmployee />} />
                 <Route path="products" element={<EmployeeProducts />} />
                 <Route path="orders" element={<EmployeeOrder />} />
-                <Route path="locations" element={<EmployeeLocations />} />
+                <Route path="locations" element={<AdminLocations />}>
+                  <Route path="countries" element={<AdminCountries/>}/>
+                  <Route path="Cities" element={<AdminCities/>}/>
+                  <Route path="addresses" element={<AdminAddresses/>}/>
+                </Route>
                 <Route path="add_product_order" element={<EmployeeA_P_Order />} />
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
@@ -118,7 +131,13 @@ function App() {
                 <Route path="" element={<EmployeeHome />} />
                 <Route path="products" element={<EmployeeProducts />} />
                 <Route path="orders" element={<EmployeeOrder />} />
-                <Route path="locations" element={<EmployeeLocations />} />
+                <Route path="locations" element={<EmployeeLocations />} >
+                  <Route path="countries" element={<EmployeeCountries/>}/>
+                  <Route path="cities/:id" element={<EmployeeCities/>}/>
+                  <Route path="cities" element={<EmployeeCities/>}/>
+                  <Route path="addresses/:id" element={<EmployeeAddresses/>}/>
+                  <Route path="addresses" element={<EmployeeAddresses/>}/>
+                </Route>
                 <Route path="add_product_order" element={<EmployeeA_P_Order />} />
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
@@ -133,6 +152,7 @@ function App() {
                 <Route path="orders" element={<Orders />} />
                 <Route path="order/:id" element={<OrderData />} />
                 <Route path="productInfo/:id" element={<ProductInfo/>}/>
+                <Route path='receiveMoney' element={<ReceiveMoney/>} />
               </Route>
 
 
@@ -141,6 +161,7 @@ function App() {
                 <Route path="products" element={<MerchantProducts />} />
                 <Route path="orders" element={<MerchantOrders />} />
                 <Route path="withdrawOrder" element={<WithdrawOrder />} />
+                <Route path='receiveMoney' element={<ReceiveMoney/>} />
               </Route>
 
             </Route>

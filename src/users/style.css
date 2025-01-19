@@ -22,9 +22,6 @@ p {
   font-size: 15px;
   line-height: 24px;
 }
-.text-center {
-  text-align: center !important;
-}
 .accordion{
   --bs-accordion-border-color: none;
 }
@@ -1839,7 +1836,7 @@ ol {
 	Footer CSS
 ========================================*/
 .footer {
-  background: linear-gradient(0deg, rgba(8,24,40,1) 0%, rgba(8,24,40,0.79) 100%);
+  background: linear-gradient(0deg, rgba(8,24,40,1) 0%, rgba(8,24,40,100) 100%);
   position: relative;
 }
 

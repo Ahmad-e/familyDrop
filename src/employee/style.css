@@ -1,4 +1,3 @@
-
 /* navbar start */
 .Admin_nav{
     background-color: var(--main_color_dark);
@@ -9,6 +8,17 @@
 .admin_content
 {
     width: 78%;
+
+    width: 20%;
+    position: fixed;
+    top: 76px;
+    left: 0px;
+    min-height: 100vh;
+}
+.admin_content{
+    width: 80%;
+    position: relative;
+    left: 20%;
 }
 .top_nav_item{
     padding: 12px ;
@@ -87,3 +97,18 @@
     justify-content: space-between;
 }
 /* dash bord end */
+
+/* locations */
+.locations .nav-link {
+    color: inherit;
+}
+.locations .nav-link:hover {
+    color: #ed1c25;
+    border-color: #ed1c25;
+}
+.locations .nav-tabs .nav-link.active {
+    color: var(--bs-nav-tabs-link-active-bg);
+    background-color: #ed1c25;
+    border-color: #ed1c25;
+}
+

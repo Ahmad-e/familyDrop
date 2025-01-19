@@ -1,5 +1,5 @@
 /* navbar style start  */
-.logo{
+.logo {
     width: 120px;
     margin: 0px 40px;
     padding: 0px;
@@ -50,6 +50,26 @@
 {
     background-color: rgb(51, 51, 51);
 }
+.table {
+    --bs-table-color-type: initial;
+    --bs-table-bg-type: rgba(var(--bs-emphasis-color-rgb), 0.05);
+    --bs-table-color-state: initial;
+    --bs-table-bg-state: initial;
+    --bs-table-color: inherit;
+    --bs-table-bg: inherit;
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: inherit;
+    --bs-table-striped-bg: initial;
+    --bs-table-active-color: var(--bs-emphasis-color);
+    --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
+    --bs-table-hover-color: var(--bs-emphasis-color);
+    --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: center;
+    border-color: var(--bs-table-border-color);
+    }
 /* navbar style end  */
 /* card start */
 .card .type{
