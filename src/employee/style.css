@@ -2,24 +2,27 @@
 .Admin_nav{
     background-color: var(--main_color_dark);
     color: whitesmoke;
-    width: 22%;
+    
+    transition:all .3s ease-in-out;
     
 }
+.open_Admin_nav{
+    width: 25%;
+}
+
+.close_Admin_nav{
+    width: 100px;
+}
+
+
+
 .admin_content
 {
-    width: 78%;
-
-    width: 20%;
-    position: fixed;
-    top: 76px;
-    left: 0px;
+    transition:all .3s ease-in-out;
+    width: 100%;
     min-height: 100vh;
 }
-.admin_content{
-    width: 80%;
-    position: relative;
-    left: 20%;
-}
+
 .top_nav_item{
     padding: 12px ;
     font-size: 22px;
@@ -42,6 +45,32 @@
     border-radius: 4px;
 
 }
+
+
+
+@media only screen and (max-width: 520px) {
+    .Admin_nav{
+        position: absolute;
+    }
+    .open_Admin_nav{
+        width: 75%;
+    }
+    .close_Admin_nav{
+        width: 62px;
+    }
+
+    .nav_item{
+        padding: 13px 6px;
+        font-size: 17px;
+    }
+    .admin_content_en{
+        padding-left: 62px;
+    }
+    .admin_content_ar{
+        padding-right: 62px;
+    }
+  }
+
 /* navbar end */
 
 /* start products */

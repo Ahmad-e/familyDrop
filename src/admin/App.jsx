@@ -7,14 +7,13 @@ import { useSelector } from 'react-redux';
 
 const Home=()=>{
 
+    const language = useSelector((state) => state.language);
 
     return(
         <>
         <div className='flex justify-between'>
-            <div className='Admin_nav' >
-                <Navbar  />
-            </div>
-            <div className='admin_content'>
+            <Navbar  />
+            <div className={(language==='Ar' ? ("admin_content_ar") : ("admin_content_en") )+' admin_content '}>
                 <Outlet />
             </div>
             
