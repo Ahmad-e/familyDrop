@@ -10,7 +10,8 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
-
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 import { IconButton } from '@mui/material';
 
@@ -35,6 +36,10 @@ export default function Products(){
             <div onClick={()=>window.location.href="/admin/products"} className="nav_item">
                 <StoreRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.Products") } </span>
+            </div>
+            <div onClick={()=>window.location.href="/admin/productSetting"} className="nav_item">
+                <ColorLensIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <span hidden={!open} > { t("navBar.productSetting") } </span>
             </div>
             <div onClick={()=>window.location.href="/admin/orders"} className="nav_item">
                 <ViewListRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
@@ -64,9 +69,14 @@ export default function Products(){
                 <FolderDeleteIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.WithdrawalOrder") } </span>
             </div>
-            <div onClick={()=>window.location.href="/employee/withdowal_money_order"} className="nav_item">
+            <div onClick={()=>window.location.href="/admin/withdowal_money_order"} className="nav_item">
                 <PaidRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.WithdrawalMonyOrder") } </span>
+            </div>
+
+            <div onClick={()=>window.location.href="/admin/setting"} className="nav_item">
+                <SettingsApplicationsIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <span hidden={!open} > { t("navBar.setting") } </span>
             </div>
         </div>
     )

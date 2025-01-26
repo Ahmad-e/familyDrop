@@ -10,6 +10,9 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 
+
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+
 import { IconButton } from '@mui/material';
 
 export default function Products(){
@@ -34,6 +37,10 @@ export default function Products(){
             <div onClick={()=>window.location.href="/employee/products"} className="nav_item">
                 <StoreRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.Products") } </span>
+            </div>
+            <div onClick={()=>window.location.href="/employee/productSetting"} className="nav_item">
+                <ColorLensIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <span hidden={!open} > { t("navBar.productSetting") } </span>
             </div>
             <div onClick={()=>window.location.href="/employee/orders"} className="nav_item">
                 <ViewListRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />

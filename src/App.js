@@ -41,7 +41,8 @@ import Products from './marketer/products';
 import AdminApp from './admin/App';
 import AdminHome from './admin/home';
 import AdminEmployee from './admin/employees';
-import AdminLocations from './employee/locations'
+import AdminLocations from './employee/locations';
+import AdminSetting from './admin/setting'
 
 
 
@@ -61,7 +62,7 @@ import AdminCountries from './employee/Countries';
 import AdminCities from './employee/Cities';
 import AdminAddresses from './employee/Addresses';
 import ReceiveMoney from './merchant/ReceiveMoney';
-
+import ProductSetting from './employee/productSetting'
 
 
 
@@ -124,10 +125,13 @@ function App() {
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
                 <Route path="users" element={<Users />} />
+                <Route path="productSetting" element={<ProductSetting />} />
+                <Route path="setting" element={<AdminSetting />} />
               </Route>
 
               
               <Route path="employee" element={<EmployeeApp />} >
+
                 <Route path="" element={<EmployeeHome />} />
                 <Route path="products" element={<EmployeeProducts />} />
                 <Route path="orders" element={<EmployeeOrder />} />
@@ -142,6 +146,8 @@ function App() {
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
                 <Route path="users" element={<Users />} />
+                <Route path="productSetting" element={<ProductSetting />} />
+                
               </Route>
 
 

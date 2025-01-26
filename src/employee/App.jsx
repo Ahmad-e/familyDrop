@@ -11,7 +11,7 @@ const Home=()=>{
     
     return(
         <>
-        <div className='flex justify-between'>
+        <div className='flex'>
             <Navbar  />
             <div className={(language==='Ar' ? ("admin_content_ar") : ("admin_content_en") )+' admin_content '}>
                 <Outlet />

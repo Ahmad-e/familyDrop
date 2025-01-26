@@ -10,6 +10,9 @@ import Button from '@mui/material/Button';
 import { MenuItem, TextField } from "@mui/material";
 import { use } from "i18next";
 
+import Carousel from 'react-bootstrap/Carousel';
+
+
 function ProductInfo(){
     const [type,setType] = useState("");
     const [open,setOpen] = useState(false);
@@ -19,6 +22,15 @@ function ProductInfo(){
     const handleClose = () => {
         setOpen(false);
     };
+
+    const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex) => {
+      setIndex(selectedIndex);
+    };
+  
+
+
     const sizes = [
         {
             label: "Small",
@@ -88,7 +100,17 @@ function ProductInfo(){
                 </div>
                 </div>
                 <div className="w-md-50 w-100 p-2 d-flex align-items-center justify-content-center">
-                    <img className="rounded" width={"500px"} src={require("../images/images/test2.jpg")} alt=""/>
+                        <Carousel activeIndex={index} onSelect={handleSelect}>
+                            <Carousel.Item>
+                                <img className="rounded" width={"500px"} src={require("../images/images/test2.jpg")} alt=""/>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img className="rounded" width={"500px"} src={require("../images/images/test2.jpg")} alt=""/>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img className="rounded" width={"500px"} src={require("../images/images/test2.jpg")} alt=""/>
+                            </Carousel.Item>
+                        </Carousel>
                 </div>
                     <Dialog
                             open={open}
