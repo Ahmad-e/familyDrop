@@ -77,7 +77,6 @@ export default function AddProductsOrders(){
         setOpenAcceptDialog(false);
     };
 
-
     return(
 
         <Container>

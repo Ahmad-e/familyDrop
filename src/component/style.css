@@ -80,10 +80,10 @@
 /* loading */
 .loading {
     width: 100vw;
-    height: 100vh;
+    height: 150vh;
     background-color: rgb(0 0 0 / 40%);
     position: fixed;
-    /* top: 0px; */
+    top: -100px;
     z-index: 5;
     display: flex;
     justify-content: center;
