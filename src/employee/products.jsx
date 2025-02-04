@@ -33,7 +33,9 @@ import Slide from '@mui/material/Slide';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 
-
+import axios from "axios";
+import Loading from '../component/loading'
+import { rowHeightWarning } from '@mui/x-data-grid/hooks/features/rows/gridRowsUtils';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -60,31 +62,45 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+
   
 
 
 export default function Products(){
     const { t } = useTranslation();
     const language = useSelector((state) => state.language);
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
+    
+    const [loading, setLoading] = React.useState(false);
+
 
     const [open, setOpen] = React.useState(false);
 
 
-    const tuggle_button =()=>{
-      setOpen(!open)
-  }
+  const [data, setData]=React.useState([]);
+  const [types, setTypes]=React.useState([]);
 
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get(url+"showProducts",
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setData(response.data.products)
+                setTypes(response.data.products_types)
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }, []);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -188,8 +204,10 @@ export default function Products(){
             rate:errors.rate,
             quantity:errors.quantity
         })
-        if(!( errors.name || errors.desc ||  errors.longDesc || errors.salary || errors.suggestedSalary  || errors.quantity  ||  errors.rate ))
-        console.log([name ,desc , longDesc , salary, suggestedSalary , quantuty , rate])
+        if(!( errors.name || errors.desc ||  errors.longDesc || errors.salary || errors.suggestedSalary  || errors.quantity  ||  errors.rate )){
+            
+        }
+        //console.log([name ,desc , longDesc , salary, suggestedSalary , quantuty , rate])
     }
 
     const [img, setImg]=React.useState(null);
@@ -201,9 +219,10 @@ export default function Products(){
     return(
 
         <Container>
+            <Loading loading={loading} />
             <Row className='flex justify-center'> 
               <Col lg={12} md={12} sm={12}>
-                <AddProducts />
+                <AddProducts  />
               </Col>
                 <Col lg={12} md={12} sm={12}>
                     <TableContainer 
@@ -224,7 +243,7 @@ export default function Products(){
                                     <StyledTableCell align="center"> السعر المقترح </StyledTableCell>
                                     <StyledTableCell align="center"> نسبة الربح المسموحة </StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.all_quant") }</StyledTableCell>
-                                    
+                                    <StyledTableCell align="center">{ "كمية المبيعات" }</StyledTableCell>
                                     
                                     <StyledTableCell align="center"> بيانات المالك </StyledTableCell>
                                     <StyledTableCell align="center"> حذف </StyledTableCell>
@@ -232,7 +251,7 @@ export default function Products(){
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
@@ -241,11 +260,12 @@ export default function Products(){
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     <StyledTableCell align="center"> link </StyledTableCell>
-                                    <StyledTableCell align="center"> descriptions </StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="center">100$</StyledTableCell>
-                                    <StyledTableCell align="center">10%</StyledTableCell>
-                                    <StyledTableCell align="center">0</StyledTableCell>
+                                    <StyledTableCell align="center"> {row.disc} </StyledTableCell>
+                                    <StyledTableCell align="center">{row.cost_price}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.cost_price+(row.cost_price * (row.profit_rate/50))}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.profit_rate} % </StyledTableCell>
+                                    <StyledTableCell align="center">{row.quantity}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.sales}</StyledTableCell>
                                     <StyledTableCell align="center">
                                     <button className='btn app_button_1' > عرض البيانات </button>
                                     </StyledTableCell>

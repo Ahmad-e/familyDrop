@@ -55,7 +55,7 @@ export default function Register (){
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [phoneNumber, setPhoneNumber] = React.useState('')
-    const [selectedCountry, setSelectedCountry] = React.useState(0);
+    const [selectedCountry, setSelectedCountry] = React.useState(3);
 
 
     const [errName, setErrName] = React.useState(false);
@@ -141,7 +141,8 @@ export default function Register (){
                     email:email,
                     password:password,
                     phone_no:phoneNumber,
-                    type_id:radioValue
+                    type_id:radioValue,
+                    country_id:selectedCountry
                 },
                 {
                     headers:{
@@ -173,6 +174,29 @@ export default function Register (){
         
 
     }
+
+
+    const [allCountreis,setAllCountreis] = React.useState([])
+
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get(url+"showCountries",
+          {
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept':"application/json"
+            }
+          })
+            .then((response) => {
+                console.log(response.data)
+                setAllCountreis(response.data.data)
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+              console.log(error);
+               setLoading(false) });
+    }, []);
 
     return(
         <div className='flex justify-center'>
@@ -229,7 +253,7 @@ export default function Register (){
                         <FormHelperText error={errPhoneNumber} > { t("auth.phone") } </FormHelperText>
                     </FormControl>
                 </div>
-                {/* <div className='auth_item'>
+                <div className='auth_item'>
                     <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
                         <InputLabel id="demo-simple-select-label">{ t("basket.Country") }</InputLabel>
                         <Select
@@ -239,12 +263,16 @@ export default function Register (){
                             label={ t("basket.Country") }
                             onChange={handleChangeSelectedCountry}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {
+                                allCountreis.map((item)=>{
+                                    return(
+                                        <MenuItem value={item.id}>{item.name}</MenuItem>
+                                    )
+                                })
+                            }
                         </Select>
                     </FormControl>
-                </div> */}
+                </div>
                 <div dir='ltr' className='auth_item'>
                     <ButtonGroup>
                         {radios.map((radio, idx) => (

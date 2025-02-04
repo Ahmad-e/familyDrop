@@ -14,13 +14,50 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Register (){
     const url = useSelector(state=>state.apiURL);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
+    const [types, setTypes] = React.useState([]);
+    const [colors, setColors] = React.useState([]);
+    const [sizes, setSizes] = React.useState([]);
+
+
+    React.useEffect(() => {
+        //setLoading(true);
+        axios.get(url+"showTypesSizesColors",
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                //  console.log(response.data)
+
+                setTypes(response.data.types)
+                setColors(response.data.colors)
+                setSizes(response.data.sizes)
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }, []);
 
     return(
         <>
-            <Types />
-            <Colors />
-            <Sizess />
+            <Loading loading={loading} />
+            {
+                !loading ? 
+                    (
+                        <>
+                            <Types data={types} />
+                            <Colors data={colors} />
+                            <Sizess  data={sizes} />
+                        </>
+                    ):(<></>)
+
+                
+            }
         </>  
     )
 }

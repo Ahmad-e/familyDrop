@@ -30,6 +30,8 @@ import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 
 
+import axios from "axios";
+import Loading from '../../component/loading'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -56,40 +58,43 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-  
 
 
-export default function Products(){
+export default function Products(props){
+  
     const { t } = useTranslation();
-    const language = useSelector((state) => state.language);
+    
+    const url = useSelector(state=>state.apiURL);
+    const [loading, setLoading] = React.useState(false);
+    const token = useSelector(state=>state.token);
 
     const [open, setOpen] = React.useState(false);
 
-
-    const tuggle_button =()=>{
-      setOpen(!open)
-  }
-
-
-    const handleClickOpen = () => {
+    const [idToChange, setIdToChange] = React.useState(0);
+    const handleClickOpen = (data) => {
       setOpen(true);
+      setIdToChange(data.id)
+      setNameToChange(data.name)
     };
   
     const handleClose = () => {
       setOpen(false);
     };
 
+
+    const [openDelete, setOpenDelete] = React.useState(false);
+
+    const [idToDelete, setIdToDelete] = React.useState(0);
+    const handleClickOpenDelete = (data) => {
+      setOpenDelete(true);
+      setIdToDelete(data.id)
+    };
+  
+    const handleCloseDelete = () => {
+      setOpenDelete(false);
+    };
+    
+    const [typs, setTyps] = React.useState(props.data);
 
     const [name , setName]=React.useState('');
 
@@ -119,21 +124,100 @@ export default function Products(){
     
 
     const Add_Type=()=>{
-        
+      if(name.length>=3)
+      if(!errors.name)
+      { 
+        setLoading(true)
+        try {
+        const response = axios.post(url+'addProductType', {
+            name:name
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            setTyps(response.data.data)
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+            
+        } catch (e) {
+              throw e;
+        }}
+    }
+
+    const Change_Type=()=>{
+      if(nameToChange.length>=3)
+        if(!errors.nameToChange){ 
+          setLoading(true)
+          try {
+            const response = axios.post(url+'editProductType', {
+                id:idToChange,
+                name:nameToChange
+            },
+            {
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+            }).then((response) => {
+                setLoading(false)
+                console.log(response.data)
+                setTyps(response.data.data)
+                setOpen(false)
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false)
+            });
+          } catch (e) {
+                throw e;
+          }}
+    }
+
+    const Delete_Type=()=>{
+         
+          setLoading(true)
+          try {
+            const response = axios.get(url+'deleteProductType/'+idToDelete, 
+            {
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+            }).then((response) => {
+                setLoading(false)
+                console.log(response.data)
+                setTyps(response.data.data)
+                setOpenDelete(false)
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false)
+            });
+          } catch (e) {
+                throw e;
+          }
     }
 
     return(
 
         <Container>
+            <Loading loading={loading} />
             <Row className='flex justify-center'> 
                 <Col lg={8} md={10} sm={12} >
                     <Container>
                     <Row className='flex justify-center'>
                         <Col lg={4} md={6} sm={12} className="add_item">
-                            <TextField fullWidth value={name} onChange={ChangeName} error={errors.name} label="name of product" variant="outlined" />
+                            <TextField  fullWidth value={name} onChange={ChangeName} error={errors.name} label="name of product" variant="outlined" />
                         </Col>
-                        <Col g={4} md={6} sm={12}>
-                            <button   className='m-3 btn app_button_2'> { t("auth.save") } </button>
+                        <Col g={3} md={4} sm={12}>
+                            <button onClick={()=>Add_Type()}  className='m-3 btn app_button_2'> { t("auth.save") } </button>
                         </Col>
                     </Row>
                     </Container>
@@ -144,23 +228,23 @@ export default function Products(){
                         component={Paper}
                     >
                         <Table  sx={{ minWidth: 600  }} aria-label="customized table">
-                            <caption className='text-center'>
-                                
-                            </caption>
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
                                     <StyledTableCell align="center"> تعديل </StyledTableCell>
+                                    <StyledTableCell align="center"> حذف </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {typs.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     
-                                    
                                     <StyledTableCell align="center">
-                                        <button onClick={()=>handleClickOpen()} className='btn app_button_1' >  تعديل </button>
+                                        <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >  تعديل </button>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="center">
+                                        <button onClick={()=>handleClickOpenDelete(row)} className='btn app_button_1' >  حذف </button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -172,6 +256,47 @@ export default function Products(){
             <Row className='flex justify-center'>
                 <hr className='mt-3  mb-7' />
             </Row>
+            <Dialog
+              open={open}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleClose}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle> Change product type </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Col className='mt-1'>
+                    <TextField fullWidth value={nameToChange} onChange={ChangeNameToChange} error={errors.nameToChange} label="new name of product" variant="outlined" />
+                  </Col> 
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button color="error"  onClick={handleClose} >cancle</Button>
+                <Button color="error" onClick={()=>Change_Type()}>save</Button>
+              </DialogActions>
+            </Dialog>
+
+            {/* dalete dialog */}
+            <Dialog
+              open={openDelete}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleCloseDelete}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle> delete product type </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  حذف النوع يعني أن المنتجات التي تنتمي تحت هذا النوع سيتم حذفها أيضاً
+                  هل أنت متأكد من عملية الحذف
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button color="error"  onClick={handleCloseDelete} >cancle</Button>
+                <Button color="error" onClick={()=>Delete_Type()}>delete</Button>
+              </DialogActions>
+            </Dialog>
         </Container>
     )
 }
