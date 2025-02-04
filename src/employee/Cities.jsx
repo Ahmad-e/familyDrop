@@ -1,71 +1,43 @@
 import { useParams } from "react-router-dom";
 import TableShow from "../component/TableShow";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Loading from "../component/loading";
 
 const Cities = () => {
+    const [cities,setCities] = useState([]);
+    const url = useSelector(state => state.apiURL);
+    const token = useSelector(state => state.token);
+    const [load,setLoad] = useState(true);
+    const [refresh,setRefresh] = useState(true);
+
+    useEffect(()=>{
+        axios.get(url+"showCities",{
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            setCities(res.data.data);
+            console.log(res)
+            setLoad(false)
+        }).catch(err => {
+            console.log(err);
+            setLoad(false)
+        })
+    },[refresh])
     const {id} = useParams();
-    console.log(id)
-    const all = [
-        {
-            id: "0",
-            cities: [
-                {
-                    id: "0",
-                    name: "jaramanah",
-                },
-                {
-                    id: "1",
-                    name: "doalaa",
-                },
-                {
-                    id: "2",
-                    name: "kaskol",
-                }
-            ]
-        },
-        {
-            id: "1",
-            cities: [
-                {
-                    id: "3",
-                    name: "amaween",
-                },
-                {
-                    id: "4",
-                    name: "malki",
-                },
-                {
-                    id: "5",
-                    name: "mazah",
-                }
-            ]
-        },
-        {
-            id: "2",
-            cities: [
-                {
-                    id: "6",
-                    name: "cgfcm",
-                },
-                {
-                    id: "7",
-                    name: "ml/km/lkm/lkalki",
-                },
-                {
-                    id: "8",
-                    name: "mazjhgkytfah",
-                }
-            ]
-        },
-    ];
-    const allCities = all.map(el => el.cities);
     return(
-        <div className="m-5">
+        <>
+            <Loading loading={load}/>
+            <div className="m-5">
             {id ? 
-                <TableShow page="addresses" header="Cities" arr={all.filter(el => el.id === id)[0].cities}/> : 
-                allCities.map((el,key) => <TableShow page="addresses" header={key === 0 ? "All Cities" : ""} last={key === allCities.length - 1 ? false : true} arr={el}/>
-                )
+                <TableShow page="addresses" refresh={setRefresh} country_id={id} add={"addCity"} delete={"deleteCity/"} edit={"editCity"} header="Cities" arr={cities.filter(el => el.country_id.toString() === id)}/> : 
+                <TableShow page="addresses" refresh={setRefresh} delete={"deleteCity/"} edit={"editCity"} header={"All Cities"} arr={cities}/>
             } 
         </div>
+        </>
     )
 }
 export default Cities;
