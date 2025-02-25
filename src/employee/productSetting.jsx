@@ -30,7 +30,7 @@ export default function Register (){
             }
             })
             .then((response) => {
-                //  console.log(response.data)
+                 console.log(response.data)
 
                 setTypes(response.data.types)
                 setColors(response.data.colors)

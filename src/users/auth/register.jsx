@@ -109,11 +109,11 @@ export default function Register (){
     };
 
 
-    const [radioValue, setRadioValue] = React.useState('3');
+    const [radioValue, setRadioValue] = React.useState('4');
 
     const radios = [
-        { name: t("auth.j_u_marketer") , value: '3' },
-        { name: t("auth.j_u_merchant") , value: '4' },
+        { name: t("auth.j_u_marketer") , value: '4' },
+        { name: t("auth.j_u_merchant") , value: '3' },
       ];
 
     const sendData=()=>{

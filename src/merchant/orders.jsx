@@ -16,6 +16,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import AddOrder from './addOrder'
+import axios from "axios";
+import Loading from '../component/loading';
+import { useSelector } from 'react-redux';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,7 +46,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }
   
   const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    createData(' yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
     createData('Eclair', 262, 16.0, 24, 6.0),
     createData('Cupcake', 305, 3.7, 67, 4.3),
@@ -53,9 +57,61 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function Products(){
     const { t } = useTranslation();
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
+    const [loading, setLoading] = React.useState(false);
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get(url+"showProductRequests",
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setData(response.data.add_product_requests)
+                
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }, []);
+
+    
+    const Cansole=(id)=>{
+        setLoading(true);
+        axios.get(url+"deleteProductRequest/"+id,
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setData(response.data.add_product_requests)
+                
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }
+
     return(
 
         <Container>
+            <Loading loading={loading} />
             <Row className='flex justify-center'> 
                 <Col lg={9} md={8} sm={12}>
                     <TableContainer 
@@ -67,28 +123,35 @@ export default function Products(){
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.p_desc") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_quantity") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.salary") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.address") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.state") } </StyledTableCell>
                                     <StyledTableCell align="center"> { t("orders.o_cancel") } </StyledTableCell>
                                 </TableRow>
-                            </TableHead>
+                            </TableHead> 
                             <TableBody>
-                            {rows.map((row) => (
+                            {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
+                                            <img loading="auto" src={row.images_array.slice(2, -2)} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="center">{row.protein}</StyledTableCell>
-                                    <StyledTableCell align="center">damascus</StyledTableCell>
-                                    <StyledTableCell align="center">قيد المراجعة  </StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_name}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_disc}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_quantity}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_price}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.country} - {row.city} - {row.addresse_}</StyledTableCell>
+                                    <StyledTableCell  align="center">
+                                    {  
+                                            row.accepted===0 & row.employee_id ===null ? (t("emp.new_o")) :
+                                            row.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
+                                        } 
+                                    </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <button   className='btn app_button_1 text-lg mx-2' >{ t("orders.o_cancel") }</button>
+                                        <button hidden={!(row.accepted===0 && row.employee_id===null)} onClick={()=>Cansole(row.id)} className='btn app_button_1 text-lg mx-2' >{ t("orders.o_cancel") }</button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -97,7 +160,7 @@ export default function Products(){
                     </TableContainer>
                 </Col>
                 <Col lg={3} md={4} sm={12}>
-                    <AddOrder />
+                    <AddOrder onAdd={(data)=>setData(data)} />
                 </Col>
             </Row>
         </Container>

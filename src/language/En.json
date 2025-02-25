@@ -1,16 +1,17 @@
 {
-    "header":{
-        "profile":"Profile",
-        "login":"Log in",
-        "logOut":"Log out",
-        "regaster":"Regaster now",
-        "dm":"Dark mode",
-        "lm":"Light mode",
-        "main": " Home ",
-        "abouteAs": " Our Services ",
-        "add_product": " Add products ",
-        "WithdrawalProduct": " Withdraw Products  "
-
+    "header": {
+        "profile": "Dashboard",
+        "products": "Products",
+        "orders": "Orders",
+        "login": "Login",
+        "logOut": "Log Out",
+        "regaster": "Register",
+        "dm": "Dark Mode",
+        "lm": "Light Mode",
+        "main": "Home",
+        "abouteAs": "Our Services",
+        "add_product": "Add Product",
+        "WithdrawalProduct": "Withdraw Product"
     },
     "navBar":{
         "family_drop":"Family drop",
@@ -27,18 +28,24 @@
     "profile":{
 
     },
-    "marketer":{
-        "c_order":"Cancelled orders",
-        "n_order":"New orders",
-        "w_order":"on -work ordses",
-        "e_order":"completed orders",
-        "Marketer_Profile":"Marketer Profile",
-        "withdraw_money" : "Withdraw money",
-        "all_order":"All order",
-        "v_acc_text":"You must verify your account to start your business on Family Drop",
-        "Add_new_order":"Add new order",
-        "Verify_your_account":"Verify your account"
-
+    "marketer": {
+        "c_order": "Cancelled Orders",
+        "n_order": "New Orders",
+        "w_order": "Orders in Progress",
+        "e_order": "Ready Orders",
+        "del_order": "Orders Being Delivered",
+        "done_order": "Successfully Completed Orders",
+        "Marketer_Profile": "Marketer Dashboard",
+        "withdraw_money": "Receive Profits",
+        "all_order": "All Orders",
+        "v_acc_text": "You need to verify your account before you start working on Family Drop.",
+        "Add_new_order": "Add New Order",
+        "Verify_your_account": "Verify Your Account",
+        "badget": "Free Profits",
+        "Ubadget": "Pending Profits",
+        "search_to": "Enter Product Name...",
+        "search_p": "Search Filters",
+        "search": "Search"
     },
     "merchant": {
         "new_products": "Products Under Review",
@@ -74,7 +81,8 @@
         "c_order": "Cancel Order",
         "t_c_order": "Are you sure you want to cancel your order to withdraw the product?",
         "no": "Cancel",
-        "ok": "Confirm"
+        "ok": "Confirm",
+        "q_m_p":"The quantity must be more than "
     },
     "landing": {
         "top_1": "Start your e-commerce journey now with Family Drop in 6 countries",
@@ -100,6 +108,9 @@
         "h_1": "About the platform"
       },
       "orders": {
+        "platform":"Platform name ",
+        "color":"Selected color ",
+        "size":"Selected size ",
         "o_n": "Order Number",
         "o_date": "Order Date",
         "o_address": "Delivery Address",
@@ -121,6 +132,7 @@
         "m_s": "Write your message"
     },
     "basket": {
+        "profits":"profits",
         "delete": "Delete",
         "change":"Change",
         "p_img": "Product Image",
@@ -164,6 +176,62 @@
         "unBlock":"Unblock",
         "phone":"Enter your phone number",
         "err":"Invalid email or password"
+    },
+    "emp": {
+        "Product_Image": "Product Image",
+        "Add_Product": "Add Product",
+        "delete": "Delete",
+        "change": "Edit",
+        "cancle": "Cancel",
+        "p_img": "Product Image",
+        "p_name": "Product Name",
+        "p_desc": "Product Description",
+        "long_desc": "Detailed Product Description",
+        "c_price": "Wholesale Price",
+        "Address_p": "Product Location Address",
+        "o_state": "Order Status",
+        "ow_data": "Owner Data",
+        "opr": "Possible Operations",
+        "reject": "Reject Order",
+        "acc_o": "Accept Order",
+        "new_o": "New Order",
+        "ok_o": "Order Approved",
+        "reject_o": "Order Rejected",
+        "reject_o_from": "Order Rejected By",
+        "acc_from": "Approved By",
+        "for_o": "For Order",
+        "reject_to": "Response of Rejection By",
+        "vid": "Instructional Video",
+        "salling": "Suggested Price",
+        "rate": "Allowed Profit Percentage",
+        "sell_quant": "Quantity Sold",
+        "quan": "Quantity",
+        "type": "Type",
+        "color": "Specified Color",
+        "size": "Specified Size",
+        "save": "Save",
+        "link_t": "Link Name",
+        "payment_t": "Payment Method Name",
+        "show": "Show",
+        "unShow": "Hide",
+        "user_data": "User Data",
+        "marketer_data": "Marketer Data",
+        "consumer_data": "Customer Data",
+        "img": "Image",
+        "admin": "Admin",
+        "employee": "Employee",
+        "marketer": "Marketer",
+        "merchant": "Merchant",
+        "Unblock": "Unblock",
+        "q_t_p": "Quantity to Withdraw",
+        "All_monye": "Total User Balance",
+        "o_monye": "Amount to Withdraw",
+        "p_data": "Account Data",
+        "state": "",
+        "":""
+    },
+    "dialog": {
+        "rate": "The profit percentage refers to the portion of the money that will be deducted and given to the marketer after completing the purchase process.<br/> It should be specified carefully."
     }
     
 }

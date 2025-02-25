@@ -43,7 +43,7 @@ export default function UserData() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}> cancele </Button>
+          <Button color="error" onClick={handleClose}> cancele </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

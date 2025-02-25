@@ -10,44 +10,44 @@ import { Link } from 'react-router-dom';
 
 export default function ProductCard(props) {
     return (
-    <Card className='m-2 position-relative card' sx={{width: 270}} style={{height: "700px"}}>
+    <Card className='m-2' >
         <CardContent>
-        <div className='text-start'>
-            <h1>Potatto chees</h1>
-            <span className='text-secondary type'>frozen</span>
-        </div>
+            <div className='text-start'>
+                <h1>{props.name}</h1>
+                <span className='text-secondary type'>{props.type}</span>
+            </div>
         </CardContent>
         <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
+        sx={{ height:"200px" }}
         image={props.image}
         width="100%"
         />
         <CardContent>
-        <Typography className='d-flex justify-content-between' gutterBottom variant="h5" component="div">
+        <Typography className='d-flex justify-content-between mb-1' gutterBottom variant="h5" component="div">
             <div>
-                <p className='text-secondary'>total</p>
-                <span>{props.total} JOD</span>
+                <p className='text-secondary'>cost price</p>
+                <span>{props.cost_price} JOD</span>
             </div>
             <div>
-                <p className='text-secondary'>suggestion</p>
-                <span>{props.sugg} JOD</span>
+                <p className='text-secondary'>selling price</p>
+                <span>{props.selling_price} JOD</span>
             </div>
         </Typography>
-        <Typography className='mt-3 mb-4' variant="body2" sx={{ color: 'text.secondary',maxHeight: "80px",overflow: "hidden" }}>
+        <Typography className='mt-1 mb-1' variant="body2" sx={{ color: 'text.secondary',maxHeight: "80px",overflow: "hidden" }}>
             {props.disc}
         </Typography>
         </CardContent>
-        <CardActions className='position-absolute bottom-0 d-flex flex-column text-center w-100'>
-        <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link' size="small">
+        
+        {/* <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link' size="small">
             More details 
-        </button>
-
-        <button className='btn mb-2  mt-3 app_button_2' size="small">
-            <LocalGroceryStoreRoundedIcon/> Add to cart
-        </button>
-        </CardActions>
+        </button> */}
+        <CardContent>
+            <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn mb-1  mt-1 app_button_2'>
+                <LocalGroceryStoreRoundedIcon/> Add to cart
+            </button>
+        </CardContent>
     </Card>
 );
 }

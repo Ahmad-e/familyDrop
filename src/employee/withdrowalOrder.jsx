@@ -29,6 +29,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
+import axios from "axios";
+import Loading from '../component/loading'
+import { useSelector } from 'react-redux';
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -68,19 +73,74 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function Products(){
     const { t } = useTranslation();
     const [openAcceptDialog, setOpenAcceptDialog] = React.useState(false);
-  
-    const handleClickOpenAcceptDialog = () => {
+    const [idToCansel, setIdToCancel] = React.useState(0);
+    const handleClickOpenAcceptDialog = (id) => {
         setOpenAcceptDialog(true);
+        setIdToCancel(id)
     };
   
     const handleCloseAcceptDialog = () => {
         setOpenAcceptDialog(false);
     };
 
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
+    const [loading, setLoading] = React.useState(false);
+
+
+
+
+    const [data, setData] = React.useState([]);
+    React.useEffect(() => {
+      setLoading(true);
+      axios.get(url+"showPullProductRequests",
+          {
+          headers:{
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' +token ,
+              'Accept':"application/json"
+          }
+          })
+          .then((response) => {
+              console.log(response.data)
+              setData(response.data.pull_requests)
+              setLoading(false)
+
+          })
+          .catch((error) =>{ 
+              console.log(error);
+              setLoading(false) });
+  }, []);
+
+
+  const Cansole=(id)=>{
+    
+    setLoading(true);
+    axios.get(url+"deletePullProductRequest/"+id,
+        {
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' +token ,
+            'Accept':"application/json"
+        }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setOpenAcceptDialog(false)
+            setData(response.data.pull_requests)
+            setLoading(false)
+
+        })
+        .catch((error) =>{ 
+            console.log(error);
+            setLoading(false) });
+    }
+
 
     return(
 
         <Container>
+            <Loading loading={loading} />
             <Row className='flex justify-center'> 
                 <Col lg={12} md={12} sm={12}>
                     <TableContainer 
@@ -92,21 +152,20 @@ export default function Products(){
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                                    <StyledTableCell align="center"> فيديو توضيحي </StyledTableCell>
-                                    <StyledTableCell align="center"> وصف المنتج </StyledTableCell>
-                                    <StyledTableCell align="center"> سعر الجملة </StyledTableCell>
-                                    <StyledTableCell align="center"> نسبة الربح المسموحة </StyledTableCell>
-                                    <StyledTableCell align="center"> الكمية المراد سحبها </StyledTableCell>
+                                    <StyledTableCell align="center">{ t("basket.p_desc") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.c_price") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.rate") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.q_t_p") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.all_quant") }</StyledTableCell>
                                     
-                                    <StyledTableCell align="center"> حالة الطلب </StyledTableCell>
-                                    <StyledTableCell align="center"> بيانات المالك </StyledTableCell>
-                                    <StyledTableCell align="center"> حذف </StyledTableCell>
-                                    <StyledTableCell align="center"> تعديل </StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.o_state") }</StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.ow_data") }</StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.opr") } </StyledTableCell>
+                                    
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
@@ -114,22 +173,32 @@ export default function Products(){
                                         </div>    
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                    <StyledTableCell align="center"> link </StyledTableCell>
-                                    <StyledTableCell align="center"> descriptions </StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="center">10%</StyledTableCell>
-                                    
-                                    <StyledTableCell align="center">0</StyledTableCell>
-                                    <StyledTableCell align="center">0</StyledTableCell>
-                                    <StyledTableCell align="center">جديد</StyledTableCell>
+                                    <StyledTableCell align="center"> {row.disc} </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.cost_price}  </StyledTableCell>
+                                    <StyledTableCell align="center">{row.profit_rate}</StyledTableCell>
+                                    <StyledTableCell align="center"> {row.request_quantity} </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.request_quantity + row.quantity } </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <UserInfo />
+                                        { 
+                                            row.accepted===0 & row.employee_id ===null ? (t("emp.new")) :
+                                            row.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
+                                        }
+                                    </StyledTableCell>
+                                    <StyledTableCell align="center">
+                                        <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
                                     </StyledTableCell>
                                     <TableCell align="center">
-                                        <Button onClick={handleClickOpenAcceptDialog} variant="outline-success">قبول الطلب</Button>
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <Button variant="outline-secondary" className='btn ' > حذف الطلب </Button>
+                                        { 
+                                            row.accepted===0 & row.employee_id ===null ? (
+                                                !loading ? (
+                                                <>
+                                                    <Button color="error" onClick={()=>handleClickOpenAcceptDialog(row.id)} variant="outline-success">قبول الطلب</Button>
+                                                    <Button onClick={()=>Cansole(row.id)} variant="outline-secondary" className='btn m-1' > رفض الطلب </Button>
+                                                </>):("")
+
+                                            ) :
+                                            row.accepted===1 ? (t("emp.acc_from")+row.employee_name+t("emp.for_o")):(t("emp.reject_o_from")+row.employee_name)
+                                        }
                                     </TableCell>
                                 </StyledTableRow>
                             ))}
@@ -153,8 +222,8 @@ export default function Products(){
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <MaterialButton onClick={handleCloseAcceptDialog}> cancele </MaterialButton>
-                <MaterialButton onClick={handleCloseAcceptDialog}> قيول العرض </MaterialButton>
+                <MaterialButton color="error" onClick={handleCloseAcceptDialog}> cancele </MaterialButton>
+                <MaterialButton color="error" onClick={()=>Cansole()}> قيول العرض </MaterialButton>
                 
                 </DialogActions>
             </Dialog>

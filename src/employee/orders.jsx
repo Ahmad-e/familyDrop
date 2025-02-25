@@ -19,37 +19,166 @@ import UserInfo from './components/showUserInfo';
 import CustomerInfo from './components/showCustomerInfo'
 
 
+import { useSelector } from 'react-redux';
+
+import axios from "axios";
+import Loading from '../component/loading'
+
+import { useTranslation } from 'react-i18next';
 import Test from '../marketer/orderMessages'
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
 
 function Row(props) {
-  const { row } = props;
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
+  
+  const url = useSelector(state=>state.apiURL);
+  const token = useSelector(state=>state.token);
+  const [loading, setLoading] = React.useState(false);
 
+  const [row, setRow] = React.useState(props.row);
+
+  const CancleOrder=(id)=>{
+    setLoading(true)
+    try {
+        const response = axios.post(url+'cancelOrder', {
+          id:id
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            window.location.reload()
+            console.log(response.data.orders)
+            
+
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+        
+    } catch (e) {
+          throw e;
+    }
+    
+  }
+  const StartWork =(id)=>{
+    setLoading(true)
+    try {
+        const response = axios.post(url+'startWorkingOrder', {
+          id:id
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            window.location.reload()
+            console.log(response.data.orders)
+            
+
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+        
+    } catch (e) {
+          throw e;
+    }
+  }
+  const EndWork =(id)=>{
+    setLoading(true)
+    try {
+        const response = axios.post(url+'endingOrder', {
+          id:id
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            window.location.reload()
+            console.log(response.data.orders)
+            
+
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+        
+    } catch (e) {
+          throw e;
+    }
+  }
+  const StartDelivery =(id)=>{
+    setLoading(true)
+    try {
+        const response = axios.post(url+'deliveringOrder', {
+          id:id
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            window.location.reload()
+            console.log(response.data.orders)
+            
+
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+        
+    } catch (e) {
+          throw e;
+    }
+  }
+  const Done =(id)=>{
+    setLoading(true)
+    try {
+        const response = axios.post(url+'doneOrder', {
+          id:id
+        },
+        {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+        }).then((response) => {
+            setLoading(false)
+            window.location.reload()
+            console.log(response.data.orders)
+            
+
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        });
+        
+    } catch (e) {
+          throw e;
+    }
+  }
+  
   return (
     <React.Fragment>
+      <Loading loading={loading} />
+
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
@@ -59,25 +188,38 @@ function Row(props) {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
-        <TableCell align="center">
-            <UserInfo />
-        </TableCell>
-        <TableCell align="center">
-            <CustomerInfo />
-        </TableCell>
-        <TableCell align="center">{row.carbs}</TableCell>
-        <TableCell align="center">{row.protein}</TableCell>
-        <TableCell align="center">{row.protein}</TableCell>
-        <TableCell align="center">
-          <Button variant="outline-secondary"  >  cancale </Button>  
-        </TableCell>
-        <TableCell align="center">
-          <Button variant="outline-warning">start work</Button>
-        </TableCell>
-        <TableCell align="center">
-          <Button variant="outline-success" className='btn ' >  end work </Button>
-        </TableCell>
+          </TableCell>
+          <TableCell align="center" >{row.id}</TableCell>
+          <TableCell align="center">
+              <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
+          </TableCell>
+          <TableCell align="center">
+              <CustomerInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
+          </TableCell>
+
+          <TableCell align="center" component="th" scope="row">
+          {row.created_at}
+          </TableCell>
+          <TableCell align="center">{row.customer_name}</TableCell>
+          <TableCell align="center">{row.account_name}</TableCell>
+          <TableCell align="center">{ row.country +"-"+ row.city +"-"+row.addresse }</TableCell>
+          <TableCell align="center">{row.total_quantity}</TableCell>
+          <TableCell align="center">{row.total_price}</TableCell>
+          <TableCell align="center">{row.total_profit}</TableCell>
+          <TableCell align="center">{row.state_name}</TableCell>
+          <TableCell align="center">
+            {
+              row.state_id===1 ? (
+                <>
+                  <Button onClick={()=>CancleOrder(row.id)} variant="outline-secondary"  className='btn mx-1' >  cancale </Button>
+                  <Button onClick={()=>StartWork(row.id)} variant="outline-warning" className='btn mx-1'>start work</Button>
+                </>
+              ): row.state_id===2 ? (<Button onClick={()=>EndWork(row.id)} variant="outline-primary" className='btn mx-1' >  end work </Button>):
+              row.state_id===3 ? (<Button onClick={()=>StartDelivery(row.id)} variant="outline-success" className='btn mx-1'>Start delivery</Button>):
+              row.state_id===4 ? (<Button onClick={()=>Done(row.id)} variant="outline-danger" className='btn mx-1'> Done work </Button>):("")
+
+            }
+          </TableCell>
         
         
       </TableRow>
@@ -92,31 +234,31 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center" > product name </TableCell>
-                    <TableCell align="center">source salary</TableCell>
-                    <TableCell align="center"> salling salary </TableCell>
-                    <TableCell align="center">quantity </TableCell>
-                    <TableCell align="center"> total salary for customer </TableCell>
+                    <TableCell align="center">id</TableCell>
+                    <TableCell align="center">{ t("orders.p_name") }</TableCell>
+                    <TableCell align="center">{ t("orders.color") }</TableCell>
+                    <TableCell align="center">{ t("orders.size") }</TableCell>
+                    <TableCell align="center">{ t("orders.p_quantity") }</TableCell>
+                    <TableCell align="center">{ t("orders.p_salling") }</TableCell>
+                    <TableCell align="center"> { t("orders.p_source") } </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.history.map((historyRow) => (
+                  {row.products.map((historyRow) => (
                     <TableRow key={historyRow.date}>
-                      <TableCell align="center" component="th" scope="row">
-                        {"test"}
-                      </TableCell>
-                      <TableCell align="center">{historyRow.amount}</TableCell>
-                      <TableCell align="center">{historyRow.amount}</TableCell>
-                      <TableCell align="center">{historyRow.amount}</TableCell>
-                      <TableCell align="center">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell align="center">{historyRow.product_id}</TableCell>
+                      <TableCell align="center">{historyRow.product_name}</TableCell>
+                      <TableCell style={{ backgroundColor:historyRow.code}} align="center">{historyRow.color}</TableCell>
+                      <TableCell align="center">{historyRow.size}</TableCell>
+                      <TableCell align="center">{historyRow.quantity}</TableCell>
+                      <TableCell align="center">{historyRow.selling_price}</TableCell>
+                      <TableCell align="center">{historyRow.cost_price}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </Box>
-            <Test />
+            <Test id={row.id} messages={row.tags} />
           </Collapse>
         </TableCell>
       </TableRow>
@@ -124,58 +266,71 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
+
 
 export default function CollapsibleTable() {
+  const { t } = useTranslation();
+  const url = useSelector(state=>state.apiURL);
+  const token = useSelector(state=>state.token);
+  const [loading, setLoading] = React.useState(false);
+
+  const [data, setData] = React.useState([]);
+  React.useEffect(() => {
+    setLoading(true)
+    axios.get(url+"showOrders",
+        {
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' +token ,
+            'Accept':"application/json"
+        }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setLoading(false)
+            setData(response.data.orders)
+
+        })
+        .catch((error) =>{ 
+            console.log(error);
+            setLoading(false)
+         });
+    }, []);
+
+
   return (
     <TableContainer component={Paper}>
+      <Loading loading={loading} />
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell align="center"> marketer data </TableCell>
-            <TableCell align="center"> consumer data </TableCell>
-            <TableCell align="center"> order state </TableCell>
-            <TableCell align="center"> total salary </TableCell>
-            <TableCell align="center"> total product </TableCell>
 
-            <TableCell align="center"> cancle </TableCell>
+            <TableCell align="center">{ t("orders.o_n") } </TableCell>
+            <TableCell align="center"> { t("emp.marketer_data") } </TableCell>
+            <TableCell align="center"> { t("emp.consumer_data") } </TableCell>
+            <TableCell align="center">{ t("orders.o_date") }</TableCell>
 
-            <TableCell align="center"> start work </TableCell>
+            <TableCell align="center">{ t("orders.O_user_name") }</TableCell>
+            <TableCell align="center">{ t("orders.platform") }</TableCell>
+            <TableCell align="center">{ t("orders.o_address") }</TableCell>
+            <TableCell align="center">{ t("orders.o_p_quantity") }</TableCell>
+            <TableCell align="center">{ t("orders.o_s_price") }</TableCell>
+            <TableCell align="center">{ t("orders.o_profit") }</TableCell>
+            <TableCell align="center">{ t("orders.o_state") }</TableCell>
 
-            <TableCell align="center"> end work </TableCell>
+            <TableCell align="center"> { t("emp.opr") } </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {data.map((row) => (
+            <Row key={row.name} row={row}  />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+

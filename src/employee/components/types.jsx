@@ -214,10 +214,10 @@ export default function Products(props){
                     <Container>
                     <Row className='flex justify-center'>
                         <Col lg={4} md={6} sm={12} className="add_item">
-                            <TextField  fullWidth value={name} onChange={ChangeName} error={errors.name} label="name of product" variant="outlined" />
+                            <TextField  fullWidth value={name} onChange={ChangeName} error={errors.name} label={ t("emp.type") } variant="outlined" />
                         </Col>
                         <Col g={3} md={4} sm={12}>
-                            <button onClick={()=>Add_Type()}  className='m-3 btn app_button_2'> { t("auth.save") } </button>
+                            <button onClick={()=>Add_Type()}  className='m-3 btn app_button_2'> { t("emp.save") } </button>
                         </Col>
                     </Row>
                     </Container>
@@ -230,9 +230,9 @@ export default function Products(props){
                         <Table  sx={{ minWidth: 600  }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                                    <StyledTableCell align="center"> تعديل </StyledTableCell>
-                                    <StyledTableCell align="center"> حذف </StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.type") }</StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.change") } </StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.delete") } </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -241,10 +241,10 @@ export default function Products(props){
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     
                                     <StyledTableCell align="center">
-                                        <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >  تعديل </button>
+                                        <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >  { t("emp.change") } </button>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <button onClick={()=>handleClickOpenDelete(row)} className='btn app_button_1' >  حذف </button>
+                                        <button onClick={()=>handleClickOpenDelete(row)} className='btn app_button_1' >  { t("emp.delete") } </button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -263,17 +263,17 @@ export default function Products(props){
               onClose={handleClose}
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle> Change product type </DialogTitle>
+              <DialogTitle> { t("emp.change") } </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                   <Col className='mt-1'>
-                    <TextField fullWidth value={nameToChange} onChange={ChangeNameToChange} error={errors.nameToChange} label="new name of product" variant="outlined" />
+                    <TextField fullWidth value={nameToChange} onChange={ChangeNameToChange} error={errors.nameToChange} label={ t("emp.type") } variant="outlined" />
                   </Col> 
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button color="error"  onClick={handleClose} >cancle</Button>
-                <Button color="error" onClick={()=>Change_Type()}>save</Button>
+                <Button color="error"  onClick={handleClose} >{ t("emp.cancle") }</Button>
+                <Button color="error" onClick={()=>Change_Type()}>{ t("emp.save") }</Button>
               </DialogActions>
             </Dialog>
 

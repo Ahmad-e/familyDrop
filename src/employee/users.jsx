@@ -27,7 +27,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
+import axios from "axios";
+import Loading from '../component/loading'
+import Register from '../admin/components/register'
 import { useSelector } from 'react-redux';
 
 
@@ -57,25 +59,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-  
-
 
 export default function Products(){
     const { t } = useTranslation();
     const language = useSelector((state) => state.language);
-
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
     const [open, setOpen] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -86,12 +78,60 @@ export default function Products(){
     };
 
 
+
+    const [data, setData] = React.useState([]);
+    React.useEffect(() => {
+      setLoading(true);
+      axios.get(url+"showUsers",
+          {
+          headers:{
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' +token ,
+              'Accept':"application/json"
+          }
+          })
+          .then((response) => {
+              console.log(response.data)
+              setData(response.data.data)
+              setLoading(false)
+
+          })
+          .catch((error) =>{ 
+              console.log(error);
+              setLoading(false) });
+  }, []);
+
+  const blockUser=(id)=>{
+    setLoading(true);
+      axios.get(url+"blockUser/"+id,
+          {
+          headers:{
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' +token ,
+              'Accept':"application/json"
+          }
+          })
+          .then((response) => {
+              console.log(response.data)
+              setData(response.data.data)
+              setLoading(false)
+
+          })
+          .catch((error) =>{ 
+              console.log(error);
+              setLoading(false) });
+  }
+
+
     return(
 
         <Container>
             <Row className='flex justify-center'> 
-            
-                <Col lg={12}  sm={12}>
+            <Loading loading={loading} />
+                <Col lg={4} md={5} sm={12}>
+                    <Register />
+                </Col>
+                <Col lg={8} md={7} sm={12}>
                     <TableContainer 
                         sx={{ borderRadius:"20px" , boxShadow:" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"  }} 
                         component={Paper}
@@ -99,30 +139,40 @@ export default function Products(){
                         <Table  sx={{ minWidth: 600  }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
+                                  <StyledTableCell align="center"> { t("emp.img") } </StyledTableCell>
+                                  <StyledTableCell align="center">id</StyledTableCell>
                                     <StyledTableCell align="center">{ t("auth.name") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("auth.email") }</StyledTableCell>
-                                    <StyledTableCell align="center"> { t("auth.c") } </StyledTableCell>
+                                    
                                     <StyledTableCell align="center"> { t("auth.phone_number") } </StyledTableCell>
+                                    <StyledTableCell align="center"> { t("auth.type") } </StyledTableCell>
                                     <StyledTableCell align="center"> { t("auth.block") } </StyledTableCell>
                                     <StyledTableCell align="center"> { t("basket.change") } </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
                                             <img src={URL} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
+                                    <StyledTableCell align="center">{row.id}</StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                    <StyledTableCell align="center"> link </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.email} </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.phone_no} </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        099999999999999
+                                        {
+                                          row.type_id===1 ? (t("basket.admin")):
+                                          row.type_id===2 ? (t("basket.employee")):
+                                          row.type_id===4 ? (t("basket.marketer")):
+                                          (t("basket.merchant"))
+
+                                        } 
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <button className='btn app_button_1' > { t("auth.block") } </button>
-                                        <button className='btn app_button_1' > { t("auth.unBlock") } </button>
+                                        <button onClick={()=>blockUser(row.id)} className='btn app_button_1' > { row.blocked===0 ? (t("auth.block")) : (t("emp.Unblock")) } </button>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
                                     <button onClick={()=>handleClickOpen()} className='btn app_button_1' >  { t("basket.change") } </button>
@@ -141,7 +191,7 @@ export default function Products(){
               onClose={handleClose}
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle> change product data  </DialogTitle>
+              <DialogTitle> {t("emp.change")}  </DialogTitle>
               <DialogContent>
                   <DialogContentText id="alert-dialog-slide-description">
                     
@@ -149,8 +199,8 @@ export default function Products(){
                   </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>cancale</Button>
-                <Button   > حفظ التعديلات </Button>
+                <Button onClick={handleClose}>{t("emp.cancle")}</Button>
+                <Button   >{t("emp.change")}</Button>
               </DialogActions>
               
             </Dialog>

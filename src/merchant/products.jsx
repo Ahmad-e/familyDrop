@@ -17,6 +17,12 @@ import Col from 'react-bootstrap/Col';
 
 import AddWithdrawalOrder from './addWithdrawalOrder';
 
+import axios from "axios";
+import Loading from '../component/loading'
+import Register from '../admin/components/register'
+import { useSelector } from 'react-redux';
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -36,26 +42,46 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       border: 0,
     },
   }));
-  
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-  
 
 
 export default function Products(){
     const { t } = useTranslation();
+
+    
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
+    const user_id = useSelector(state=>state.id);
+    
+    const [loading, setLoading] = React.useState(false);
+
+    const [data, setData]=React.useState([]);
+    const [types, setTypes]=React.useState([]);
+    React.useEffect(() => {
+      setLoading(true);
+      axios.get(url+"showProducts",
+          {
+          headers:{
+              'Content-Type': 'application/json',
+              'Accept':"application/json"
+          }
+          })
+          .then((response) => {
+              console.log(response.data)
+              setData(response.data.products)
+              setTypes(response.data.products_types)
+              setLoading(false)
+
+          })
+          .catch((error) =>{ 
+              console.log(error);
+              setLoading(false) });
+  }, []);
+
+
     return(
 
         <Container>
+             <Loading loading={loading} />
             <Row className='flex justify-center'> 
                 <Col lg={11} md={12} sm={12}>
                     <TableContainer 
@@ -71,7 +97,7 @@ export default function Products(){
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                                    <StyledTableCell align="center">{ t("merchant.salary") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.p_desc") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.all_quant") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.s_quant") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.eq_quant") }</StyledTableCell>
@@ -80,24 +106,25 @@ export default function Products(){
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
-                                <StyledTableRow key={row.id}>
+                            {data.map((row) => {
+                                if(row.owner_id===parseInt(user_id))
+                                return(<StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
+                                            <img src={row.images_array[0]} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                    <StyledTableCell align="center"> description from employee </StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="center">0</StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs} </StyledTableCell>
-                                    <StyledTableCell align="center"> 90$  </StyledTableCell>
+                                    <StyledTableCell align="center">{row.disc}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.quantity + row.sales}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.sales}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.quantity} </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.cost_price}JOD  </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <AddWithdrawalOrder quantity={10}  />
+                                        <AddWithdrawalOrder p_id={row.id} quantity={row.quantity}  />
                                     </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
+                                </StyledTableRow>)
+                            })}
                             </TableBody>
                         </Table>
                     </TableContainer>

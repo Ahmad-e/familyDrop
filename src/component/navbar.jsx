@@ -96,15 +96,15 @@ export default function NavBar (){
                 <Offcanvas.Body>
                     <Nav className="justify-content-center flex-grow-1 pe-3">
                         {
-                          account==="3" ? ( <Marketer /> ) : 
-                          account==="4" ? ( <Merchant /> ) :
+                          account==="4" ? ( <Marketer /> ) : 
+                          account==="3" ? ( <Merchant /> ) :
                           (<New_gust />) 
                         }
                     </Nav>
 
                     <Nav>
                       { account ==='1'  || account==="2" || account ==='3'  || account==="4" ? "" : <Auth_item />  }
-                      <Nav.Link hidden={account!=="3"} style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
+                      <Nav.Link hidden={account!=="4"} style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
                       <Setting />
                     </Nav>
                     

@@ -20,7 +20,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import MaterialButton from '@mui/material/Button';
 import UserInfo from './components/showUserInfo';
-
+import AddRequest from './components/addProductRequest'
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -28,6 +28,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+
+
+import axios from "axios";
+import Loading from '../component/loading';
+import { useSelector } from 'react-redux';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -50,36 +55,88 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
 export default function AddProductsOrders(){
     const { t } = useTranslation();
-    const [openAcceptDialog, setOpenAcceptDialog] = React.useState(false);
-  
-    const handleClickOpenAcceptDialog = () => {
-        setOpenAcceptDialog(true);
-    };
-  
-    const handleCloseAcceptDialog = () => {
-        setOpenAcceptDialog(false);
-    };
+    const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
+    const [loading, setLoading] = React.useState(false);
+    const [data, setData] = React.useState([]);
+    const [types, setTypes] = React.useState([]);
+    React.useEffect(() => {
+        setLoading(true);
+        axios.get(url+"showProductRequests",
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                // console.log(response.data)
+                setData(response.data.add_product_requests)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) 
+            });
+
+
+                    ///////
+
+        axios.get(url+"showProductTypes",
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                 console.log(response.data)
+
+                setTypes(response.data.data)
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }, []);
+
+
+
+    const Cansole=(id)=>{
+        setLoading(true);
+        axios.get(url+"deleteProductRequest/"+id,
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setData(response.data.add_product_requests)
+                
+                setLoading(false)
+
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+    }
+
 
     return(
 
         <Container>
+             <Loading loading={loading} />
             <Row className='flex justify-center'> 
                 <Col lg={12} md={12} sm={12}>
                     <TableContainer 
@@ -91,37 +148,51 @@ export default function AddProductsOrders(){
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                                    <StyledTableCell align="center"> وصف المنتج </StyledTableCell>
-                                    <StyledTableCell align="center"> سعر الجملة </StyledTableCell>
-                                    <StyledTableCell align="center">{ t("merchant.all_quant") }</StyledTableCell>
-                                    <StyledTableCell align="center"> حالة الطلب </StyledTableCell>
-                                    <StyledTableCell align="center"> بيانات المالك </StyledTableCell>
-                                    <StyledTableCell align="center"> حذف </StyledTableCell>
-                                    <StyledTableCell align="center"> تعديل </StyledTableCell>
+                                    <StyledTableCell align="center">{ t("basket.p_desc") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("basket.quan") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.c_price") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.Address_p") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.o_state") }</StyledTableCell>
+                                    <StyledTableCell align="center">{ t("emp.ow_data") }</StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.opr") } </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
+                                            <img loading="auto" src={row.images_array.slice(2, -2)} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">{row.name}</StyledTableCell>
-                                    <StyledTableCell align="center"> descriptions </StyledTableCell>
-                                    <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="center">0</StyledTableCell>
-                                    <StyledTableCell align="center">جديد</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_name}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_disc}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_quantity}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.product_price}</StyledTableCell>
+                                    <StyledTableCell align="center">{row.country} - {row.city} - {row.addresse_}</StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <UserInfo />
+                                        {  
+                                            row.accepted===0 & row.employee_id ===null ? (t("emp.new_o")) :
+                                            row.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
+                                        }     
+                                    </StyledTableCell>
+                                    <StyledTableCell align="center">
+                                        <UserInfo id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type} />
                                     </StyledTableCell>
                                     <TableCell align="center">
-                                        <Button onClick={handleClickOpenAcceptDialog} variant="outline-success">قبول الطلب</Button>
+                                        { 
+                                            row.accepted===0 & row.employee_id ===null ? (
+                                                !loading ? (
+                                                <>
+                                                    <AddRequest types={types} id={row.id}  />
+                                                    <Button onClick={()=>Cansole(row.id)} variant="outline-secondary" className='btn m-1' >{ t("emp.reject") } </Button>
+                                                </>):("")
+
+                                            ) :
+                                            row.accepted===1 ? (t("emp.acc_from")+ " "+row.employee_name+ " "+t("emp.for_o")):( t("emp.reject_o_from")+" "+ row.employee_name)
+                                        }
                                     </TableCell>
-                                    <TableCell align="center">
-                                        <Button variant="outline-secondary" className='btn ' > حذف الطلب </Button>
-                                    </TableCell>
+                                    
                                 </StyledTableRow>
                             ))}
                             </TableBody>
@@ -129,26 +200,6 @@ export default function AddProductsOrders(){
                     </TableContainer>
                 </Col>
             </Row>
-
-            <Dialog
-                open={openAcceptDialog}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleCloseAcceptDialog}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>  تأكيد الطلب  </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        في حال قبول العررض يبدأ المنتج بالظهور للمسوقين لطلبه للشراء
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                <MaterialButton onClick={handleCloseAcceptDialog}> cancele </MaterialButton>
-                <MaterialButton onClick={handleCloseAcceptDialog}> قيول العرض </MaterialButton>
-                
-                </DialogActions>
-            </Dialog>
         </Container>
     )
 }

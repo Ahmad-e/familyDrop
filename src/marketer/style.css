@@ -24,9 +24,11 @@
 /* start messages style */
 
 .chat_box{
-    margin:  100px;
+    margin:  50px;
     padding-top: 30px;
     max-width: 500px;
+    height: 700px;
+    overflow-y: scroll;
     background-color: #6363631f;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px;
@@ -64,6 +66,15 @@
     border-radius: 50%;
     
 }
+.sender_mes{
+    display: flex;
+    justify-content: flex-start;
+}
+.recev_mes{
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* end  messages style */
 
 
@@ -159,3 +170,28 @@
 }
 /* end receive money */
 
+.Card_map {
+    column-count: 1; /* القيمة الافتراضية */
+    column-gap: 16px; /* المسافة بين الأعمدة */
+}
+
+/* عند الشاشة بعرض 600 بكسل أو أكثر */
+@media (min-width: 600px) {
+    .Card_map {
+        column-count: 2; /* عدد الأعمدة يصبح 2 */
+    }
+}
+
+/* عند الشاشة بعرض 900 بكسل أو أكثر */
+@media (min-width: 900px) {
+    .Card_map {
+        column-count: 3; /* عدد الأعمدة يصبح 3 */
+    }
+}
+
+/* عند الشاشة بعرض 1200 بكسل أو أكثر */
+@media (min-width: 1200px) {
+    .Card_map {
+        column-count: 4; /* عدد الأعمدة يصبح 4 */
+    }
+}

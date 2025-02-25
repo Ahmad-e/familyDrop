@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UserData() {
+export default function UserData(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -36,16 +36,16 @@ export default function UserData() {
         <DialogTitle> info about user  </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            name : <br/>
-            email : <br/>
-            location : <br/>
-            phone number : <br/>
-            join date : <br/>
+            name : {props.name} <br/>
+            email : {props.email} <br/>
+            phone number : {props.phone_number}<br/>
+            Account type : {props.type}
             
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>cancale</Button>
+          <Button color="error" onClick={handleClose}>cancale</Button>
+          <Button href={'userInfo/'+props.id} color="error" onClick={handleClose}>Show more data</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

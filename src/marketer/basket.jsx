@@ -14,7 +14,8 @@ import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-
+import { useDispatch, useSelector } from 'react-redux';
+import {modeActions} from "../store";
 import URL from '../images/images/test2.jpg'
 
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
@@ -22,20 +23,59 @@ import { useTranslation } from 'react-i18next';
 
 import TotalCard from '../component/totalCard'
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-  ];
-
 
 export default function SportsBasketball(){
     
     const { t } = useTranslation();
+    const url = useSelector(state=>state.apiURL);
+    const basket = useSelector(state=>state.basket);
+    const dispatch = useDispatch();
+    const {addProduct,deleteProduct,deleteFullProduct,clearBasket,ChangeProduct} = modeActions;
+
+
+    //dispatch(clearBasket);
+    console.log(basket)
+
+    const addToProduct=(data)=>{
+        var n_product = 
+        {
+            id:data.id,
+            name:data.name,
+            desc:data.desc,
+            cost_price:data.cost_price,
+            img_url:data.img_url,
+            rate:data.rate,
+            color_id:data.color_id,
+            size_id:data.size_id,
+            price:data.price,
+            quantity:1
+        }
+        console.log(n_product)
+        dispatch(addProduct(n_product));
+    }
+
+    const ChangePriceProduct=(data,price)=>{
+        if(price>0){
+            var n_product = 
+            {
+                id:data.id,
+                name:data.name,
+                desc:data.desc,
+                cost_price:data.cost_price,
+                img_url:data.img_url,
+                rate:data.rate,
+                color_id:data.color_id,
+                size_id:data.size_id,
+                price:price,
+                quantity:data.quantity
+            }
+            //console.log(n_product)
+            dispatch(ChangeProduct(n_product))
+        }
+        
+    }
+
+    
     return(
         <Container>
             <Row className='mt-3'>
@@ -58,46 +98,51 @@ export default function SportsBasketball(){
                                     <TableCell align="center">{ t("basket.p_desc") }</TableCell>
                                     <TableCell align="center">{ t("basket.min_s") }</TableCell>
                                     <TableCell align="center">{ t("basket.salary") }</TableCell>
+                                    <TableCell align="center">{ t("basket.profits") }</TableCell>
                                     <TableCell align="center">{ t("basket.quan") }</TableCell>
                                     <TableCell align="center">{ t("basket.t_s") }</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.name}>
+                            {basket.map((row,index) => (
+                                <TableRow key={row.id}>
                                     <TableCell align="center">
-                                        <IconButton className='delete_button'>
+                                        <IconButton onClick={()=>dispatch(deleteFullProduct(index))} className='delete_button'>
                                             <DeleteForeverRoundedIcon style={{ fontSize:"33px", transition:"all .3s ease-in-out"  }} />
                                         </IconButton>
                                     </TableCell>
                                     <TableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
+                                            <img src={row.img_url} className='product_img' />
                                         </div>
                                     </TableCell>
                                     <TableCell align="center">
-                                        name    
+                                    {row.name}    
                                     </TableCell>
                                     <TableCell align="center">
                                         description
                                     </TableCell>
                                     <TableCell align="center">
-                                        90 $
+                                        {( row.cost_price*(row.rate/100) + row.cost_price )}
                                     </TableCell>
                                     <TableCell align="center">
-                                        <TextField   sx={{ width:"100px"  }} type='number' id="outlined-basic" variant="outlined" />  
+                                        <TextField defaultValue={row.price} onChange={(e)=>ChangePriceProduct(row,e.target.value)} error={row.price<( row.cost_price*(row.rate/100) + row.cost_price )} sx={{ width:"100px"  }} type='number' id="outlined-basic" variant="outlined" />  
+                                    </TableCell>
+
+                                    <TableCell align="center">
+                                        {(row.price - row.cost_price)* row.quantity}
                                     </TableCell>
                                     
                                     <TableCell align="center">
                                         <div className='flex'>
-                                            <button   className='btn app_button_1 text-xl mx-2'>-</button>
-                                            <TextField   disabled sx={{ width:"50px" , textAlign:"center"  }} type='number' id="outlined-basic" variant="outlined" /> 
-                                            <button   className='btn app_button_1 text-lg mx-2'>+</button> 
+                                            <button onClick={()=>dispatch(deleteProduct(row.id))}  className='btn app_button_1 text-xl mx-2'>-</button>
+                                            <TextField value={row.quantity}  disabled sx={{ width:"50px" , textAlign:"center"  }} type='number' id="outlined-basic" variant="outlined" /> 
+                                            <button onClick={()=>addToProduct(row)} className='btn app_button_1 text-lg mx-2'>+</button> 
                                         </div>
 
                                     </TableCell>
                                     <TableCell align="center">
-                                        300 $
+                                        {row.quantity * row.price}
                                     </TableCell>
 
                                     

@@ -45,10 +45,7 @@ export default function Products(){
                 <ViewListRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.orders") } </span>
             </div>
-            <div onClick={()=>window.location.href="/admin/employees"} className="nav_item">
-                <PersonAddAltRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
-                <span hidden={!open} > { t("navBar.employee") } </span>
-            </div>
+
 
             <div onClick={()=>window.location.href="/admin/users"} className="nav_item">
                 <GroupRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />

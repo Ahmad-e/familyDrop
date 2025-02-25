@@ -9,6 +9,7 @@ const modeSlice = createSlice({
         token: Cookies.get("token_drop"),
         account: Cookies.get("acc_num_drop"),
         id: Cookies.get("iD_drop"),
+        basket: Cookies.get('basket_drop') ? (JSON.parse(Cookies.get('basket_drop'))) : ([]),
         apiURL:"https://api.familydroop.com/api/"
     },
     reducers: {
@@ -37,9 +38,9 @@ const modeSlice = createSlice({
             else if(value.payload===2)
                 window.location.href = '/employee';
             if(value.payload===3)
-                window.location.href = '/marketer';
-            else if(value.payload===4)
                 window.location.href = '/merchant';
+            else if(value.payload===4)
+                window.location.href = '/marketer';
         },
         setUserId : (state,value)=>{
             Cookies.set("iD_drop",value.payload,{expires: 70})
@@ -61,6 +62,80 @@ const modeSlice = createSlice({
 
             window.location.href="/"
 
+        },
+        clearBasket:(state)=>{
+            state.basket=[];
+            Cookies.remove('basket_drop');
+            console.log( state.basket)
+        },
+        addProduct:(state,value)=>{
+            var newArr = [];
+            for(var i=0;i<state.basket.length;i++)
+                {  
+                    if(JSON.parse(JSON.stringify(state.basket[i])).id===value.payload.id)
+                    {
+                        newArr = JSON.parse(JSON.stringify(state.basket))
+                        newArr[i].quantity=newArr[i].quantity+1;
+                        state.basket=newArr
+                        Cookies.set('basket_drop',  JSON.stringify(state.basket), { expires: 70 });
+                        return
+                    }
+
+                }
+            state.basket=[...state.basket, value.payload];
+            Cookies.set('basket_drop',  JSON.stringify(state.basket), { expires: 70 });
+            //console.log(state.basket)
+        }
+        ,deleteProduct:(state,value)=>{
+            var newArr = [];
+            for(var i=0;i<state.basket.length;i++)
+                {  
+                    if(JSON.parse(JSON.stringify(state.basket[i])).id===value.payload)
+                    {
+                        newArr = JSON.parse(JSON.stringify(state.basket))
+                        if(newArr[i].quantity > 1)
+                        {
+                            newArr[i].quantity = newArr[i].quantity - 1;
+                            state.basket=newArr
+                            Cookies.set('basket_drop',  JSON.stringify(state.basket), { expires: 70 });
+                            return
+                        }
+                        /*else if(newArr[i].quantity === 1)
+                            {
+                               
+                            }*/
+                    }
+
+                }
+        },
+        deleteFullProduct(state,value){
+            var newArr = [];
+            var oldArr = JSON.parse(JSON.stringify(state.basket))
+            for(var i=0;i<oldArr.length;i++)
+                {  
+                  if(i!==value.payload)
+                  {
+                    newArr.push(oldArr[i])
+                  }
+                }
+
+            state.basket=newArr;
+            Cookies.set('basket_drop',  JSON.stringify(state.basket), { expires: 70 });
+            console.log(state.basket)
+            
+        },
+        ChangeProduct(state,value){
+            console.log("tets")
+            var newArr = [];
+            var oldArr = JSON.parse(JSON.stringify(state.basket))
+            for(var i=0;i<oldArr.length;i++){
+                if(oldArr[i].id===value.payload.id){
+                    oldArr[i].price=value.payload.price
+                }
+            }
+            state.basket=oldArr;
+            Cookies.set('basket_drop',  JSON.stringify(state.basket), { expires: 70 });
+            console.log(oldArr)
         }
 
     }

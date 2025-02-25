@@ -20,6 +20,7 @@ import EmployeeProducts from './employee/products'
 import EmployeeOrder from './employee/orders'
 import EmployeeA_P_Order from './employee/addProductOrders'
 import EmployeeW_P_Order from './employee/withdrowalOrder';
+import UserInfo from './employee/userInfo'
 import Users from './employee/users'
 
 
@@ -125,6 +126,7 @@ function App() {
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
                 <Route path="users" element={<Users />} />
+                <Route path="userInfo/:id" element={<UserInfo />} />
                 <Route path="productSetting" element={<ProductSetting />} />
                 <Route path="setting" element={<AdminSetting />} />
               </Route>
@@ -146,6 +148,7 @@ function App() {
                 <Route path="withdowal_product_order" element={<EmployeeW_P_Order />} />
                 <Route path="withdowal_money_order" element={<WithdrowalmonyOrder />} />
                 <Route path="users" element={<Users />} />
+                <Route path="userInfo/:id" element={<UserInfo />} />
                 <Route path="productSetting" element={<ProductSetting />} />
                 
               </Route>

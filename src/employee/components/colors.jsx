@@ -272,19 +272,6 @@ export default function Products(props){
     const handleClose = () => {
       setOpen(false);
     };
-
-
-    const [openDelete, setOpenDelete] = React.useState(false);
-
-    const [idToDelete, setIdToDelete] = React.useState(0);
-    const handleClickOpenDelete = (data) => {
-      setOpenDelete(true);
-      setIdToDelete(data.id)
-    };
-  
-    const handleCloseDelete = () => {
-      setOpenDelete(false);
-    };
     
     const [typs, setTyps] = React.useState(props.data);
 
@@ -386,30 +373,6 @@ export default function Products(props){
           }}
     }
 
-    const Delete_Type=()=>{
-         
-          setLoading(true)
-          try {
-            const response = axios.get(url+'deleteProductType/'+idToDelete, 
-            {
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer ' +token ,
-                    'Accept':"application/json"
-                }
-            }).then((response) => {
-                setLoading(false)
-                console.log(response.data)
-                setTyps(response.data.data)
-                setOpenDelete(false)
-            }).catch((error) => {
-                console.log(error)
-                setLoading(false)
-            });
-          } catch (e) {
-                throw e;
-          }
-    }
 
     return(
 
@@ -420,13 +383,13 @@ export default function Products(props){
                     <Container>
                     <Row className='flex justify-center'>
                         <Col lg={4} md={6} sm={12} className="add_item">
-                            <TextField fullWidth value={name} onChange={ChangeName} error={errors.name} label="name of product" variant="outlined" />
+                            <TextField fullWidth value={name} onChange={ChangeName} error={errors.name} label="Color code" variant="outlined" />
                         </Col>
                         <Col lg={3} md={4} sm={6} className="add_item">
-                            <TextField fullWidth  type='color' onChange={ChangeValue} error={errors.name}  label="name of product" variant="outlined" />
+                            <TextField fullWidth  type='color' onChange={ChangeValue} error={errors.name} variant="outlined" />
                         </Col>
                         <Col g={3} md={4} sm={12}>
-                            <button onClick={()=>Add_Type()}  className='m-3 btn app_button_2'> { t("auth.save") } </button>
+                            <button onClick={()=>Add_Type()}  className='m-3 btn app_button_2'> { t("emp.save") } </button>
                         </Col>
                     </Row>
                     </Container>
@@ -439,10 +402,9 @@ export default function Products(props){
                         <Table  sx={{ minWidth: 600  }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align="center"> code </StyledTableCell>
-                                    <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
-                                    <StyledTableCell align="center"> تعديل </StyledTableCell>
-                                    {/* <StyledTableCell align="center"> حذف </StyledTableCell> */}
+                                    <StyledTableCell align="center"> Code </StyledTableCell>
+                                    <StyledTableCell align="center"> Color </StyledTableCell>
+                                    <StyledTableCell align="center">  { t("emp.change") } </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -452,11 +414,8 @@ export default function Products(props){
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     
                                     <StyledTableCell align="center">
-                                        <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >  تعديل </button>
+                                        <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >    { t("emp.change") }  </button>
                                     </StyledTableCell>
-                                    {/* <StyledTableCell align="center">
-                                        <button onClick={()=>handleClickOpenDelete(row)} className='btn app_button_1' >  حذف </button>
-                                    </StyledTableCell> */}
                                 </StyledTableRow>
                             ))}
                             </TableBody>
@@ -474,20 +433,20 @@ export default function Products(props){
               onClose={handleClose}
               aria-describedby="alert-dialog-slide-description"
             >
-              <DialogTitle> Change product type </DialogTitle>
+              <DialogTitle>  { t("emp.change") } </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                   <Col className='mt-1'>
-                    <TextField fullWidth value={nameToChange} onChange={ChangeNameToChange} error={errors.nameToChange} label="new name of product" variant="outlined" />
+                    <TextField fullWidth value={nameToChange} onChange={ChangeNameToChange} error={errors.nameToChange} label="new name of color" variant="outlined" />
                   </Col> 
                   <Col className='mt-3'>
-                      <TextField fullWidth  type='color' value={valueToChange}  onChange={ChangeValueToChange} label="name of product" variant="outlined" />
+                      <TextField fullWidth  type='color' value={valueToChange}  onChange={ChangeValueToChange} variant="outlined" />
                   </Col>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button color="error"  onClick={handleClose} >cancle</Button>
-                <Button color="error" onClick={()=>Change_Type()}>save</Button>
+                <Button color="error"  onClick={handleClose} >  { t("emp.cancle") } </Button>
+                <Button color="error" onClick={()=>Change_Type()}>  { t("emp.save") } </Button>
               </DialogActions>
             </Dialog>
 

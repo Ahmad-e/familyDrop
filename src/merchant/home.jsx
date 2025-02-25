@@ -8,12 +8,42 @@ import Test from '../images/images/test.jpg';
 
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import EditProfile from '../admin/components/editProfile';
+import Loading from '../component/loading';
 
 export default function Home(){
 
     const { t } = useTranslation();
+    const token = useSelector(state => state.token);
+    const url = useSelector(state => state.apiURL);
+    const [userInfo,setUserInfo] = useState("");
+    const [data,setData] = useState([]);
+    const [show,setShow] = useState(false);
+    const [load,setLoad] = useState(true);
+
+    useEffect(()=>{
+        axios.get(url+"profile",{
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            console.log(res);
+            setUserInfo(res.data.user_info[0]);
+            setData(res.data);
+            setLoad(false);
+        }).catch(err => {
+            console.log(err);
+            setLoad(false);
+        })
+    },[show])
 
     return(
+        <>
+         {load ? <Loading loading={load}/> :
         <Container>
             <Row>
                 <h1 className='text-3xl m-3'>
@@ -24,67 +54,86 @@ export default function Home(){
                 <Col lg={8} md={6} sm={12}  >
                     {/* orders and mony section */}
                     <div className='profile_content flex justify-around items-center'>
-                        <div className='text-5xl'>
-                            50.32$
+                        <div className='text-3xl '>
+                            <p className='fs-3 pb-3 fw-bold'>{ t("marketer.badget") }</p>
+                            {userInfo.badget}
+                        </div>
+                        <div className='text-3xl '>
+                            <p className='fs-3 pb-3 fw-bold'> { t("marketer.Ubadget") }</p>
+                            {data.total_pull_requests}
+
                         </div>
                         <div>
-                            <Link to={"/merchant/receiveMoney"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.withdraw_money") }</Link>
+                            <Link  style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("marketer.withdraw_money") }</Link>
                         </div>
                     </div>
-                    <div className='profile_content flex justify-around'>
+                    <div className='profile_content flex justify-around align-items-center'>
                         <Col>
-                            
-                            <div >
-                                <div className='py-4 text-5xl'>
+                            <div > 
+                                <div className='py-2 main_color'>
                                     { t("merchant.all_products") }
                                 </div>
-                                <div className='py-1.5 text-4xl'>
-                                    13
+                                <div>
+                                    {data.all_products}
                                 </div>
-                                <div className='py-1.5' >
-                                    <button onClick={()=>window.location.href="merchant/orders"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.Add_new_order") }</button>
+                                <div className='py-2 main_color'>
+                                    Products quantity
                                 </div>
+                                <div>
+                                    {data.total_products_quantity}
+                                </div>
+                                <div className='py-2 main_color'>
+                                    Pinned Products
+                                </div>
+                                {data.pinned_products.map(el => 
+                                    <div>
+                                    {el.product_name}
+                                </div>
+                                )}
+                                <div className='py-2 main_color'>
+                                    Pulled Products
+                                </div>
+                                {data.pulled_products.map(el => 
+                                    <div>
+                                    {el.name}
+                                </div>
+                                )}
                             </div>
                         </Col>
-                        <Col className='text-start' >
-                            <div className='py-2 px-4' >
-                                { t("merchant.new_products") }  <Progress value={10} />
+                        <Col className=' text-center' >
+                        <p className='main_color fs-4 pb-3'>My Products</p>
+                            {data.products.map((el,key)=>{
+                                return(
+                                    <div className='py-2 px-4' >
+                                        {el.name}
                             </div>
-                            <div className='py-2 px-4'>
-                                { t("merchant.d_Products") } <Progress value={50} />
-                            </div>
-                            <div className='py-2 px-4'>
-                                { t("merchant.sold_Products") }  <Progress value={20} />
-                            </div>
-                            <div className='py-2 px-4'>
-                                { t("merchant.u_sold_Products") }  <Progress value={40} />
-                            </div>
-                            <div className='py-2 px-4'>
-                                { t("merchant.p_products") }  <Progress value={20} />
-                            </div>
+                                )
+                                })}
                         </Col>
+                    </div>
+                    <div className='py-1.5' >
+                        <button onClick={()=>window.location.href="merchant/orders"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("merchant.Add_new_order") }</button>
                     </div>
                 </Col>
                 <Col lg={4} md={6} sm={12} >
                         <div className='profile_content'>
                             <div className='flex justify-center'>
-                                <img src={Test} className='profile_img' />
+                                <img src={""} className='profile_img' />
                             </div>
-
-                            <div className='py-1.5'> Ahmad Homse </div>
-                            <div className='py-1.5'> AhmadHomse@gmail.com </div>
+                            <div className='py-1.5'>{userInfo.name}</div>
+                            <div className='py-1.5'>{userInfo.email}</div>
+                            <button className='btn app_button_1'onClick={()=>setShow(true)} >Edit</button>
                         </div>
-                        
                         <div className='profile_content'>
                             <div className='py-1.5'>{ t("merchant.v_acc_text") }</div>
                             <div className='py-1.5 text-lg'> 
                             <button className='btn app_button_1' > { t("merchant.Verify_your_account") } </button>
                             </div>
                         </div>
-
-
                 </Col>
             </Row>
-        </Container>
+            <EditProfile show={show} info={userInfo} setShow={setShow}/>
+         </Container>}
+        </>
     )
 }

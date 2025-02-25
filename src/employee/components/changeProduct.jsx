@@ -3,7 +3,23 @@ import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
+import { useTheme } from '@mui/material/styles';
+import axios from "axios";
+import Loading from '../../component/loading'
 
+
+import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -12,10 +28,7 @@ import OndemandVideoRoundedIcon from '@mui/icons-material/OndemandVideoRounded';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { IconButton } from '@mui/material';
 
-import axios from "axios";
-import Loading from '../../component/loading'
 
-import { useTheme } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -36,7 +49,6 @@ const MenuProps = {
     },
   },
 };
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight: personName.includes(name)
@@ -44,11 +56,37 @@ function getStyles(name, personName, theme) {
       : theme.typography.fontWeightRegular,
   };
 }
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
-export default function Products({onAdd}){
-    const { t } = useTranslation();
+
+
+
+export default function FullScreenDialog( props ) {
+    
+    const [id, setId] = React.useState(0);
+    const handleClickOpen = () => {
+        setOpen(true);
+        setId(props.product.id)
+        console.log(props.product)
+        setName(props.product.name)
+        setDesc(props.product.disc)
+        setLongDesc(props.product.long_disc)
+        setSelectedType(props.product.type_id)
+        setSourceSalary(props.product.cost_price)
+        setSuggestedSalary(props.product.selling_price)
+        setRate(props.product.profit_rate)
+        setQuantity(props.product.quantity)
+    };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const { t } = useTranslation();
     const language = useSelector((state) => state.language);
-    const [open , setOpen]=React.useState(true);
+    const [open , setOpen]=React.useState(false);
 
     const url = useSelector(state=>state.apiURL);
     const token = useSelector(state=>state.token);
@@ -56,39 +94,12 @@ export default function Products({onAdd}){
 
 
 
+    const [types, setTypes] = React.useState(props.types);
 
-    const tuggle_button =()=>{
-        setOpen(!open)
-    }
-
-
-    const [types, setTypes] = React.useState([]);
-    const [colors, setColors] = React.useState([]);
-    const [sizes, setSizes] = React.useState([]);
+    const [colors, setColors] = React.useState(props.colors);
+    const [sizes, setSizes] = React.useState(props.sizes);
 
 
-    React.useEffect(() => {
-        setLoading(true);
-        axios.get(url+"showTypesSizesColors",
-            {
-            headers:{
-                'Content-Type': 'application/json',
-                'Accept':"application/json"
-            }
-            })
-            .then((response) => {
-                //  console.log(response.data)
-
-                setTypes(response.data.types)
-                setColors(response.data.colors)
-                setSizes(response.data.sizes)
-                setLoading(false)
-
-            })
-            .catch((error) =>{ 
-                console.log(error);
-                setLoading(false) });
-    }, []);
 
     const theme = useTheme();
     const [selectedSizes, setSelectedSizes] = React.useState([]);
@@ -107,6 +118,7 @@ export default function Products({onAdd}){
     const [selectedColors, setSelectedColors] = React.useState([]);
   
     const handleChangeSelectedColors = (event) => {
+        console.log(event)
       const {
         target: { value },
       } = event;
@@ -120,12 +132,12 @@ export default function Products({onAdd}){
     const [name , setName]=React.useState('');
     const [desc, setDesc]=React.useState('');
     const [longDesc , setLongDesc]=React.useState('');
-    
     const [sourceSalary , setSourceSalary]=React.useState(0);
     const [suggestedSalary , setSuggestedSalary]=React.useState(0);
     const [rate , setRate]=React.useState(0);
     const [quantuty , setQuantity]=React.useState(0);
     const [selectedType , setSelectedType]=React.useState(0);
+
 
 
     const [errors , setErrors]=React.useState({});
@@ -167,7 +179,7 @@ export default function Products({onAdd}){
 
     const ChangeSuggestedSalary=(e)=>{
         setSuggestedSalary(e.target.value)
-        if(e.target.value<0 || e.target.value<=parseInt(sourceSalary) )
+        if(e.target.value<0 || e.target.value<parseInt(sourceSalary) )
             errors.suggestedSalary=true
         else
             errors.suggestedSalary=false
@@ -196,10 +208,9 @@ export default function Products({onAdd}){
     const [img, setImg]=React.useState(null);
     
     const handleFileChange = (event) => {
-        
-            const files = Array.from(event.target.files);
-            setImg(files);
-            console.log("img")
+        const files = Array.from(event.target.files);
+        setImg(files);
+        console.log("img")
         
     };
 
@@ -241,13 +252,17 @@ export default function Products({onAdd}){
         var colorArr = selectedColors.map(item => item.id)
         var sizeArr = selectedSizes.map(item => item.id)
         
-        //console.log(JSON.stringify(colorArr),JSON.stringify(sizeArr))
         colorArr = JSON.stringify(colorArr);
         sizeArr = JSON.stringify(sizeArr);
 
+        console.log("selectedColors",selectedColors)
+        console.log("selectedSizes",selectedSizes)
+
+        console.log("colors",colors)
+        console.log("sizes",sizes)
         if(!( errors.name || errors.desc || errors.suggestedSalary  || errors.quantity  ||  errors.rate  )){
             var form = new FormData();
-            
+            form.append('id', id);
             form.append('name', name);
             form.append('type_id', selectedType);
             form.append('disc', desc);
@@ -268,12 +283,11 @@ export default function Products({onAdd}){
                     form.append('images_array[]', img);
                   });
             }
-                //form.append('images_array', img);
 
             setLoading(true)
 
             try {
-                const response = axios.post(url+'addProduct',
+                const response = axios.post(url+'editProduct',
                 form,
                 {
                     headers:{
@@ -285,7 +299,8 @@ export default function Products({onAdd}){
                 ).then((response) => {
                     setLoading(false)
                     console.log(response.data)
-                    onAdd(response.data)
+                    props.onChange(response.data.products)
+                    setOpen(false)
                 }).catch((error) => {
                     console.log(error)
                     setLoading(false)
@@ -298,9 +313,34 @@ export default function Products({onAdd}){
     }
 
 
-
-    return(
-        <Row className={'add_product justify-center '+( open ? "close" : " " )}> 
+  return (
+    <React.Fragment>
+        <Loading loading={loading} />
+      <button onClick={()=>handleClickOpen()} className='btn app_button_1' >  { t("emp.change") } </button>
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            
+            <Button autoFocus color="inherit" onClick={handleClose}>
+            { t("emp.cancle") }
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Container>
+        <Row className={' justify-center '}> 
             <Loading loading={loading} />
             <Col lg={3} md={4} sm={6} xs={12} className="add_item">
                 <TextField value={name} onChange={ChangeName} error={errors.name} fullWidth label={ t("emp.p_name") } variant="outlined" />
@@ -329,13 +369,13 @@ export default function Products({onAdd}){
             </Col>
             <Col lg={3} md={4} sm={6} xs={12} >
                 <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
-                    <InputLabel id="demo-simple-select-label">{ t("emp.type") }</InputLabel>
+                    <InputLabel id="demo-simple-select-label">{ t("basket.type") }</InputLabel>
                     <Select
                         error={errors.selectedType}
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={selectedType}
-                        label={ t("emp.type") }
+                        label={ t("basket.type") }
                         onChange={ChangeSelectedType}
                     >
                         {
@@ -355,8 +395,8 @@ export default function Products({onAdd}){
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
-                    value={selectedColors}
-                    onChange={handleChangeSelectedColors}
+                    value={selectedSizes}
+                    onChange={handleChangeSelectedSizes}
                     input={<OutlinedInput id="select-multiple-chip" label={ t("emp.size") } />}
                     renderValue={(selected) => (
                         <Box >
@@ -381,14 +421,15 @@ export default function Products({onAdd}){
             </Col>
             <Col lg={3} md={4} sm={6} xs={12} >
                 <FormControl sx={{ margin: "12px 0px" }} fullWidth>
-                    <InputLabel id="demo-multiple-chip-label">{ t("emp.color") }</InputLabel>
+                    <InputLabel id="demo-multiple-chip-label">{ t("emp.color") } </InputLabel>
                     <Select
+                    
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
-                    value={selectedSizes}
-                    onChange={handleChangeSelectedSizes}
-                    input={<OutlinedInput id="select-multiple-chip" label={ t("emp.color") } />}
+                    value={selectedColors}
+                    onChange={handleChangeSelectedColors}
+                    input={<OutlinedInput id="select-multiple-chip" label={ t("emp.color") }/>}
                     renderValue={(selected) => (
                         <Box >
                         {selected.map((value) => (
@@ -403,37 +444,35 @@ export default function Products({onAdd}){
                         sx={{ color:name.code }}
                         key={name.id}
                         value={name}
-                        style={getStyles(name, selectedSizes, theme)}
+                        style={getStyles(name, selectedColors, theme)}
                         >
-                        {name.name}
+                        {name.name} 
                         </MenuItem>
                     ))}
                     </Select>
                 </FormControl>
             </Col>
-            <Col lg={4} md={6} sm={12} className="add_item">
+            <Col lg={4} md={6} sm={12} className="add_item text-center">
                 <label required multiple  for="img-upload"  className='btn app_button_1  m-1 text-lg' >
                 { t("emp.p_img") } <InsertPhotoRoundedIcon />
                 </label>
                 <input onChange={handleFileChange} accept="image/*" id="img-upload" multiple type="file" />
             </Col>
-            {/* <Col lg={4} md={6} sm={12} className="add_item">
+            {/* <Col lg={4} md={6} sm={12} className="add_item  text-center">
                 <label for="file-upload" className='btn app_button_1  m-1 text-lg' >
                 { t("emp.vid") } <OndemandVideoRoundedIcon />
                 </label>
                 <input accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
             </Col> */}
-            <Col lg={12} sm={12} className="add_item">
-                <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' > { t("emp.save") }</button>
+            <Col lg={12} sm={12} className="add_item text-center">
+                <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' >{ t("emp.save") }</button>
             </Col>
-            <div className={'tuggle_button '+(language==="Ar" ? ("En_tuggle_button") :(" ") )}>
-                <IconButton onClick={()=>tuggle_button()} >
-                    <span>  { t("emp.Add_Product") } </span>
-                    <KeyboardDoubleArrowUpIcon className={ open ? "close_icon " :" " } style={{ fontSize:"30px" }} />
-                </IconButton>
-            </div>
+            
 
             
         </Row>
-    )
+        </Container>
+      </Dialog>
+    </React.Fragment>
+  );
 }
