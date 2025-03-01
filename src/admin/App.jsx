@@ -1,10 +1,18 @@
 import {Outlet } from 'react-router-dom';
 import Navbar from './components/navbar'
 import { useSelector } from 'react-redux';
+import Err401 from '../errors/err401'
+
 
 const Home=()=>{
 
     const language = useSelector((state) => state.language);
+    const acc = useSelector(state => state.account);
+
+    if(acc!=="1")
+        return(
+            <Err401 />
+        )
 
     return(
         <>

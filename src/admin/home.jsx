@@ -21,10 +21,17 @@ import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
 export default function Home(){
 
     const [value, setValue] = React.useState([
-        dayjs('2022-04-17'),
-        dayjs('2022-04-21'),
+        dayjs('2025-04-17'),
+        dayjs('2025-04-21'),
       ]);
-
+      const colors =  [
+        "#ed1c25", // اللون الأول
+        "#ef3e2d", // تدرج بين اللونين
+        "#f05f34", // تدرج بين اللونين
+        "#f2813c", // تدرج بين اللونين
+        "#f4a045", // تدرج بين اللونين
+        "#fdc814"  // اللون الثاني
+    ];
       
     return(
         <Container>
@@ -33,7 +40,7 @@ export default function Home(){
                     <div className="dash_item flex justify-center">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateRangeCalendar']}>
-                                <DateRangeCalendar defaultValue={[dayjs('2022-04-17'), dayjs('2022-04-21')]} />
+                                <DateRangeCalendar  />
                             </DemoContainer>
                         </LocalizationProvider>
                     </div>
@@ -110,7 +117,7 @@ export default function Home(){
                                 ]
                                 }]}
                             
-                            
+                                colors={colors}
                             height={200}
                             />
                     </div>
@@ -130,7 +137,7 @@ export default function Home(){
                                 ]
                                 }]}
                             
-                            
+                                colors={colors}
                             height={200}
                             />
                     </div>
@@ -151,6 +158,7 @@ export default function Home(){
                                 ]
                                 }]}
                             height={200}
+                            colors={colors}
                             />
                     </div>
                 </Col>
@@ -162,7 +170,7 @@ export default function Home(){
                     <Typography> مقارنة قيم الأرباح بين الأشهرالأخيرة الماضية </Typography>
                         <LineChart
                             xAxis={[{ data: ["1","2","3","4","5","6","7"] }]}
-                            colors={["#ed1c25"]}
+                            colors={colors}
                             series={[
                                 {
                                   data: [200,400,900,1100,700,800,1500],

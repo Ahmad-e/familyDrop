@@ -16,7 +16,8 @@ import TextField from '@mui/material/TextField';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../store";
-import URL from '../images/images/test2.jpg'
+import axios from "axios";
+import Loading from '../component/loading'
 
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,26 @@ export default function SportsBasketball(){
     const {addProduct,deleteProduct,deleteFullProduct,clearBasket,ChangeProduct} = modeActions;
 
 
-    //dispatch(clearBasket);
+
+    const token = useSelector(state => state.token); 
+    const [load,setLoad] = React.useState(false);
+    const [rate,setRate] = React.useState(0);
+    React.useEffect(()=>{
+        setLoad(true);
+        axios.get(url+"showSettings",{
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            console.log(res.data);
+            setRate(res.data.settings[0].value)
+            setLoad(false);
+        }).catch(err => {
+            console.log(err);
+            setLoad(false);
+        })
+    },[])
     console.log(basket)
 
     const addToProduct=(data)=>{
@@ -78,6 +98,7 @@ export default function SportsBasketball(){
     
     return(
         <Container>
+            <Loading loading={load} />
             <Row className='mt-3'>
                 <Col lg={9} md={8} sm={12} className='p-3'>
                     <TableContainer 
@@ -94,10 +115,11 @@ export default function SportsBasketball(){
                                 <TableRow>
                                     <TableCell align="center"> { t("basket.delete") } </TableCell>
                                     <TableCell align="center">{ t("basket.p_img") }</TableCell>
+                                    <TableCell align="center"> code </TableCell>
                                     <TableCell align="center">{ t("basket.p_name") }</TableCell>
-                                    <TableCell align="center">{ t("basket.p_desc") }</TableCell>
                                     <TableCell align="center">{ t("basket.min_s") }</TableCell>
                                     <TableCell align="center">{ t("basket.salary") }</TableCell>
+                                    <TableCell align="center">{ t("basket.rate") }</TableCell>
                                     <TableCell align="center">{ t("basket.profits") }</TableCell>
                                     <TableCell align="center">{ t("basket.quan") }</TableCell>
                                     <TableCell align="center">{ t("basket.t_s") }</TableCell>
@@ -117,26 +139,29 @@ export default function SportsBasketball(){
                                         </div>
                                     </TableCell>
                                     <TableCell align="center">
-                                    {row.name}    
+                                      FD_{row.id}    
                                     </TableCell>
                                     <TableCell align="center">
-                                        description
+                                    {row.name}    
                                     </TableCell>
                                     <TableCell align="center">
                                         {( row.cost_price*(row.rate/100) + row.cost_price )}
                                     </TableCell>
+                                    
                                     <TableCell align="center">
                                         <TextField defaultValue={row.price} onChange={(e)=>ChangePriceProduct(row,e.target.value)} error={row.price<( row.cost_price*(row.rate/100) + row.cost_price )} sx={{ width:"100px"  }} type='number' id="outlined-basic" variant="outlined" />  
                                     </TableCell>
-
                                     <TableCell align="center">
-                                        {(row.price - row.cost_price)* row.quantity}
+                                        {rate} % 
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {((row.price - row.cost_price)* row.quantity) * (rate/100) }
                                     </TableCell>
                                     
                                     <TableCell align="center">
                                         <div className='flex'>
                                             <button onClick={()=>dispatch(deleteProduct(row.id))}  className='btn app_button_1 text-xl mx-2'>-</button>
-                                            <TextField value={row.quantity}  disabled sx={{ width:"50px" , textAlign:"center"  }} type='number' id="outlined-basic" variant="outlined" /> 
+                                            <TextField value={row.quantity}  disabled sx={{ width:"63px" , textAlign:"center"  }} type='number' id="outlined-basic" variant="outlined" /> 
                                             <button onClick={()=>addToProduct(row)} className='btn app_button_1 text-lg mx-2'>+</button> 
                                         </div>
 

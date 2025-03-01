@@ -66,6 +66,8 @@ import ReceiveMoney from './merchant/ReceiveMoney';
 import ProductSetting from './employee/productSetting'
 
 
+import Err404 from './errors/err404'
+
 
 function App() {
 
@@ -153,7 +155,9 @@ function App() {
                 
               </Route>
 
-
+              <Route path="products" element={<Products />} />
+              <Route path="productInfo/:id" element={<ProductInfo/>}/>
+              
               <Route path="marketer" element={<MarketerApp />} >
                 <Route path="" element={<MarketerHome />} />
                 <Route path="products" element={<Products />} />
@@ -172,7 +176,7 @@ function App() {
                 <Route path="withdrawOrder" element={<WithdrawOrder />} />
                 <Route path='receiveMoney' element={<ReceiveMoney/>} />
               </Route>
-
+              <Route path="*" element={<Err404 />} />
             </Route>
           </Routes>
           </div>

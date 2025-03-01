@@ -55,17 +55,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -137,6 +126,29 @@ export default function Products(){
     }
 
 
+    const Accept=()=>{
+    
+        setLoading(true);
+        axios.get(url+"acceptPullProductRequest/"+idToCansel,
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+                console.log(response.data)
+                setOpenAcceptDialog(false)
+                window.location.reload();
+                setLoading(false)
+    
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+        }
+
     return(
 
         <Container>
@@ -169,7 +181,7 @@ export default function Products(){
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
+                                            <img src={row.images_array.slice(2, -2)} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
@@ -180,20 +192,20 @@ export default function Products(){
                                     <StyledTableCell align="center"> {row.request_quantity + row.quantity } </StyledTableCell>
                                     <StyledTableCell align="center">
                                         { 
-                                            row.accepted===0 & row.employee_id ===null ? (t("emp.new")) :
+                                            row.accepted===0 & row.employee_id ===null ? (t("emp.new_o")) :
                                             row.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
                                         }
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
+                                        <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}   text={ t("emp.user_data") }/>
                                     </StyledTableCell>
                                     <TableCell align="center">
                                         { 
                                             row.accepted===0 & row.employee_id ===null ? (
                                                 !loading ? (
                                                 <>
-                                                    <Button color="error" onClick={()=>handleClickOpenAcceptDialog(row.id)} variant="outline-success">قبول الطلب</Button>
-                                                    <Button onClick={()=>Cansole(row.id)} variant="outline-secondary" className='btn m-1' > رفض الطلب </Button>
+                                                    <Button color="error" onClick={()=>handleClickOpenAcceptDialog(row.id)} variant="outline-success">{t("emp.acc_o")}</Button>
+                                                    <Button onClick={()=>Cansole(row.id)} variant="outline-secondary" className='btn m-1' >{t("emp.reject")}</Button>
                                                 </>):("")
 
                                             ) :
@@ -215,15 +227,16 @@ export default function Products(){
                 onClose={handleCloseAcceptDialog}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>  تأكيد الطلب  </DialogTitle>
+                <DialogTitle> {t("emp.acc_o")} </DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                    تأكيد الطلب يعني أن المنتج سيتوقف عن العرض للمسوقين و ستلتزم بتسليم المنتجات للتاجر
+                {t("dialog.acc")}
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <MaterialButton color="error" onClick={handleCloseAcceptDialog}> cancele </MaterialButton>
-                <MaterialButton color="error" onClick={()=>Cansole()}> قيول العرض </MaterialButton>
+                <MaterialButton color="error" onClick={()=>handleCloseAcceptDialog()}> {t("emp.cancle")}</MaterialButton>
+                <MaterialButton color="error" onClick={()=>Accept()}> {t("emp.acc_o")} </MaterialButton>
+                
                 
                 </DialogActions>
             </Dialog>

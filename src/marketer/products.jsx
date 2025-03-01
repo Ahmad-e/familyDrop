@@ -396,7 +396,7 @@ export default function Products(){
         <div className='Card_map mt-4' >
             {
               products.map((item)=>{
-                if(item.blocked===0)
+                if(item.blocked===0 )
                 return(
                   <Card
                     id={item.id} 

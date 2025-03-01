@@ -1,5 +1,5 @@
 
-
+import Err401 from '../errors/err401'
 import {Outlet } from 'react-router-dom';
 import Navbar from './components/navbar'
 import { useSelector } from 'react-redux';
@@ -8,7 +8,13 @@ import  './style.css';
 const Home=()=>{
     const language = useSelector((state) => state.language);
 
-    
+    const acc = useSelector(state => state.account);
+
+    if(acc!=="2")
+        return(
+            <Err401 />
+        )
+
     return(
         <>
         <div className='flex'>

@@ -82,10 +82,14 @@
         "t_c_order": "Are you sure you want to cancel your order to withdraw the product?",
         "no": "Cancel",
         "ok": "Confirm",
-        "q_m_p":"The quantity must be more than "
+        "q_m_p":"The quantity must be more than ",
+        "t_q": "Total quantity of products",
+        "t_p": "Total of sales",
+        "t_r_1": "Product addition requests",
+        "t_r_p": "Product withdrawal requests"
     },
     "landing": {
-        "top_1": "Start your e-commerce journey now with Family Drop in 6 countries",
+        "top_1": "Start your e-commerce journey now with Family Drop ",
         "top_2": "We provide all our marketers with comprehensive e-commerce services to meet your ambitions and achieve more revenue",
         "m_th1": "Your e-commerce made easy",
         "m_th2": "Our platform offers innovative solutions suitable for ambitious youth, housewives, employees, entrepreneurs, and university students. It allows you to work from home, balancing family responsibilities while increasing your financial income. It also provides ideal opportunities for professional entrepreneurs to build their online projects without high startup costs. For university students, we offer platforms to build valuable experiences and increase income while studying. Join us and benefit from the flexibility of online work!",
@@ -105,7 +109,19 @@
         "total": "Family Drop platform",
         "w_q": "What we offer you at Family Drop",
         "qs": "Frequently Asked Questions",
-        "h_1": "About the platform"
+        "h_1": "About the platform",
+        "q_1": "Will I need capital to start my business with Makhzen?",
+        "an_1": "You will not need capital as we provide you with products without the need to purchase, store, or ship them.",
+        "q_2": "How do I receive my profits in Makhzen?",
+        "an_2": "Makhzen offers you several different ways to transfer your profits.",
+        "q_3": "Can I market the products while I am outside of Jordan?",
+        "an_3": "Yes, you can! You do not need to be present in the country where you are marketing; you can work from any country.",
+        "q_5": "Is there a minimum limit for withdrawing profits?",
+        "an_5": "There is no minimum limit for withdrawing profits.",
+        "q_4": "When will my profits be transferred?",
+        "an_4": "You can withdraw your profits directly by submitting a request to withdraw your earnings.",
+        "q_6": "Which countries does Makhzen support?",
+        "an_6": "Currently, we provide dropshipping services only in Jordan."
       },
       "orders": {
         "platform":"Platform name ",
@@ -117,7 +133,7 @@
         "o_state": "Order Status",
         "o_p_quantity": "Product Quantity",
         "o_s_price": "Consumer Price",
-        "o_profit": "Your Profit from the Order",
+        "o_profit": " Profit from the order",
         "O_user_name": "Consumer Name",
         "o_user_ph_no": "Consumer Phone Number",
         "o_message": "Messages",
@@ -154,7 +170,8 @@
         "City": "City",
         "Address": "Detailed Address",
         "ok": "Confirm Order",
-        "no": "Cancel"
+        "no": "Cancel",
+        "rate":"Marketer Commission"
     },
     "auth": {
         "email_t": "Email must be valid",
@@ -228,10 +245,24 @@
         "o_monye": "Amount to Withdraw",
         "p_data": "Account Data",
         "state": "",
-        "":""
+        "err404": "No results found",
+        "err401-1": "You cannot access this page ",
+        "err401-2": "You can return to the homepage ",
+        "err401-3": " from this link ",
+        "err401-4": " You need to log in first",
+        "added":"Product added to cart",
+        "no_added":"The required quantities are not available in the warehouses, you must reduce the quantity of the product",
+        "moreInfo":"Show more data",
+        "o_cancel":"cancale",
+        "o_statrt":"start work",
+        "o_end":" end work ",
+        "o_SDel":"Start delivery",
+        "o_done":" Done work",
+        "del_price":"Delivery price"
     },
     "dialog": {
-        "rate": "The profit percentage refers to the portion of the money that will be deducted and given to the marketer after completing the purchase process.<br/> It should be specified carefully."
+        "rate": "The profit percentage refers to the portion of the money that will be deducted and given to the marketer after completing the purchase process,It should be specified carefully.",
+        "acc":"Confirming the order means that the product will stop being offered to marketers and you will be committed to delivering the products to the merchant."
     }
     
 }

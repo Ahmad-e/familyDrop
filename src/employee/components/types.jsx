@@ -232,7 +232,7 @@ export default function Products(props){
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("emp.type") }</StyledTableCell>
                                     <StyledTableCell align="center"> { t("emp.change") } </StyledTableCell>
-                                    <StyledTableCell align="center"> { t("emp.delete") } </StyledTableCell>
+                                    {/* <StyledTableCell align="center"> { t("emp.delete") } </StyledTableCell> */}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -243,9 +243,9 @@ export default function Products(props){
                                     <StyledTableCell align="center">
                                         <button onClick={()=>handleClickOpen(row)} className='btn app_button_1' >  { t("emp.change") } </button>
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
+                                    {/* <StyledTableCell align="center">
                                         <button onClick={()=>handleClickOpenDelete(row)} className='btn app_button_1' >  { t("emp.delete") } </button>
-                                    </StyledTableCell>
+                                    </StyledTableCell> */}
                                 </StyledTableRow>
                             ))}
                             </TableBody>

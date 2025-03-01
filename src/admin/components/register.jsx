@@ -31,6 +31,7 @@ import { BorderAll } from '@mui/icons-material';
 
 export default function Register (){
     const url = useSelector(state=>state.apiURL);
+    const token = useSelector(state=>state.token);
     const [loading, setLoading] = React.useState(false);
 
     const { t } = useTranslation();
@@ -106,11 +107,11 @@ export default function Register (){
     };
 
 
-    const [radioValue, setRadioValue] = React.useState('3');
+    const [radioValue, setRadioValue] = React.useState('2');
 
     const radios = [
-        { name: t("auth.أدمن") , value: '1' },
-        { name: t("auth.موظف") , value: '2' }
+        { name: t("emp.admin") , value: '1' },
+        { name: t("emp.employee") , value: '2' }
     ];
 
     const sendData=()=>{
@@ -133,7 +134,7 @@ export default function Register (){
         setLoading(true)
             console.log(name,password,email,radioValue);
             try {
-                const response = axios.post(url+'register', {
+                const response = axios.post(url+'addEmp', {
                     name:name,
                     email:email,
                     password:password,
@@ -144,6 +145,7 @@ export default function Register (){
                 {
                     headers:{
                         'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer ' +token ,
                         'Accept':"application/json"
                     }
                 }).then((response) => {

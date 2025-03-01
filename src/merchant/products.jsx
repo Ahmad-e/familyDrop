@@ -88,7 +88,7 @@ export default function Products(){
                         sx={{ borderRadius:"20px" , boxShadow:" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"  }} 
                         component={Paper}
                     >
-                        <Table  sx={{ minWidth: 500  }} aria-label="customized table">
+                        <Table  sx={{ minWidth: 650  }} aria-label="customized table">
                             <caption className='text-center'>
                                 <span>{ t("merchant.tt_1") }</span>
                                 <a href='/merchant/orders' className='app-link' > { t("merchant.add_product") } </a>
@@ -96,6 +96,7 @@ export default function Products(){
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
+                                    <StyledTableCell align="center">code</StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("emp.p_desc") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.all_quant") }</StyledTableCell>
@@ -114,6 +115,7 @@ export default function Products(){
                                             <img src={row.images_array[0]} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
+                                    <StyledTableCell align="center">  FD-{row.id}</StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     <StyledTableCell align="center">{row.disc}</StyledTableCell>
                                     <StyledTableCell align="center">{row.quantity + row.sales}</StyledTableCell>

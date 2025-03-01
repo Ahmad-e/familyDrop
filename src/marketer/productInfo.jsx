@@ -8,6 +8,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 import { MenuItem, TextField } from "@mui/material";
 import { use } from "i18next";
 import axios from "axios";
@@ -20,21 +24,21 @@ import { useParams } from "react-router-dom";
 function ProductInfo(){
     const data = {
         "id": 3,
-        "name": "red blue",
-        "disc": "test colors",
+        "name": "",
+        "disc": "",
         "long_disc": null,
         "type_id": 3,
-        "type_name": "Tables",
+        "type_name": "",
         "owner_id": 2,
-        "owner_name": "Admin",
+        "owner_name": "",
         "images_array": [],
-        "cost_price": 100,
-        "selling_price": 140,
-        "quantity": 123,
-        "profit_rate": 20,
+        "cost_price": 0,
+        "selling_price": 0,
+        "quantity": 0,
+        "profit_rate": 0,
         "blocked": 0,
-        "created_at": "2025-02-06T10:05:31.000000Z",
-        "updated_at": "2025-02-06T10:05:31.000000Z",
+        "created_at": "",
+        "updated_at": "",
         "sizes": [
         ],
         "colors": [
@@ -51,12 +55,32 @@ function ProductInfo(){
 
     const [type,setType] = useState(0);
     const [open,setOpen] = useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
     const handleClose = () => {
         setOpen(false);
     };
+
+    ///////////
+    const [openSnackBar, setOpenSnackBar] = React.useState(false);
+  
+    const handleCloseSnackBar = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpenSnackBar(false);
+    };
+    const action = (
+        <React.Fragment >
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleCloseSnackBar}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     const [index, setIndex] = useState(0);
 
@@ -104,9 +128,11 @@ function ProductInfo(){
                 quantity:1
             }
         ))
+        setOpenSnackBar(true);
     }
     return(
         <div className="productInfo my-4 d-flex flex-column align-items-center justify-content-center">
+            <Loading loading={loading}/> 
             <Container className="d-flex flex-column-reverse flex-md-row rounded shadow align-items-center justify-content-between">
                 <div className="w-md-50 w-100 text-md-start text-center">
                     <div className="ps-3">
@@ -127,7 +153,7 @@ function ProductInfo(){
                             label="Sizes"
                             defaultValue=""
                             className='w-50 my-4 text-secondary'
-                            value={type}
+                            value={selectedSize}
                             onChange={(e)=>setSelectedSizes(e.target.value)}
                         >
                         {/* <option disabled value="">Sizes</option> */}
@@ -169,6 +195,13 @@ function ProductInfo(){
                         }
                     </Carousel>
                 </div>
+                <Snackbar
+
+                    open={openSnackBar}
+                    autoHideDuration={4000}
+                    onClose={handleCloseSnackBar}
+                    message= { t("emp.added") }
+                />
                 <Dialog
                     open={open}
                     onClose={handleClose}

@@ -245,7 +245,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseOne"
                         onClick={()=> Open(1)}
                       >
-                        هل سوف احتاج الي راس مال لكي ابدا تجارتي مع مخزون ؟
+                        { t("landing.q_1") }
                       </button>
                     </h2>
                     <div
@@ -253,8 +253,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed1 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        لن تحتاج الي راس مال فنحن نوفر لك المنتجات دون الحاجه
-                        الي شراءها او تخزينها او شحنها
+                      { t("landing.an_1") }
                       </div>
                     </div>
                   </div>
@@ -272,7 +271,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseTwo"
                         onClick={()=> Open(2)}
                       >
-                        كيف استلم ارباحي في مخزون ؟
+                        { t("landing.q_2") }
                       </button>
                     </h2>
                     <div
@@ -280,7 +279,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed2 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        مخزون يوفر لك اكثر من 10 طرق مختلفه لتحويل الارباح
+                      { t("landing.an_2") }
                       </div>
                     </div>
                   </div>
@@ -298,7 +297,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseThree"
                         onClick={()=> Open(3)}
                       >
-                        هل يمكنني التسويق للمنتجات وانا خارج دول الخليج ؟
+                        { t("landing.q_3") }
                       </button>
                     </h2>
                     <div
@@ -306,8 +305,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed3 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        نعم يمكنك ذلك ! لست بحاجه الي التواجد داخل الدوله التي
-                        تسوق فيها يمكنك العمل من اي دوله
+                      { t("landing.an_3") }
                       </div>
                     </div>
                   </div>
@@ -325,7 +323,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseFour"
                         onClick={()=> Open(4)}
                       >
-                        هل يوجد حد ادني لسحب الارباح ؟
+                        { t("landing.q_4") }
                       </button>
                     </h2>
                     <div
@@ -333,7 +331,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed4 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        لا يوجد حد ادني لسحب الارباح
+                      { t("landing.an_4") }
                       </div>
                     </div>
                   </div>
@@ -351,7 +349,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseFive"
                         onClick={()=> Open(5)}
                       >
-                        متي يتم تحويل ارباحي ؟
+                        { t("landing.q_5") }
                       </button>
                     </h2>
                     <div
@@ -359,7 +357,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed5 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        يمكنك سحب ارباحك في خلال 24 ساعة بعد تسليم الطلب
+                      { t("landing.an_5") }
                       </div>
                     </div>
                   </div>
@@ -377,7 +375,7 @@ export default function Home() {
                         aria-controls="panelsStayOpen-collapseSix"
                         onClick={()=> Open(6)}
                       >
-                        ما هي البلاد التي يدعمها مخزون ؟
+                        { t("landing.q_6") }
                       </button>
                     </h2>
                     <div
@@ -385,8 +383,7 @@ export default function Home() {
                       class={`accordion-collapse ${collapsed6 === "collapsed" ? "collapse" : ""}`}
                     >
                       <div class="accordion-body text-secondary">
-                        في الوقت الحالي نوفر خدمة الدروب شيبنج في الامارات
-                        والسعودية والاردن وسلطنة عمان
+                      { t("landing.an_6") }
                       </div>
                     </div>
                   </div>

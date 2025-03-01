@@ -26,7 +26,7 @@ import Loading from '../component/loading'
 
 import { useTranslation } from 'react-i18next';
 import Test from '../marketer/orderMessages'
-
+import Badge from '@mui/material/Badge';
 
 function Row(props) {
   const { t } = useTranslation();
@@ -186,15 +186,18 @@ function Row(props) {
             size="small"
             onClick={() => setOpen(!open)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            <Badge badgeContent={row.tags.length}  color="error">
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </Badge>
+
           </IconButton>
           </TableCell>
           <TableCell align="center" >{row.id}</TableCell>
           <TableCell align="center">
-              <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
+              <UserInfo  text={ t("emp.marketer_data") }  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
           </TableCell>
           <TableCell align="center">
-              <CustomerInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type}  />
+              <CustomerInfo text={ t("emp.consumer_data") }   id={row.user_id} name={row.customer_name} email={row.email} phone_number={row.customer_number} type={row.user_type}  />
           </TableCell>
 
           <TableCell align="center" component="th" scope="row">
@@ -208,18 +211,20 @@ function Row(props) {
           <TableCell align="center">{row.total_profit}</TableCell>
           <TableCell align="center">{row.state_name}</TableCell>
           <TableCell align="center">
+            <Button hidden={row.state_id===6 || row.state_id===5 } onClick={()=>CancleOrder(row.id)} variant="outline-secondary"  className='btn mx-1' > { t("emp.o_cancel") }  </Button>
+          </TableCell>
+          <TableCell align="center">
             {
               row.state_id===1 ? (
-                <>
-                  <Button onClick={()=>CancleOrder(row.id)} variant="outline-secondary"  className='btn mx-1' >  cancale </Button>
-                  <Button onClick={()=>StartWork(row.id)} variant="outline-warning" className='btn mx-1'>start work</Button>
-                </>
-              ): row.state_id===2 ? (<Button onClick={()=>EndWork(row.id)} variant="outline-primary" className='btn mx-1' >  end work </Button>):
-              row.state_id===3 ? (<Button onClick={()=>StartDelivery(row.id)} variant="outline-success" className='btn mx-1'>Start delivery</Button>):
-              row.state_id===4 ? (<Button onClick={()=>Done(row.id)} variant="outline-danger" className='btn mx-1'> Done work </Button>):("")
+                
+                  <Button onClick={()=>StartWork(row.id)} variant="outline-warning" className='btn mx-1'>{ t("emp.o_statrt") }</Button>
+                
+              ): row.state_id===2 ? (<Button onClick={()=>EndWork(row.id)} variant="outline-primary" className='btn mx-1' > { t("emp.o_end") }</Button>):
+              row.state_id===3 ? (<Button onClick={()=>StartDelivery(row.id)} variant="outline-success" className='btn mx-1'>{ t("emp.o_SDel") }</Button>):
+              row.state_id===4 ? (<Button onClick={()=>Done(row.id)} variant="outline-danger" className='btn mx-1'> { t("emp.o_done") } </Button>):("")
 
             }
-          </TableCell>
+          </TableCell> 
         
         
       </TableRow>
@@ -319,7 +324,7 @@ export default function CollapsibleTable() {
             <TableCell align="center">{ t("orders.o_s_price") }</TableCell>
             <TableCell align="center">{ t("orders.o_profit") }</TableCell>
             <TableCell align="center">{ t("orders.o_state") }</TableCell>
-
+            <TableCell align="center"> { t("emp.o_cancel") } </TableCell>
             <TableCell align="center"> { t("emp.opr") } </TableCell>
           </TableRow>
         </TableHead>

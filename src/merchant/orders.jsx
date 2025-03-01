@@ -128,7 +128,7 @@ export default function Products(){
                                     <StyledTableCell align="center">{ t("merchant.salary") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.address") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("merchant.state") } </StyledTableCell>
-                                    <StyledTableCell align="center"> { t("orders.o_cancel") } </StyledTableCell>
+                                    {/* <StyledTableCell align="center"> { t("orders.o_cancel") } </StyledTableCell> */}
                                 </TableRow>
                             </TableHead> 
                             <TableBody>
@@ -150,9 +150,9 @@ export default function Products(){
                                             row.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
                                         } 
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
+                                    {/* <StyledTableCell align="center">
                                         <button hidden={!(row.accepted===0 && row.employee_id===null)} onClick={()=>Cansole(row.id)} className='btn app_button_1 text-lg mx-2' >{ t("orders.o_cancel") }</button>
-                                    </StyledTableCell>
+                                    </StyledTableCell> */}
                                 </StyledTableRow>
                             ))}
                             </TableBody>

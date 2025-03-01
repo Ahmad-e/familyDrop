@@ -10,6 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import PhoneInput from 'react-phone-input-2'
+import Snackbar from '@mui/material/Snackbar';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,6 +20,9 @@ import TextField from '@mui/material/TextField';
 import axios from "axios";
 import Loading from '../component/loading'
 import { useDispatch, useSelector } from 'react-redux';
+import {modeActions} from "../store";
+import Badge from '@mui/material/Badge';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -40,7 +44,8 @@ export default function Products(){
 
     const [loading, setLoading] = React.useState(false);
     const basket = useSelector(state=>state.basket);
-
+    const dispatch = useDispatch();
+    const {clearBasket} = modeActions;
 
     const [allCountry, setAllCountry] = React.useState([]);
     const [allCity, setAlldCity] = React.useState([]);
@@ -66,6 +71,15 @@ export default function Products(){
                 console.log(error);
              });
     }, []);
+
+    const [openSnackBar, setOpenSnackBar] = React.useState(false);
+    const handleCloseSnackBar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenSnackBar(false);
+      };
 
 
     const handleChangeSelectedCountry = (event) => {
@@ -117,14 +131,7 @@ export default function Products(){
         if(selectedAddress===0)
             setErrAddress(true)
 
-        console.log({
-            customer_name:name,
-            addresse_id:selectedAddress,
-            customer_number:phoneNumber,
-            account_name:accName,
-            title:nots,
-            products:basket
-        })
+
         if(name!=="" && selectedAddress!==0 && phoneNumber.length>7){
             try {
                 const response = axios.post(url+'addOrder', {
@@ -134,7 +141,7 @@ export default function Products(){
                     account_name:accName,
                     title:nots,
                     products:basket
-                },
+                }, 
                 {
                     headers:{
                         'Content-Type': 'application/json',
@@ -144,13 +151,15 @@ export default function Products(){
                 }).then((response) => {
                     setLoading(false)
                     if(response.data.status){     
+                        dispatch(clearBasket())
                         window.location.href="orders"
                         
                     }
                     else{
                         console.log(response.data);
                         setErrSever(response.data.message)
-                        
+                        setOpen(false)
+                        setOpenSnackBar(true);
                     }
         
                 }).catch((error) => {
@@ -252,7 +261,16 @@ export default function Products(){
                                     allAddress.map((item)=>{
                                         if(selecCity===0 || selecCity===item.city_id)
                                         return(
-                                            <MenuItem value={item.id}>{item.addresse_name}</MenuItem>
+                                            <MenuItem value={item.id}>
+                                                <p style={{ width:"100%" }} className='flex justify-between' >
+                                                    <p>
+                                                    {item.addresse_name +" - "  }
+                                                    </p>
+                                                    <p className='main_color' >
+                                                        {item.delivery_price+" JOD ," + t("emp.del_price")}
+                                                    </p>
+                                                </p>
+                                            </MenuItem>
                                         )
                                     })
                                 }
@@ -284,6 +302,13 @@ export default function Products(){
                     <button onClick={()=>Send()}  className='btn app_button_1 text-lg mx-2'>{ t("basket.ok") }</button>
                 </DialogActions>
             </Dialog>
+            <Snackbar
+
+            open={openSnackBar}
+            autoHideDuration={4000}
+            onClose={handleCloseSnackBar}
+            message= { t("emp.no_added") }
+            />
         </div>
     )
 }

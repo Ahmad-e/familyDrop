@@ -17,7 +17,8 @@ const ReceiveMoney = () => {
     const url = useSelector(state=>state.apiURL);
     const token = useSelector(state=>state.token);
     const [loading, setLoading] = React.useState(false);
-
+    const [userInfo, setUserInfo] = React.useState({});
+    const [userData,setUserData] = useState([]);
 
 
     const [orders, setOrders] = React.useState([]);
@@ -53,7 +54,6 @@ const ReceiveMoney = () => {
             }
             })
             .then((response) => {
-                console.log(response.data)
                 setMethods(response.data.data)
                 setLoading(false)
     
@@ -61,6 +61,19 @@ const ReceiveMoney = () => {
             .catch((error) =>{ 
                 console.log(error);
                 setLoading(false) });
+
+        axios.get(url+"profile",{
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            console.log(res.data);
+            setUserData(res.data);
+            setUserInfo(res.data.user_info[0]);
+        }).catch(err => {
+            console.log(err);
+        })
   }, []);
 
 
@@ -80,17 +93,17 @@ const ReceiveMoney = () => {
     const handleOk=()=>{
         if(text==="")
             setErrText(true)
-        if(amount<0)
+        if(amount<0 || amount> userInfo.badget)
             setErrAmount(true)
         if(method===0)
             setErrMethod(true)
 
-        if(method!==0 && amount>0 && text.length!==''){
+        if(method!==0 && amount>0 && amount<= userInfo.badget && text.length!==''){
         setLoading(true)
         try {
         const response = axios.post(url+'pullMoneyRequest', {
             payment_way_id:method,
-            payment_data:"test",
+            payment_data:text,
             total:amount
         },
         {
@@ -101,7 +114,12 @@ const ReceiveMoney = () => {
             }
         }).then((response) => {
             setLoading(false)
+            console.log(response.data)
+            
             setData(response.data.pull_requests)
+            window.location.reload()
+            
+
         }).catch((error) => {
             console.log(error)
             setLoading(false)
@@ -111,7 +129,7 @@ const ReceiveMoney = () => {
               throw e;
         }}
     }
-    console.log(token)
+    
 
     return(
         <div className="receiveMoney h-100">
@@ -119,12 +137,12 @@ const ReceiveMoney = () => {
             <Container className="shadow p-0 rounded">
                 <div className="top py-5 shadow rounded flex-column flex-md-row p-4 d-flex align-items-center justify-content-evenly">
                     <div className="p-2">
-                        <h1 className="fs-4">Withdrawal balance</h1>
-                        <p className="fs-5 main_color pt-3">345 JOD</p>
+                        <h1 className="fs-4">{ t("marketer.badget") }</h1>
+                        <p className="fs-5 main_color pt-3">{userInfo.badget} JOD</p>
                     </div>
                     <div className="p-2">
-                        <h1 className="fs-4">Suspended balance</h1>
-                        <p className="fs-5 main_color pt-3">0 JOD</p>
+                        <h1 className="fs-4">{ t("marketer.Ubadget") }</h1>
+                        <p className="fs-5 main_color pt-3">{userData.total_pull_requests} JOD</p>
                     </div>
                 </div> 
                 <Form  className="text-start p-5 d-flex flex-column">
@@ -135,13 +153,13 @@ const ReceiveMoney = () => {
                             error={errMethod}
                             id="outlined-select-currency"
                             select
-                            label="Types"
+                            label={ t("emp.payment_t") }
                             defaultValue=""
                             className='w-100 text-secondary text-start'
                             value={method}
                             onChange={(e)=>setMethod(e.target.value)}
                             >
-                            <option disabled value="">select payment method</option>
+                            <option disabled value="">{ t("emp.payment_t") }</option>
                                 {methods.map((option) => {
                                     if(option.available===1)
                                         return(
@@ -152,7 +170,7 @@ const ReceiveMoney = () => {
                             </TextField>
                         </div>
                         <div className="w-100 w-md-50 p-2">
-                            <TextField error={errText} value={text} onChange={(e)=>setText(e.target.value)}  className='w-100 text-secondary text-start' variant="outlined" label={ t("basket.payment_data") }  />
+                            <TextField error={errText} value={text} onChange={(e)=>setText(e.target.value)}  className='w-100 text-secondary text-start' variant="outlined" label={ t("emp.p_data") } />
                         </div>
                         <div className="w-100 w-md-50 p-2">
                         <TextField
@@ -160,7 +178,7 @@ const ReceiveMoney = () => {
                         type="number"
                         value={amount<0 ? 0 : amount}
                         onChange={(e)=>setAmount(e.target.value)}
-                        label="Amount"
+                        label={ t("emp.o_monye") }
                         id="outlined-start-adornment"
                         className='w-100 w-md-50 '
                         sx={{ width: '25ch' }}

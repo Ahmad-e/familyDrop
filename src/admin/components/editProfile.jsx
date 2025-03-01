@@ -50,7 +50,6 @@ export default function EditProfile (props){
     const [load,setLoad] = React.useState(true);
     const [errPassword, setErrPassword] = React.useState(false);
     
-    console.log(name,email);
 
     React.useEffect(()=>{
         axios.get(url+"showCountries",{
@@ -203,9 +202,9 @@ export default function EditProfile (props){
         </div>
         </DialogContent>
         <DialogActions className={"p-2"}>
-          <Button className="btn app_button_2 ms-2" onClick={handleClose}>cancel</Button>
+          <Button className="btn app_button_2 ms-2" onClick={handleClose}>{ t("emp.cancle") }</Button>
           <Button className="btn app_button_2" onClick={handleOk} autoFocus>
-            Ok
+          { t("emp.save") }
           </Button>
         </DialogActions>
         </Dialog>

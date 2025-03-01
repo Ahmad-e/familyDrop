@@ -9,7 +9,7 @@ import Logo from '../images/images/logo.png';
 import {  useSelector } from 'react-redux';
 import Setting from './setting';
 import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
-
+import Badge from '@mui/material/Badge';
 
 import { useTranslation } from 'react-i18next';
 
@@ -23,6 +23,7 @@ export default function NavBar (){
     var lg="lg"
     var mode=useSelector((state) => state.mode);
     var account=useSelector((state) => state.account);
+    var basket=(useSelector((state) => state.basket)).length;
 
     const darkStyle={
       backgroundColor:"rgb(51, 51, 51)"
@@ -43,7 +44,7 @@ export default function NavBar (){
       return(
         <>
           <Nav.Link className='nav_link' href="/">{ t("header.main") }</Nav.Link>
-          <Nav.Link className='nav_link' href="/marketer/products">{ t("header.products") }</Nav.Link>
+          <Nav.Link className='nav_link' href="/products">{ t("header.products") }</Nav.Link>
           <Nav.Link className='nav_link' href="/about_us">{ t("header.abouteAs") }</Nav.Link>
         </>
       )
@@ -104,7 +105,11 @@ export default function NavBar (){
 
                     <Nav>
                       { account ==='1'  || account==="2" || account ==='3'  || account==="4" ? "" : <Auth_item />  }
-                      <Nav.Link hidden={account!=="4"} style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} /> </Nav.Link>
+                      <Nav.Link hidden={account!=="4"} style={{ padding:"8px" }} className='nav_link order_link '  href="/marketer/basket"> 
+                        <Badge badgeContent={basket} overlap="circular"  color="error">
+                          <LocalGroceryStoreRoundedIcon style={{ fontSize:"30px" }} />
+                        </Badge>
+                      </Nav.Link>
                       <Setting />
                     </Nav>
                     

@@ -114,11 +114,11 @@ export default function AddProductsOrders(){
         setLoading(true);
         axios.get(url+"deleteProductRequest/"+id,
             {
-            headers:{
-                'Content-Type': 'application/json',
-                'Authorization' : 'Bearer ' +token ,
-                'Accept':"application/json"
-            }
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
             })
             .then((response) => {
                 console.log(response.data)
@@ -177,7 +177,7 @@ export default function AddProductsOrders(){
                                         }     
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <UserInfo id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type} />
+                                        <UserInfo id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type} text={ t("emp.user_data") } />
                                     </StyledTableCell>
                                     <TableCell align="center">
                                         { 

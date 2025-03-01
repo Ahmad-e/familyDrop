@@ -76,6 +76,48 @@ export default function WithdrowallMoney(){
               setLoading(false) });
   }, []);
 
+
+  const accept_req=(id)=>{
+    setLoading(true);
+    axios.get(url+"acceptPullMoneyRequest/"+id,
+        {
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' +token ,
+            'Accept':"application/json"
+        }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setData(response.data.pull_requests)
+            setLoading(false)
+
+        })
+        .catch((error) =>{ 
+            console.log(error);
+            setLoading(false) });
+  }
+  const uaAccept_req=(id)=>{
+    setLoading(true);
+    axios.get(url+"deletePullRequest/"+id,
+        {
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' +token ,
+            'Accept':"application/json"
+        }
+        })
+        .then((response) => {
+            console.log(response.data)
+            setData(response.data.pull_requests)
+            setLoading(false)
+
+        })
+        .catch((error) =>{ 
+            console.log(error);
+            setLoading(false) });
+  }
+
     return(
 
         <Container>
@@ -104,7 +146,7 @@ export default function WithdrowallMoney(){
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center"> <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type} text={ t("emp.user_data") } /> </StyledTableCell>
                                     <StyledTableCell align="center"> {row.total} </StyledTableCell>
-                                    <StyledTableCell align="center">  </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.payment_data} </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     <StyledTableCell align="center">
                                         {  
@@ -113,10 +155,10 @@ export default function WithdrowallMoney(){
                                         }     
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <button className='btn app_button_1' >  { t("emp.acc_o") }</button>
+                                        <button hidden={row.employee_id} onClick={()=>accept_req(row.id)} className='btn app_button_1' >  { t("emp.acc_o") }</button>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <button  className='btn app_button_1' > { t("emp.reject") }</button>
+                                        <button hidden={row.employee_id}  onClick={()=>uaAccept_req(row.id)} className='btn app_button_1' > { t("emp.reject") }</button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}

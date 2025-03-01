@@ -4,8 +4,6 @@ import Col from 'react-bootstrap/Col';
 
 import Progress from '../component/progressBar'
 
-import Test from '../images/images/test.jpg';
-
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -14,6 +12,7 @@ import axios from 'axios';
 import Loading from '../component/loading';
 import EditProfile from '../admin/components/editProfile';
 
+import Img from '../component/uploadImg'
 export default function Home(){
 
     const { t } = useTranslation();
@@ -57,15 +56,15 @@ export default function Home(){
                     <div className='profile_content flex justify-around items-center'>
                         <div className='text-3xl '>
                             <p className='fs-3 pb-3 fw-bold'>{ t("marketer.badget") }</p>
-                            {userInfo.badget}
+                            {userInfo.badget} JOD
                         </div>
                         <div className='text-3xl '>
                             <p className='fs-3 pb-3 fw-bold'> { t("marketer.Ubadget") }</p>
-                            {data.total_pull_requests}
+                            {data.total_pull_requests} JOD
 
                         </div>
                         <div>
-                            <Link  style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("marketer.withdraw_money") }</Link>
+                            <Link  to={"receiveMoney"} style={{ height:"100%" }}  className='btn app_button_1 text-lg'>{ t("marketer.withdraw_money") }</Link>
                         </div>
                     </div>
                     <div className='profile_content flex justify-around'>
@@ -109,11 +108,11 @@ export default function Home(){
                 <Col lg={4} md={6} sm={12} >
                         <div className='profile_content'>
                             <div className='flex justify-center'>
-                                <img src={"Test"} className='profile_img' />
+                                <Img img={userInfo.img_url } />
                             </div>
                             <div className='py-1.5'>{userInfo.name}</div>
                             <div className='py-1.5'>{userInfo.email}</div>
-                            <button className='btn app_button_1'onClick={()=>setShow(true)} >Edit</button>
+                            <button className='btn app_button_1'onClick={()=>setShow(true)} >{ t("emp.change") }</button>
                         </div>
                         
                         <div className='profile_content'>

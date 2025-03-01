@@ -130,6 +130,7 @@ export default function Products(){
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
+                                    <StyledTableCell align="center"> Code </StyledTableCell>
                                     <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
                                     <StyledTableCell align="center"> { t("emp.vid") }  </StyledTableCell>
                                     <StyledTableCell align="center">{ t("basket.p_desc") }</StyledTableCell>
@@ -145,13 +146,15 @@ export default function Products(){
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {data.map((row) => (
+                            {data.map((row) => {
+                              return(
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
                                             <img src={row.images_array[0]} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
+                                    <StyledTableCell align="center">FD_{row.id}</StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                                     <StyledTableCell align="center"> link </StyledTableCell>
                                     <StyledTableCell align="center"> {row.disc} </StyledTableCell>
@@ -161,7 +164,7 @@ export default function Products(){
                                     <StyledTableCell align="center">{row.quantity}</StyledTableCell>
                                     <StyledTableCell align="center">{row.sales}</StyledTableCell>
                                     <StyledTableCell align="center">
-                                      <UserInfo  id={row.owner_id} name={row.owner_name} email={row.email} phone_number={row.phone_no} type={row.user_type} text={ t("emp.user_data") } />
+                                      <UserInfo  id={row.owner_id} name={row.owner_name} email={row.owner_email} phone_number={row.owner_phone_no} type={row.owner_type} text={ t("emp.ow_data") } />
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
                                       <DeleteProduct blocked={row.blocked} id={row.id}  onDelete={(e)=>setData(e)}  />
@@ -175,7 +178,7 @@ export default function Products(){
                                       }
                                     </StyledTableCell>
                                 </StyledTableRow>
-                            ))}
+                            )})}
                             </TableBody>
                         </Table>
                     </TableContainer>

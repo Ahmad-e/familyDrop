@@ -76,6 +76,7 @@ const TableShow = (props) => {
                     "country_id": props.country_id
                 } : {
                     "name": name,
+                    "delivery_price":11,
                     "city_id": props.city_id
                 },{
                     headers: {
@@ -193,7 +194,7 @@ const TableShow = (props) => {
           sx={{ width: '25ch' }}
           slotProps={{
             input: {
-                startAdornment: <InputAdornment position="start">C</InputAdornment>,
+                startAdornment: <InputAdornment position="start">JOD</InputAdornment>,
             },
           }}
         />}

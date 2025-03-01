@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import NoImg from '../images/images/no_img.png';
 import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded';
 import OndemandVideoRoundedIcon from '@mui/icons-material/OndemandVideoRounded';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
@@ -145,7 +146,7 @@ export default function Products(){
                                     <StyledTableCell align="center">{ t("auth.email") }</StyledTableCell>
                                     
                                     <StyledTableCell align="center"> { t("auth.phone_number") } </StyledTableCell>
-                                    <StyledTableCell align="center"> { t("auth.type") } </StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.type") } </StyledTableCell>
                                     <StyledTableCell align="center"> { t("auth.block") } </StyledTableCell>
                                     <StyledTableCell align="center"> { t("basket.change") } </StyledTableCell>
                                 </TableRow>
@@ -155,8 +156,8 @@ export default function Products(){
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={URL} className='product_img' />
-                                        </div>    
+                                            <img  src={row.img_url !== null ? (row.img_url):(NoImg)} className='product_img' />
+                                        </div>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.id}</StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>
@@ -164,10 +165,10 @@ export default function Products(){
                                     <StyledTableCell align="center"> {row.phone_no} </StyledTableCell>
                                     <StyledTableCell align="center">
                                         {
-                                          row.type_id===1 ? (t("basket.admin")):
-                                          row.type_id===2 ? (t("basket.employee")):
-                                          row.type_id===4 ? (t("basket.marketer")):
-                                          (t("basket.merchant"))
+                                          row.type_id===1 ? (t("emp.admin")):
+                                          row.type_id===2 ? (t("emp.employee")):
+                                          row.type_id===4 ? (t("emp.marketer")):
+                                          (t("emp.merchant"))
 
                                         } 
                                     </StyledTableCell>

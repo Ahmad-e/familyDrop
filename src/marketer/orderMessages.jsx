@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import axios from "axios";
+import NoImg from '../images/images/no_img.png';
 import Loading from '../component/loading'
 
 
@@ -75,11 +76,11 @@ export default function Chat(props){
                             <div className="row message sended">
                                 {item.text}
                                 <p className='text-start text-slate-400' >
-                                {item.date}
+                                {item.created_at}
                                 </p>
                             </div>
                             <div>
-                                <img className='msg_user_img ' src={"Test"} />
+                                <img className='msg_user_img ' src={item.img_url !== null ? (item.img_url):(NoImg)} />
                             </div>
                         </div>
                     )
@@ -87,7 +88,7 @@ export default function Chat(props){
                     return(
                         <div className='sender_mes'>
                             <div>
-                                <img className='msg_user_img ' src={"Test"} />
+                                <img className='msg_user_img ' src={item.img_url !== null ? (item.img_url):(NoImg)} />
                             </div>
                             <div className="row message received" >
                                 <a className='text-start text-slate-400' >
@@ -95,7 +96,7 @@ export default function Chat(props){
                                 </a>
                                 {item.text}
                                 <p className='text-start text-slate-400' >
-                                {item.date}
+                                {item.created_at}
                                 </p>
 
                             </div>

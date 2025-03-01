@@ -268,7 +268,6 @@ export default function Products({onAdd}){
                     form.append('images_array[]', img);
                   });
             }
-                //form.append('images_array', img);
 
             setLoading(true)
 
