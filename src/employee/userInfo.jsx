@@ -5,6 +5,7 @@ import Loading from "../component/loading";
 import { useParams } from "react-router-dom";
 import { Button, Container, Table } from "react-bootstrap";
 import Progress from "../component/progressBar";
+import { t } from "i18next";
 
 const UserInfo = () => {
     const [data,setData] = useState([]);
@@ -38,27 +39,26 @@ const UserInfo = () => {
             <Container className="shadow p-0 rounded">
                 <div className="top shadow px-5  rounded">
                     <div className="d-flex py-5 align-items-center rounded flex-column flex-md-row">
-                        <img width={"100px"} style={{borderRadius: "50%"}} src={""} alt=""/>
-                        <div className="ms-4 text-md-start">
+                        <img width={"150px"} style={{borderRadius: "50%"}} src={info.img_url ? info.img_url : require("../images/images/no_img.png")} alt=""/>
+                        <div className="ms-4">
                             <div className="fs-4">{info.name}</div>
                             <div className="text-secondary">{info.email}</div>
                             <div> {info.type}</div>
                         </div>
                     </div>
-                    <div className="border-top py-3 text-start">
-                        <span className="ms-5">From <span className="main_color">{info.country}</span></span>
-                        <span className="ms-5 d-block d-md-inline">To Communication <span className="main_color">{info.phone_no}</span></span>
+                    <div className="border-top py-3">
+                        <span className="ms-5">{t("userInfo.from")} : <span className="main_color">{info.country}</span></span>
+                        <span className="ms-5 d-block d-md-inline">{t("userInfo.to_com")} : <span className="main_color">{info.phone_no}</span></span>
                     </div>
                 </div> 
                 <div className="p-3">
                 {info.type === "Marketer" &&
                 <div> 
-                    <h1 className="fs-2 my-3 fw-bold main_color">All Requests</h1>
                 <Table striped bordered hover>
                 <tbody>
                     <tr>
                         <td className="text-center w-50">
-                            {info.type === "Marketer" ? "All Orders" : ""}
+                            {info.type === "Marketer" ? t("userInfo.all_ord") : ""}
                         </td>
                         <td className="w-25">
                             {data.all_orders}
@@ -66,15 +66,23 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Total pull request
+                            {t("userInfo.badget")}
                         </td>
                         <td className="w-25">
-                            {data.total_pull_requests}
+                            {info.badget} JOD
                         </td>
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Pull Requests
+                            {t("userInfo.t_p_r")}
+                        </td>
+                        <td className="w-25">
+                            {data.total_pull_requests} JOD
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="text-center w-50">
+                            {t("userInfo.p_r")}
                         </td>
                         <td className="w-25">
                             {!load && data.pull_requests.length}
@@ -82,7 +90,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Cancelled Orders
+                            {t("userInfo.c_o")}
                         </td>
                         <td className="w-25">
                         {!load && <Progress value={data.cancelled_orders.slice(0,-1)}/>}
@@ -90,7 +98,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Ended Orders
+                            {t("userInfo.e_o")}
                         </td>
                         <td className="w-25">
                            {!load && <Progress value={data.ended_orders.slice(0,-1)}/>}
@@ -98,7 +106,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Finished Orders
+                            {t("userInfo.f_o")}
                         </td>
                         <td className="w-25">
                             {!load && <Progress value={data.finished_orders.slice(0,-1)}/>}
@@ -106,7 +114,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            New Orders
+                        {t("userInfo.n_o")}
                         </td>
                         <td className="w-25">
                             {!load && <Progress value={data.new_orders.slice(0,-1)}/>}
@@ -114,7 +122,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            On Working Orders
+                            {t("userInfo.o_w_o")}
                         </td>
                         <td className="w-25">
                             {!load && <Progress value={data.on_working_orders.slice(0,-1)}/>}
@@ -122,7 +130,7 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Under delivery Orders
+                            {t("userInfo.u_d_o")}
                         </td>
                         <td className="w-25">
                             {!load && <Progress value={data.under_delivery_orders.slice(0,-1)}/>}
@@ -133,12 +141,11 @@ const UserInfo = () => {
             </div>}
             {info.type === "Mercher" &&
             <div> 
-                <h1 className="fs-2 my-3 fw-bold main_color">All Products</h1>
                 <Table striped bordered hover>
                 <tbody>
                     <tr>
                         <td className="text-center w-50">
-                            All Products
+                            {t("userInfo.all_pro")}
                         </td>
                         <td className="w-25">
                             {data.all_products}
@@ -146,7 +153,23 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Total Products quantity
+                            {t("userInfo.badget")}
+                        </td>
+                        <td className="w-25">
+                            {info.badget} JOD
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="text-center w-50">
+                            {t("userInfo.t_p_r")}
+                        </td>
+                        <td className="w-25">
+                            {data.total_pull_requests} JOD
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="text-center w-50">
+                            {t("userInfo.t_p_q")}
                         </td>
                         <td className="w-25">
                             {data.total_products_quantity}
@@ -154,10 +177,10 @@ const UserInfo = () => {
                     </tr>
                     <tr>
                         <td className="text-center w-50">
-                            Products
+                            {t("userInfo.products")}
                         </td>
                         <td className="w-25">
-                            {data.products.map((el,key) => <div> {key+1}-{el.name} </div> )}
+                            {data.products.map((el,key) => <div> -{el.name} </div> )}
                         </td>
                     </tr>
                 </tbody>

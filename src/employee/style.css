@@ -110,6 +110,9 @@
 /* dash bord end */
 
 /* locations */
+.locations{
+    min-height: 100vh;
+}
 .locations .nav-link {
     color: inherit;
 }

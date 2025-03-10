@@ -6,9 +6,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 
 
 export default function ProductCard(props) {
+      const { t } = useTranslation();
+    
     return (
     <Card className='m-2' >
         <CardContent>
@@ -27,11 +31,11 @@ export default function ProductCard(props) {
         <CardContent>
         <Typography className='d-flex justify-content-between mb-1' gutterBottom variant="h5" component="div">
             <div>
-                <p className='text-secondary'>cost price</p>
+                <p className='text-secondary'>{ t("card.cost_price") }</p>
                 <span>{props.cost_price} JOD</span>
             </div>
             <div>
-                <p className='text-secondary'>selling price</p>
+                <p className='text-secondary'>{ t("card.selling_price") }</p>
                 <span>{props.selling_price} JOD</span>
             </div>
         </Typography>
@@ -40,12 +44,12 @@ export default function ProductCard(props) {
         </Typography>
         </CardContent>
         
-        {/* <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link' size="small">
-            More details 
+        {/* <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link m-auto' size="small">
+        { t("card.m_d") }
         </button> */}
         <CardContent>
             <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn mb-1  mt-1 app_button_2'>
-                <LocalGroceryStoreRoundedIcon/> Add to cart
+                <LocalGroceryStoreRoundedIcon/> { t("card.a_c") }
             </button>
         </CardContent>
     </Card>

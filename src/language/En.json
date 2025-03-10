@@ -263,6 +263,55 @@
     "dialog": {
         "rate": "The profit percentage refers to the portion of the money that will be deducted and given to the marketer after completing the purchase process,It should be specified carefully.",
         "acc":"Confirming the order means that the product will stop being offered to marketers and you will be committed to delivering the products to the merchant."
+    },
+    "card":{
+        "cost_price":"cose prise",
+        "selling_price":"selling price",
+        "a_c":"add to card",
+        "m_d":"More details"
+    },
+    "productInfo":{
+        "colors":"Colors",
+        "disc":"Discription",
+        "sizes":"Sizes",
+        "search": "Search",
+        "s_t" : "Select type",
+        "max_p": "Max Price",
+        "min_p": "Min Price"
+    },
+    "userInfo":{
+        "from": "From",
+        "to_com": "To Communication",
+        "all_req": "All Requests",
+        "all_ord": "All Orders",
+        "badget": "Badget",
+        "t_p_r": "Total pull request",
+        "p_r": "Pull request",
+        "c_o": "Cancelled order",
+        "e_o": "Ended orders",
+        "f_o": "Finished orders",
+        "n_o": "New orders",
+        "o_w_o": "On working orders",
+        "u_d_o": "Under dilevery orders",
+        "all_pro": "All Products",
+        "t_p_q": "Total products quantity",
+        "products": "Products"
+    },
+    "locations": {
+        "coun": "Countries",
+        "cit": "Citties",
+        "add": "Addresses",
+        "edit": "Edit",
+        "block": "Block",
+        "unBlock": "Un block",
+        "new": "New",
+        "ok": "Ok",
+        "cancel": "Cancel",
+        "cost": "Cost",
+        "name": "Name",
+        "enter": "Enter the information",
+        "action": "Action",
+        "n_f": "Not found"
     }
     
 }

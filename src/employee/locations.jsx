@@ -13,13 +13,13 @@ function JustifiedExample() {
     <div className='locations'>
         <Nav justify className='m-5' variant="tabs" defaultActiveKey="link-0">
             <Nav.Item>
-                <Nav.Link onClick={()=> nav("countries")} eventKey="link-0">Countries</Nav.Link>
+                <Nav.Link onClick={()=> nav("countries")} eventKey="link-0">{t("locations.coun")}</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link onClick={()=> nav("cities")} eventKey="link-1">Cities</Nav.Link>
+                <Nav.Link onClick={()=> nav("cities")} eventKey="link-1">{t("locations.cit")}</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link onClick={()=> nav("addresses")} eventKey="link-2">Addresses</Nav.Link>
+                <Nav.Link onClick={()=> nav("addresses")} eventKey="link-2">{t("locations.add")}</Nav.Link>
             </Nav.Item>
         </Nav>
         <div>

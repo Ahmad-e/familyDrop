@@ -388,7 +388,7 @@ export default function Products(){
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <SearchIcon style={{ margin :"7px" }} />
           </IconButton>
-          <IconButton onClick={handleClickOpen} type="button" sx={{ padding: '10px 0px' }} aria-label="search">
+          <IconButton onClick={handleClickOpen} type="button" sx={{ padding: '10px 0px' }} aria-label={t("productInfo.search")}>
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <TuneRoundedIcon  style={{ margin :"7px" }}  />
           </IconButton>
@@ -426,13 +426,13 @@ export default function Products(){
             <TextField
           id="outlined-select-currency"
           select
-          label="Select the type"
+          label={t("productInfo.s_t")}
           defaultValue=""
           className='w-100 mt-4 text-secondary'
           value={type}
             onChange={(e)=>setType(e.target.value)}
           >
-          <option disabled value="">Select Type</option>
+          <option disabled value="">{t("productInfo.s_t")}</option>
           {types.map((option,key) => (
             <MenuItem key={key} value={option.name}>
               {option.name}
@@ -448,7 +448,7 @@ export default function Products(){
             id="min"
             value={min}
             onChange={e => setMin(e.target.value)}
-            label="Min Price"
+            label={t("productInfo.min_p")}
             type="number"
             variant="standard"
             />
@@ -459,7 +459,7 @@ export default function Products(){
             id="max"
             value={max}
             onChange={e => setMax(e.target.value)}
-            label="Max Price"
+            label={t("productInfo.max_p")}
             type="number"
             variant="standard"
             />

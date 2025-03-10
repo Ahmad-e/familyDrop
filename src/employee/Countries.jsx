@@ -3,13 +3,15 @@ import TableShow from "../component/TableShow";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loading from "../component/loading";
+import { useTranslation } from 'react-i18next';
 
 const Countries = () => {
     const url = useSelector(state => state.apiURL);
     const token = useSelector(state => state.token);
     const [countries,setCountries] = useState([]);
     const [refresh,setRefresh] = useState(true);
-    const [load,setLoad] = useState(true)
+    const [load,setLoad] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(()=>{
         axios.get(url+"showCountries",{
@@ -27,10 +29,10 @@ const Countries = () => {
     },[refresh])
 
     return(
-        <div className="vw-100 vh-100">
+        <div>
             <Loading loading={load}/>
             <div className="m-5">
-                <TableShow page="cities" refresh={setRefresh} add={"addCountry"} delete={"deleteCountry/"} edit={"editCountry"} header="Countries" arr={countries}/>
+                <TableShow page="cities" refresh={setRefresh} add={"addCountry"} delete={"deleteCountry/"} edit={"editCountry"} header={t("locations.coun")} arr={countries}/>
             </div>
         </div>
     )

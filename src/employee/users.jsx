@@ -153,7 +153,7 @@ export default function Products(){
                             </TableHead>
                             <TableBody>
                             {data.map((row) => (
-                                <StyledTableRow key={row.id}>
+                                <StyledTableRow key={row.id} onClick={()=>{window.location.pathname=`/admin/userInfo/${row.id}`}}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
                                             <img  src={row.img_url !== null ? (row.img_url):(NoImg)} className='product_img' />
