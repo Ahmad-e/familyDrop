@@ -9,35 +9,23 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import NoImg from '../images/images/no_img.png';
-import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded';
-import OndemandVideoRoundedIcon from '@mui/icons-material/OndemandVideoRounded';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import { IconButton } from '@mui/material';
 
-import URL from '../images/images/test.jpg'
+import EditProfile from '../admin/components/adminEdirUser'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import { MenuItem } from "@mui/material";
 
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import axios from "axios";
 import Loading from '../component/loading'
 import Register from '../admin/components/register'
 import { useSelector } from 'react-redux';
-
-
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -63,22 +51,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function Products(){
     const { t } = useTranslation();
-    const language = useSelector((state) => state.language);
+
     const url = useSelector(state=>state.apiURL);
     const token = useSelector(state=>state.token);
-    const [open, setOpen] = React.useState(false);
+
     const [loading, setLoading] = React.useState(false);
-
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-
 
     const [data, setData] = React.useState([]);
     React.useEffect(() => {
@@ -102,6 +79,25 @@ export default function Products(){
               setLoading(false) });
   }, []);
 
+  const [Countries,setCountries] = React.useState([]);
+      React.useEffect(()=>{
+        setLoading(true);
+        axios.get(url+"showCountries",{
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        }).then(res => {
+            setCountries(res.data.data);
+
+            setLoading(false);
+            console.log(res)
+        }).catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+    },[])
+
   const blockUser=(id)=>{
     setLoading(true);
       axios.get(url+"blockUser/"+id,
@@ -122,13 +118,35 @@ export default function Products(){
               console.log(error);
               setLoading(false) });
   }
-
+  const [fillterType, setFillterType]=React.useState(0);
 
     return(
 
-        <Container>
+          <Container>
+            <Row className='flex justify-center'> 
+                <Col className='my-4' lg={3} md={4} sm={6}>
+                  <FormControl fullWidth  className='auth_item' dir='ltr' >
+                      <InputLabel id="demo-simple-select-label">{ t("orders.o_state") }</InputLabel>
+                      <Select
+                      
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={fillterType}
+                          label={ t("orders.o_state") }
+                          onChange={(e)=>setFillterType(e.target.value)}
+                      >
+                        <MenuItem value={0}> All data </MenuItem>
+                        <MenuItem value={1}>{ t("emp.admin") } </MenuItem>
+                        <MenuItem value={2}> { t("emp.employee") } </MenuItem>
+                        <MenuItem value={3}>{ t("emp.merchant") } </MenuItem>
+                        <MenuItem value={4}> { t("emp.marketer") }</MenuItem>
+                      </Select>
+                  </FormControl>
+                </Col>
+              </Row>
             <Row className='flex justify-center'> 
             <Loading loading={loading} />
+
                 <Col lg={4} md={5} sm={12}>
                     <Register />
                 </Col>
@@ -152,8 +170,9 @@ export default function Products(){
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {data.map((row) => (
-                                <StyledTableRow key={row.id}>
+                            {data.map((row) => {
+                              if( fillterType===0 || fillterType===parseInt(row.type_id) )
+                                return(<StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
                                             <img  src={row.img_url !== null ? (row.img_url):(NoImg)} className='product_img' />
@@ -176,35 +195,16 @@ export default function Products(){
                                         <button onClick={()=>blockUser(row.id)} className='btn app_button_1' > { row.blocked===0 ? (t("auth.block")) : (t("emp.Unblock")) } </button>
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                    <button onClick={()=>handleClickOpen()} className='btn app_button_1' >  { t("basket.change") } </button>
+                                      
+                                      <EditProfile info={row} countries={Countries}  />
                                     </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
+                                </StyledTableRow>)
+                            })}
                             </TableBody>
                         </Table>
                     </TableContainer>
                 </Col>
             </Row>
-            <Dialog
-              open={open}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle> {t("emp.change")}  </DialogTitle>
-              <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    
-                  
-                  </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>{t("emp.cancle")}</Button>
-                <Button   >{t("emp.change")}</Button>
-              </DialogActions>
-              
-            </Dialog>
         </Container>
     )
 }

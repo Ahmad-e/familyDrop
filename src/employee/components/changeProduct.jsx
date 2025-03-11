@@ -69,7 +69,6 @@ export default function FullScreenDialog( props ) {
     const handleClickOpen = () => {
         setOpen(true);
         setId(props.product.id)
-        console.log(props.product)
         setName(props.product.name)
         setDesc(props.product.disc)
         setLongDesc(props.product.long_disc)
@@ -118,7 +117,7 @@ export default function FullScreenDialog( props ) {
     const [selectedColors, setSelectedColors] = React.useState([]);
   
     const handleChangeSelectedColors = (event) => {
-        console.log(event)
+      
       const {
         target: { value },
       } = event;
@@ -207,15 +206,43 @@ export default function FullScreenDialog( props ) {
 
     const [img, setImg]=React.useState(null);
     
-    const handleFileChange = (event) => {
+    const handleFileChangeToChange = (event) => {
         const files = Array.from(event.target.files);
         setImg(files);
-        console.log("img")
-        
+        console.log(files)
     };
 
-    const [video, setVideo]=React.useState(null);
+    const [video, setVideo]=React.useState("");
+    const handleVideoChange = (event) => {  
+        const files = (event.target.files[0]);
 
+        var form = new FormData();
+        form.append('file',files );
+        setLoading(true)
+
+        try {
+            const response = axios.post(url+'uploadVideo',
+            form,
+            {
+                headers:{
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+            }
+            ).then((response) => {
+                setLoading(false)
+                setVideo(response.data.url)
+                console.log(response.data)
+                
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false)
+            });
+        } catch (e) {
+            throw e;
+        }
+};
 
     // console.log(token)
 
@@ -255,11 +282,12 @@ export default function FullScreenDialog( props ) {
         colorArr = JSON.stringify(colorArr);
         sizeArr = JSON.stringify(sizeArr);
 
-        console.log("selectedColors",selectedColors)
-        console.log("selectedSizes",selectedSizes)
+        // console.log("selectedColors",selectedColors)
+        // console.log("selectedSizes",selectedSizes)
 
-        console.log("colors",colors)
-        console.log("sizes",sizes)
+        // console.log("colors",colors)
+        // console.log("sizes",sizes)
+
         if(!( errors.name || errors.desc || errors.suggestedSalary  || errors.quantity  ||  errors.rate  )){
             var form = new FormData();
             form.append('id', id);
@@ -282,7 +310,11 @@ export default function FullScreenDialog( props ) {
                 [...img].forEach((img) => {
                     form.append('images_array[]', img);
                   });
+                  console.log("img changed")
             }
+
+            if(video!=="")
+                form.append('video_url', video);
 
             setLoading(true)
 
@@ -452,18 +484,18 @@ export default function FullScreenDialog( props ) {
                     </Select>
                 </FormControl>
             </Col>
-            <Col lg={4} md={6} sm={12} className="add_item text-center">
-                <label required multiple  for="img-upload"  className='btn app_button_1  m-1 text-lg' >
+            <Col lg={4} md={6} sm={12} className="add_item">
+                <label required multiple  for="img-upload-change"  className='btn app_button_1  m-1 text-lg' >
                 { t("emp.p_img") } <InsertPhotoRoundedIcon />
                 </label>
-                <input onChange={handleFileChange} accept="image/*" id="img-upload" multiple type="file" />
+                <input onChange={handleFileChangeToChange} accept="image/*" id="img-upload-change" multiple type="file" />
             </Col>
-            {/* <Col lg={4} md={6} sm={12} className="add_item  text-center">
+            <Col lg={4} md={6} sm={12} className="add_item  text-center">
                 <label for="file-upload" className='btn app_button_1  m-1 text-lg' >
                 { t("emp.vid") } <OndemandVideoRoundedIcon />
                 </label>
-                <input accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
-            </Col> */}
+                <input onChange={handleVideoChange} accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
+            </Col>
             <Col lg={12} sm={12} className="add_item text-center">
                 <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' >{ t("emp.save") }</button>
             </Col>

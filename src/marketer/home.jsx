@@ -68,7 +68,13 @@ export default function Home(){
                         </div>
                     </div>
                     <div className='profile_content flex justify-around'>
-                        <Col>
+                        <Col style={{
+                            alignItems: "center",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignContent: "spaceAround",
+                            flexWrap: "nowrap"}}
+                            >
                             <div >
                                 <div className='py-4 text-2xl'>
                                     { t("marketer.all_order") }
@@ -115,12 +121,12 @@ export default function Home(){
                             <button className='btn app_button_1'onClick={()=>setShow(true)} >{ t("emp.change") }</button>
                         </div>
                         
-                        <div className='profile_content'>
+                        {/* <div className='profile_content'>
                             <div className='py-1.5'>{ t("marketer.v_acc_text") }</div>
                             <div className='py-1.5 text-lg'> 
                             <button className='btn app_button_1' > { t("marketer.Verify_your_account") } </button>
                             </div>
-                        </div>
+                        </div> */}
                 </Col>
             </Row>
             <EditProfile show={show} info={userInfo} setShow={setShow}/>

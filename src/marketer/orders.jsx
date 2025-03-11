@@ -23,12 +23,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import { useTheme } from '@mui/material/styles';
 
-
-import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded';
-import OndemandVideoRoundedIcon from '@mui/icons-material/OndemandVideoRounded';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { IconButton } from '@mui/material';
 import OrderData from './orderDate';
 
@@ -56,10 +51,12 @@ function Row(props) {
         <TableCell align="center">{row.customer_name}</TableCell>
         <TableCell align="center">{row.account_name}</TableCell>
         <TableCell align="center">{ row.country +"-"+ row.city +"-"+row.addresse }</TableCell>
-
+        <TableCell align="center">{row.delivery_price}</TableCell>
         <TableCell align="center">{row.total_quantity}</TableCell>
         <TableCell align="center">{row.total_price}</TableCell>
         <TableCell align="center">{row.total_profit}</TableCell>
+        <TableCell align="center">{row.title}</TableCell>
+        
         <TableCell align="center">{row.state_name}</TableCell>
         <TableCell align="center">
             <button onClick={()=>handleClickOpen(row)} className='btn app_button_1 text-lg'>{ t("orders.o_pr") }</button>    
@@ -139,9 +136,11 @@ export default function CollapsibleTable() {
                             <TableCell align="center">{ t("orders.platform") }</TableCell>
                             <TableCell align="center">{ t("orders.O_user_name") }</TableCell>
                             <TableCell align="center">{ t("orders.o_address") }</TableCell>
+                            <TableCell align="center">{ t("emp.del_price") }</TableCell>
                             <TableCell align="center">{ t("orders.o_p_quantity") }</TableCell>
                             <TableCell align="center">{ t("orders.o_s_price") }</TableCell>
                             <TableCell align="center">{ t("orders.o_profit") }</TableCell>
+                            <TableCell align="center">{ t("emp.title") }</TableCell>
                             <TableCell align="center">{ t("orders.o_state") }</TableCell>
                             <TableCell align="center">{ t("orders.o_pr") }</TableCell>
                         </TableRow>

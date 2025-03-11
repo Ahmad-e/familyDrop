@@ -23,7 +23,7 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useTranslation } from 'react-i18next';
 
 import TotalCard from '../component/totalCard'
-
+import Err from '../errors/err404_basket'
 
 export default function SportsBasketball(){
     
@@ -94,6 +94,10 @@ export default function SportsBasketball(){
         }
         
     }
+
+    if(basket.length===0)
+        return(<Err/>)
+
 
     
     return(
@@ -169,9 +173,6 @@ export default function SportsBasketball(){
                                     <TableCell align="center">
                                         {row.quantity * row.price}
                                     </TableCell>
-
-                                    
-                                    
                                 </TableRow>
                             ))}
                             </TableBody>

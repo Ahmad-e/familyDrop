@@ -21,6 +21,8 @@
         "orders":"Orders",
         "locations":"Locations",
         "users":"Users",
+        "setting":"Setting",
+        "productSetting":"Product prosperity ",
         "addproductorder":"Add product order",
         "WithdrawalOrder":"Withdrawal order",
         "WithdrawalMonyOrder": "Withdrawal money "
@@ -250,6 +252,7 @@
         "err401-2": "You can return to the homepage ",
         "err401-3": " from this link ",
         "err401-4": " You need to log in first",
+        "err401-4-basket":" You have to fill the basket with products first, you can view our products",
         "added":"Product added to cart",
         "no_added":"The required quantities are not available in the warehouses, you must reduce the quantity of the product",
         "moreInfo":"Show more data",
@@ -258,11 +261,41 @@
         "o_end":" end work ",
         "o_SDel":"Start delivery",
         "o_done":" Done work",
-        "del_price":"Delivery price"
+        "del_price":"Delivery price",
+        "date":"Date",
+        "title":"Marketer's Notes",
+        "print":" Print order "
     },
     "dialog": {
         "rate": "The profit percentage refers to the portion of the money that will be deducted and given to the marketer after completing the purchase process,It should be specified carefully.",
         "acc":"Confirming the order means that the product will stop being offered to marketers and you will be committed to delivering the products to the merchant."
+    },
+    "admin":{
+        "TOTAL_MARKETERS":"NEW_MARKETERS",
+        "TOTAL_MERCHANT":"NEW_MERCHANTS",
+        "TOTAL_PROFITS":"TOTAL_PROFITS",
+        "TOTAL_ORDERS":"TOTAL_ORDERS",
+        "NEW_ORDERS":"NEW_ORDERS",
+        "CANCELED_ORDERS":"CANCELED_ORDERS",
+        "WORKING_ORDERS":"WORKING_ORDERS",
+        "BEST_MARKETERS":"BEST_MARKETERS",
+        "BEST_MERCHANT":"BEST_MERCHANT",
+        "BEST_PRODUCTS":"BEST_PRODUCTS",
+        "end":"COMPARISON OF PROFIT VALUES BETWEEN THE LAST FEW MONTHS"
+    },
+
+    "about": {
+        "header_1": "Family Drop is a drop shipping platform that allows individuals or companies to sell products without the need to store or manage them directly. Instead, the seller lists the suppliers' products on their website, and when customers make a purchase, the order is sent directly to the customer.",
+        "header_2": "You can work with our platform as a product owner, and we will take care of selling the product at the price you set, or as a product marketer earning a commission from the orders.",
+        "mar_1": "Join us as a product marketer",
+        "mar_2": "You will only market the products available on Family Drop and then sell them to consumers, and we will take care of delivering them to the consumer. After completing the purchase, you will receive a percentage of the profits.",
+        "mar_3": "You will only bring the orders to us, and we will take care of the rest until you receive your profits.",
+        "mer_1": "Join us as a product merchant",
+        "mer_2": "If you have goods and wish to showcase them on our platform, you can log in as a merchant and add your products at the price you set.",
+        "mer_3": "We will take care of selling the product and delivering it to consumers, and after completing any purchase, you will receive your profits directly.",
+        "mer_4": "At any moment, you can request a withdrawal of products, and you will be able to withdraw the rest of your unsold products easily and securely and receive the profits from the sold products.",
+        "end": "Family Drop is an innovative business model that provides an opportunity for individuals to start their own businesses without needing a large investment. However, success in it requires good planning and continuous research for opportunities and challenges. If you are looking for a way to enter the world of e-commerce, Family Drop may be the ideal choice for you."
     }
+    
     
 }

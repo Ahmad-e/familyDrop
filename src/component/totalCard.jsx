@@ -173,6 +173,14 @@ export default function Products(){
         }
     }
 
+    function Total(){
+        var t=0;
+        basket.map((item)=>{
+            t=t+(item.quantity * item.price)
+        })
+        return t;
+    }
+
 
     return(
         <div className='total_card'>
@@ -189,6 +197,10 @@ export default function Products(){
                         )
                     })
                 }
+                <div className="flex justify-between total_card_item font-bold"> 
+                    <span  > { t("basket.t_s") } : </span> 
+                    <span>  { Total()} </span>   
+                </div>
                 <div className="flex justify-center mt-3 font-bold">
                     <button onClick={handleClickOpen}  className='btn app_button_2 text-lg '>  { t("basket.Add_order") } </button> 
                 </div>
@@ -217,6 +229,7 @@ export default function Products(){
                             >
                                 {
                                     allCountry.map((item)=>{
+                                        if(item.id===1)
                                         return(
                                             <MenuItem value={item.id}>{item.name}</MenuItem>
                                         )

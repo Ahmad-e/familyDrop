@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 
 export default function ProductCard(props) {
+    const { t } = useTranslation();
     return (
     <Card className='m-2' >
         <CardContent>
@@ -27,11 +29,11 @@ export default function ProductCard(props) {
         <CardContent>
         <Typography className='d-flex justify-content-between mb-1' gutterBottom variant="h5" component="div">
             <div>
-                <p className='text-secondary'>cost price</p>
+                <p className='text-secondary'>{ t("emp.c_price") } </p>
                 <span>{props.cost_price} JOD</span>
             </div>
             <div>
-                <p className='text-secondary'>selling price</p>
+                <p className='text-secondary'>{ t("emp.salling") }</p>
                 <span>{props.selling_price} JOD</span>
             </div>
         </Typography>

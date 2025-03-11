@@ -45,7 +45,7 @@ import AdminEmployee from './admin/employees';
 import AdminLocations from './employee/locations';
 import AdminSetting from './admin/setting'
 
-
+import Test from './employee/test'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -111,6 +111,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="login" element={<Signin />} />
               <Route path="register" element={<Register />} />
+              <Route path="test2" element={<Test />} />
 
               <Route path="about_us" element={<AboutUs />} />
               
@@ -135,8 +136,7 @@ function App() {
 
               
               <Route path="employee" element={<EmployeeApp />} >
-
-                <Route path="" element={<EmployeeHome />} />
+                <Route path="" element={<EmployeeOrder />} />
                 <Route path="products" element={<EmployeeProducts />} />
                 <Route path="orders" element={<EmployeeOrder />} />
                 <Route path="locations" element={<EmployeeLocations />} >

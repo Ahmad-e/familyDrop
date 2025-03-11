@@ -202,9 +202,38 @@ export default function Products({onAdd}){
             console.log("img")
         
     };
+    
+    const [video, setVideo]=React.useState('');
+    const handleVideoChange = (event) => {  
+        const files = (event.target.files[0]);
 
-    const [video, setVideo]=React.useState(null);
+        var form = new FormData();
+        form.append('file',files );
+        setLoading(true)
 
+        try {
+            const response = axios.post(url+'uploadVideo',
+            form,
+            {
+                headers:{
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+            }
+            ).then((response) => {
+                setLoading(false)
+                setVideo(response.data.url)
+                console.log(response.data)
+                
+            }).catch((error) => {
+                console.log(error)
+                setLoading(false)
+            });
+        } catch (e) {
+            throw e;
+        }
+};
 
     // console.log(token)
 
@@ -268,6 +297,8 @@ export default function Products({onAdd}){
                     form.append('images_array[]', img);
                   });
             }
+            if(video!=="")
+                form.append('video_url', video);
 
             setLoading(true)
 
@@ -284,6 +315,7 @@ export default function Products({onAdd}){
                 ).then((response) => {
                     setLoading(false)
                     console.log(response.data)
+                    setOpen(false)
                     onAdd(response.data)
                 }).catch((error) => {
                     console.log(error)
@@ -416,12 +448,12 @@ export default function Products({onAdd}){
                 </label>
                 <input onChange={handleFileChange} accept="image/*" id="img-upload" multiple type="file" />
             </Col>
-            {/* <Col lg={4} md={6} sm={12} className="add_item">
+            <Col lg={4} md={6} sm={12} className="add_item">
                 <label for="file-upload" className='btn app_button_1  m-1 text-lg' >
                 { t("emp.vid") } <OndemandVideoRoundedIcon />
                 </label>
-                <input accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
-            </Col> */}
+                <input onChange={handleVideoChange} accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
+            </Col>
             <Col lg={12} sm={12} className="add_item">
                 <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' > { t("emp.save") }</button>
             </Col>

@@ -51,7 +51,7 @@ export default function CustomizedTables(props) {
                         </caption> */}
                         <TableHead>
                             <TableRow>
-                            <StyledTableCell align="center">id</StyledTableCell>
+                            <StyledTableCell align="center">code</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.color") }</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.size") }</StyledTableCell>
@@ -63,7 +63,7 @@ export default function CustomizedTables(props) {
                         <TableBody>
                           {props.product.map((row) => (
                               <StyledTableRow key={row.id}>
-                                <StyledTableCell align="center">{row.product_id}</StyledTableCell>
+                                <StyledTableCell align="center">FD_{row.product_id}</StyledTableCell>
                                 <StyledTableCell align="center">{row.product_name}</StyledTableCell>
                                 <StyledTableCell style={{ backgroundColor:row.code}} align="center">{row.color}</StyledTableCell>
                                 <StyledTableCell align="center">{row.size}</StyledTableCell>

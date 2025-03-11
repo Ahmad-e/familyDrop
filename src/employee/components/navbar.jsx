@@ -31,7 +31,7 @@ export default function Products(){
             </div>
 
             <div onClick={()=>window.location.href="/employee"} className="nav_item">
-                <HomeRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
+                <ViewListRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.Dashboard") } </span>
             </div>
             <div onClick={()=>window.location.href="/employee/products"} className="nav_item">
@@ -42,10 +42,10 @@ export default function Products(){
                 <ColorLensIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.productSetting") } </span>
             </div>
-            <div onClick={()=>window.location.href="/employee/orders"} className="nav_item">
+            {/* <div onClick={()=>window.location.href="/employee/orders"} className="nav_item">
                 <ViewListRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />
                 <span hidden={!open} > { t("navBar.orders") } </span>
-            </div>
+            </div> */}
 
             <div onClick={()=>window.location.href="/employee/users"} className="nav_item">
                 <GroupRoundedIcon style={{ fontSize:"28px", margin:"0px 12px" }} />

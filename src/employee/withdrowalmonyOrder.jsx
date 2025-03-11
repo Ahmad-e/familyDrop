@@ -133,6 +133,7 @@ export default function WithdrowallMoney(){
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell align="center">{ t("emp.user_data") }</StyledTableCell>
+                                    <StyledTableCell align="center"> { t("emp.date") }</StyledTableCell>
                                     <StyledTableCell align="center"> { t("emp.o_monye") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("emp.p_data") }</StyledTableCell>
                                     <StyledTableCell align="center">{ t("emp.payment_t") }</StyledTableCell>
@@ -145,6 +146,7 @@ export default function WithdrowallMoney(){
                             {data.map((row) => (
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center"> <UserInfo  id={row.user_id} name={row.user_name} email={row.email} phone_number={row.phone_no} type={row.user_type} text={ t("emp.user_data") } /> </StyledTableCell>
+                                    <StyledTableCell align="center"> {row.created_at} </StyledTableCell>
                                     <StyledTableCell align="center"> {row.total} </StyledTableCell>
                                     <StyledTableCell align="center"> {row.payment_data} </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>

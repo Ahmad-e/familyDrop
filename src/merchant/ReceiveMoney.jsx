@@ -129,6 +129,27 @@ const ReceiveMoney = () => {
               throw e;
         }}
     }
+
+    const uaAccept_req=(id)=>{
+        setLoading(true);
+        axios.get(url+"deletePullRequest/"+id,
+            {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer ' +token ,
+                'Accept':"application/json"
+            }
+            })
+            .then((response) => {
+               window.location.reload()
+                setData(response.data.pull_requests)
+                setLoading(false)
+    
+            })
+            .catch((error) =>{ 
+                console.log(error);
+                setLoading(false) });
+      }
     
 
     return(
@@ -200,19 +221,25 @@ const ReceiveMoney = () => {
                     {
                         data.map((item)=>{
                             return(
-                                <div className="money-plus d-flex align-items-center">
-                                    <div className="main_color p-5 money">+ {item.total} JOD</div>
-                                    <div className="info text-start ps-3">
-                                        <h1>سحب من المحفظة</h1>
-                                        <div className="date py-2">
-                                            <span>Anable Withdraw from : <span>{item.created_at}</span></span><br/>
-                                            <span>payment way : <span>{item.name}</span></span><br/>
-                                            <span>state : { 
-                                            item.accepted===0 & item.employee_id ===null ? ("قيد المراجعة") :
-                                            item.accepted===1 ? ("تمت الموافقة"):(" طلب مرفوض ")
-                                            }</span><br/>
+                                <div className="money-plus d-flex align-items-center justify-between">
+                                    <div className="flex" > 
+                                        <div className="main_color p-5 money">+ {item.total} JOD</div>
+                                        <div style={{ textAlign:"start" }} className="info ps-3">
+                                            <div className="date py-2">
+                                                <span>{ t("emp.date") } : <span>{item.created_at}</span></span><br/>
+                                                <span>{ t("emp.payment_t") } : <span>{item.name}</span></span><br/>
+                                                <span>{ t("emp.o_state") } : 
+                                                {  
+                                                    item.accepted===0 & item.employee_id ===null ? (t("emp.new_o")) :
+                                                    item.accepted===1 ? (t("emp.ok_o")):(t("emp.reject_o"))
+                                                }
+                                                </span><br/>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className="p-5">
+                                        <button hidden={item.employee_id} onClick={()=>uaAccept_req(item.id)} className='btn app_button_1' > { t("emp.reject") }</button>
+                                    </div>    
                                 </div>
                             )
                         })
