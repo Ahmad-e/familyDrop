@@ -119,3 +119,6 @@
 {
     display: none;
 }
+.tableShow{
+   height: fit-content;
+}

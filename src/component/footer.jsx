@@ -1,8 +1,29 @@
+import { useEffect, useState } from 'react';
 import Logo from '../images/images/logo.png';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import Loading from './loading';
 
 export default function Footer (){
+
+    const url = useSelector(state => state.apiURL);
+    const [links,setLinks] = useState([]);
+    const [load,setLoad] = useState(true);
+
+    useEffect(()=>{
+        axios.get(url+"showLinks").then(res => {
+            console.log(res);
+            setLinks(res.data.data);
+            setLoad(false)
+        }).catch(err => {
+            console.log(err);
+            setLoad(false)
+        })
+    },[]);
+
     return(
         <footer class="footer">
+            <Loading loading={load}/>
             <div class="footer-top">
                 <div class="container">
                 <div class="row">
@@ -25,30 +46,13 @@ export default function Footer (){
                         <div class="single-footer f-link">
                             <h3>روابط سريعة</h3>
                             <ul>
-                            <li>
-                                <a
-                                href="https://www.familydroop.com/ar/customer/loginRegister"
-                                >الرئيسية</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                href="https://www.familydroop.com/ar/customer/loginRegister"
-                                >المتجر</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                href="https://www.familydroop.com/ar/customer/loginRegister"
-                                >ملفي</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                href="https://www.familydroop.com/ar/customer/loginRegister"
-                                >مدونة</a
-                                >
-                            </li>
+                            {
+                                links.map((el,key) =>
+                                    <li>
+                                        <a href={el.value}>{el.name}</a>
+                                    </li>
+                                )
+                            }
                             </ul>
                         </div>
                         </div>
