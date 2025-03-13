@@ -123,6 +123,8 @@ function App() {
                 <Route path="locations" element={<AdminLocations />}>
                   <Route path="countries" element={<AdminCountries/>}/>
                   <Route path="Cities" element={<AdminCities/>}/>
+                  <Route path="cities/:id" element={<EmployeeCities/>}/>
+                  <Route path="addresses/:id" element={<EmployeeAddresses/>}/>
                   <Route path="addresses" element={<AdminAddresses/>}/>
                 </Route>
                 <Route path="add_product_order" element={<EmployeeA_P_Order />} />

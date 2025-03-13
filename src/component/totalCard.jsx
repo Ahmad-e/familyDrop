@@ -118,7 +118,18 @@ export default function Products(){
     
 
     const handleClickOpen = () => {
-      setOpen(true);
+        var errOnSalary=false
+        
+        for(var i=0 ; i<basket.length ; i++ )
+            if(basket[i].price<( basket[i].cost_price*(basket[i].rate/100) + basket[i].cost_price )){
+                errOnSalary = true;
+                setErrSever("Prices are not fixed")
+                setOpenSnackBar(true)
+                return ;
+            }
+
+        if(!errOnSalary)
+            setOpen(true);
     };
   
     const handleClose = () => {
@@ -132,6 +143,16 @@ export default function Products(){
             setErrAddress(true)
 
 
+        console.log(
+            {
+                customer_name:name,
+                addresse_id:selectedAddress,
+                customer_number:phoneNumber,
+                account_name:accName,
+                title:nots,
+                products:basket
+            }
+        )
         if(name!=="" && selectedAddress!==0 && phoneNumber.length>7){
             try {
                 const response = axios.post(url+'addOrder', {
@@ -157,7 +178,7 @@ export default function Products(){
                     }
                     else{
                         console.log(response.data);
-                        setErrSever(response.data.message)
+                        setErrSever( t("emp.no_added") )
                         setOpen(false)
                         setOpenSnackBar(true);
                     }
@@ -294,7 +315,7 @@ export default function Products(){
                         { t("basket.cus_info_input") }
                         </div>
                         <TextField style={{ margin:"12px", width:"300px" }} variant="outlined" helperText={ t("auth.name_t") } error={errName} onChange={changeName} value={name}  label={ t("auth.name") }  />
-                        <TextField style={{ margin:"12px", width:"300px" }} variant="outlined" helperText={ t("auth.The platform or store you used to sell the order") } error={errAccName} onChange={changeAccName} value={accName}  label={ t("auth.Your online platform") }  />
+                        <TextField style={{ margin:"12px", width:"300px" }} variant="outlined" helperText={ t("marketer.platform_") } error={errAccName} onChange={changeAccName} value={accName}  label={ t("orders.platform") }  />
                         <div style={{ marginTop:"12px", width:"300px" }} className='auth_item' dir='ltr' >
                             <PhoneInput
                                 onlyCountries={["jo"]}
@@ -320,7 +341,7 @@ export default function Products(){
             open={openSnackBar}
             autoHideDuration={4000}
             onClose={handleCloseSnackBar}
-            message= { t("emp.no_added") }
+            message= {errServer}
             />
         </div>
     )

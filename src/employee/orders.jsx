@@ -227,17 +227,17 @@ function Row(props) {
           <TableCell align="center">{row.state_name}</TableCell>
           
           <TableCell align="center">
-            <Button hidden={row.state_id===6 || row.state_id===5 } onClick={()=>CancleOrder(row.id)} variant="outline-secondary"  className='btn mx-1' > { t("emp.o_cancel") }  </Button>
+            <Button hidden={row.state_id===6 || row.state_id===5 } onClick={()=>CancleOrder(row.id)} variant="outline-secondary"  className='btn' > { t("emp.o_cancel") }  </Button>
           </TableCell>
           <TableCell align="center">
             {
               row.state_id===1 ? (
                 
-                  <Button onClick={()=>StartWork(row.id)} variant="outline-warning" className='btn mx-1'>{ t("emp.o_statrt") }</Button>
+                  <Button onClick={()=>StartWork(row.id)} variant="outline-warning" className='btn '>{ t("emp.o_statrt") }</Button>
                 
-              ): row.state_id===2 ? (<Button onClick={()=>EndWork(row.id)} variant="outline-primary" className='btn mx-1' > { t("emp.o_end") }</Button>):
-              row.state_id===3 ? (<Button onClick={()=>StartDelivery(row.id)} variant="outline-success" className='btn mx-1'>{ t("emp.o_SDel") }</Button>):
-              row.state_id===4 ? (<Button onClick={()=>Done(row.id)} variant="outline-danger" className='btn mx-1'> { t("emp.o_done") } </Button>):("")
+              ): row.state_id===2 ? (<Button onClick={()=>EndWork(row.id)} variant="outline-primary" className='btn ' > { t("emp.o_end") }</Button>):
+              row.state_id===3 ? (<Button onClick={()=>StartDelivery(row.id)} variant="outline-success" className='btn '>{ t("emp.o_SDel") }</Button>):
+              row.state_id===4 ? (<Button onClick={()=>Done(row.id)} variant="outline-danger" className='btn '> { t("emp.o_done") } </Button>):("")
 
             }
           </TableCell> 
@@ -271,15 +271,15 @@ function Row(props) {
                     <TableRow key={historyRow.date}>
                       <TableCell align="center">
                         <div className='flex justify-center'>
-                            <img onClick={()=>console.log(historyRow.images_array.slice(2, -2))} src={historyRow.images_array.slice(2, -2)} className='product_img' />
-                        </div>    
+                            <img src={historyRow.images_array[0]} className='product_img' />
+                        </div>
                       </TableCell>
                       <TableCell align="center"> FD_{historyRow.product_id}</TableCell>
                       <TableCell align="center">{historyRow.product_name}</TableCell>
                       <TableCell style={{ backgroundColor:historyRow.code}} align="center">{historyRow.color}</TableCell>
                       <TableCell align="center">{historyRow.size}</TableCell>
                       <TableCell align="center">{historyRow.quantity}</TableCell>
-                      <TableCell align="center">{historyRow.selling_price}</TableCell>
+                      <TableCell align="center">{historyRow.selling_price + historyRow.delivery_price}</TableCell>
                       
                       <TableCell align="center">{historyRow.cost_price}</TableCell>
                     </TableRow>

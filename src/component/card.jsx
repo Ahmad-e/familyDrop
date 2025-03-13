@@ -1,15 +1,16 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import LocalGroceryStoreRoundedIcon from '@mui/icons-material/LocalGroceryStoreRounded';
-import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
+
 export default function ProductCard(props) {
+
     const { t } = useTranslation();
     return (
     <Card className='m-2' >
@@ -42,12 +43,12 @@ export default function ProductCard(props) {
         </Typography>
         </CardContent>
         
-        {/* <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link' size="small">
-            More details 
+        {/* <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn nav_link nav-link m-auto' size="small">
+        { t("card.m_d") }
         </button> */}
         <CardContent>
             <button onClick={()=>window.location.href=`/marketer/productInfo/${props.id}`} className='btn mb-1  mt-1 app_button_2'>
-                <LocalGroceryStoreRoundedIcon/> Add to cart
+                <LocalGroceryStoreRoundedIcon/> { t("card.a_c") }
             </button>
         </CardContent>
     </Card>

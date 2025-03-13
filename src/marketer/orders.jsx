@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import Badge from '@mui/material/Badge';
 
 import axios from "axios";
 import Loading from '../component/loading'
@@ -58,8 +58,12 @@ function Row(props) {
         <TableCell align="center">{row.title}</TableCell>
         
         <TableCell align="center">{row.state_name}</TableCell>
-        <TableCell align="center">
+        <TableCell align="center"> 
+          <Badge badgeContent={row.tags.length}  color="error">
             <button onClick={()=>handleClickOpen(row)} className='btn app_button_1 text-lg'>{ t("orders.o_pr") }</button>    
+          
+          </Badge>
+            
         </TableCell>
         <Dialog
           fullScreen

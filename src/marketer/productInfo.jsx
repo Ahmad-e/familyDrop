@@ -139,18 +139,18 @@ function ProductInfo(){
                         <h1 className="my-4 productName">{pData.name}</h1>
                         <span className="text-secondary mt-2 d-lg-block pb-4 mb-4 border-bottom">{pData.type_name}</span> 
                         <div>
-                            <span className='text-secondary'>Total price : </span>
+                            <span className='text-secondary'>{t("card.cost_price")} : </span>
                             <span className="ps-2 price position-relative">{pData.cost_price} <span className="text-secondary">JOD</span></span>
                         </div>
                         <div className="pt-2 mb-3">
-                            <span className='text-secondary'>Suggestion price : </span>
+                            <span className='text-secondary'>{t("card.selling_price")} : </span>
                             <span className="ps-2 price position-relative">{pData.selling_price} <span className="text-secondary align-self-start">JOD</span></span>
                         </div>
-                        <div className="sizes">
+                        <div className="sizes" hidden={pData.sizes.length===0}>
                         <TextField
                             id="outlined-select-currency"
                             select
-                            label="Sizes"
+                            label={t("productInfo.sizes")}
                             defaultValue=""
                             className='w-50 my-4 text-secondary'
                             value={selectedSize}
@@ -164,8 +164,8 @@ function ProductInfo(){
                         ))}
                         </TextField>
                         </div>
-                        <div className="sizes">
-                            <h3 className="text-secondary">Colors :</h3>
+                        <div hidden={pData.colors.length===0} className="sizes">
+                            <h3 className="text-secondary">{t("productInfo.colors")} :</h3>
                             {
                                 pData.colors.map((item)=>{
                                     return(
@@ -177,12 +177,15 @@ function ProductInfo(){
                         <div>
                         </div>
                         <div className="discription mt-4">
-                            <h4 className="text-secondary">Description</h4>
+                            <h4 className="text-secondary">{t("productInfo.disc")}</h4>
                             {pData.long_disc} 
                         </div>
-                        <button onClick={()=>addToCard()} className="btn app_button_2 w-100 mt-5" size="small"><LocalGroceryStoreRoundedIcon/> Add to cart</button>
-                        {/* <button onClick={handleClickOpen} className="m-auto d-block video py-3"><span className="main_color">Click here</span> to show video</button> */}
-                    </div>
+                        <button onClick={()=>addToCard()} className="btn app_button_2 w-100 my-5" size="small"><LocalGroceryStoreRoundedIcon/>{t("card.a_c")}</button>
+                        <div hidden={!pData.video_url}>
+                        <button onClick={()=>setOpen(true)} className="m-auto d-block video pb-5"><span >{t("marketer.vid_show")}</span> <span className="main_color">{t("emp.err401-3")}</span></button>
+
+                        </div>
+                      </div>
                 </div>
                 <div className="w-md-50 w-100 p-2 d-flex align-items-center justify-content-center">
                     <Carousel activeIndex={index} onSelect={handleSelect}>
@@ -212,7 +215,7 @@ function ProductInfo(){
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            <video src={require("../images/images/1 Introduction To React With Redux [تعلم ال redux] [شرح redux toolkit] [شرح redux](720P_HD).mp4")} controls />
+                            <video src={pData.video_url} controls />
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

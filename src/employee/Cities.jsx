@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loading from "../component/loading";
+import { useTranslation } from 'react-i18next';
 
 const Cities = () => {
     const [cities,setCities] = useState([]);
@@ -11,6 +12,7 @@ const Cities = () => {
     const token = useSelector(state => state.token);
     const [load,setLoad] = useState(true);
     const [refresh,setRefresh] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(()=>{
         axios.get(url+"showCities",{
@@ -33,8 +35,8 @@ const Cities = () => {
             <Loading loading={load}/>
             <div className="m-5">
             {id ? 
-                <TableShow page="addresses" refresh={setRefresh} country_id={id} add={"addCity"} delete={"deleteCity/"} edit={"editCity"} header="Cities" arr={cities.filter(el => el.country_id.toString() === id)}/> : 
-                <TableShow page="addresses" refresh={setRefresh} delete={"deleteCity/"} edit={"editCity"} header={"All Cities"} arr={cities}/>
+                <TableShow page="addresses" refresh={setRefresh} country_id={id} add={"addCity"} delete={"deleteCity/"} edit={"editCity"} header={t("locations.cit")} arr={cities.filter(el => el.country_id.toString() === id)}/> : 
+                <TableShow page="addresses" refresh={setRefresh} delete={"deleteCity/"} edit={"editCity"} header={t("locations.cit")}  arr={cities}/>
             } 
         </div>
         </>

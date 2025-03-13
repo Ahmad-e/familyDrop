@@ -34,6 +34,8 @@ export default function SportsBasketball(){
     const {addProduct,deleteProduct,deleteFullProduct,clearBasket,ChangeProduct} = modeActions;
 
 
+    
+    const [errorSalary,setErrorSalary] = React.useState(false);
 
     const token = useSelector(state => state.token); 
     const [load,setLoad] = React.useState(false);
@@ -75,6 +77,13 @@ export default function SportsBasketball(){
     }
 
     const ChangePriceProduct=(data,price)=>{
+        
+        console.log(data,price)
+        if( parseInt(price) <( data.cost_price*(data.rate/100) + data.cost_price ))
+            setErrorSalary(true)
+        else
+            setErrorSalary(false)
+
         if(price>0){
             var n_product = 
             {

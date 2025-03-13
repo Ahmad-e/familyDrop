@@ -114,6 +114,13 @@ function App( data ) {
                   <TableCell style={{ color:"black" }} align="center">{ t("orders.O_user_name") }</TableCell>
                   <TableCell style={{ color:"black" }} align="center">{props.customer_name}</TableCell>
                 </TableRow>
+
+                <TableRow >
+                  <TableCell style={{ color:"black" }} align="center">{ t("auth.phone_number") }</TableCell>
+                  <TableCell style={{ color:"black" }} align="center">{props.phone_no}</TableCell>
+                </TableRow>
+
+
                 <TableRow >
                   <TableCell style={{ color:"black" }} align="center">{ t("orders.platform") }</TableCell>
                   <TableCell style={{ color:"black" }} align="center">{ props.account_name}</TableCell>
@@ -132,7 +139,7 @@ function App( data ) {
                 </TableRow>
                 <TableRow >
                   <TableCell style={{ color:"black" }} align="center">{ t("orders.o_s_price") }</TableCell>
-                  <TableCell style={{ color:"black" }} align="center">{props.total_profit} JOD </TableCell>
+                  <TableCell style={{ color:"black" }} align="center">{props.total_price + props.delivery_price} JOD </TableCell>
                 </TableRow>
 
             </TableBody>
@@ -152,7 +159,7 @@ function App( data ) {
                     <TableCell style={{ color:"black" }} align="center">{ t("orders.size") }</TableCell>
                     <TableCell style={{ color:"black" }} align="center">{ t("orders.p_quantity") }</TableCell>
                     <TableCell style={{ color:"black" }} align="center">{ t("orders.p_salling") }</TableCell>
-                    <TableCell style={{ color:"black" }} align="center"> { t("orders.p_source") } </TableCell>
+                    {/* <TableCell style={{ color:"black" }} align="center"> { t("orders.p_source") } </TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -170,7 +177,7 @@ function App( data ) {
                       <TableCell style={{ color:"black" }} align="center">{historyRow.quantity}</TableCell>
                       <TableCell style={{ color:"black" }} align="center">{historyRow.selling_price}</TableCell>
                       
-                      <TableCell style={{ color:"black" }} align="center">{historyRow.cost_price}</TableCell>
+                      {/* <TableCell style={{ color:"black" }} align="center">{historyRow.cost_price}</TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>

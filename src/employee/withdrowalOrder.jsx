@@ -181,7 +181,7 @@ export default function Products(){
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img src={row.images_array.slice(2, -2)} className='product_img' />
+                                            <img src={row.images_array[0]} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>

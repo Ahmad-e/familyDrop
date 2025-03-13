@@ -12,6 +12,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loading from "./loading";
+import { useTranslation } from 'react-i18next';
+
 
 const TableShow = (props) => {
     const [open,setOpen] = useState(false);
@@ -23,6 +25,9 @@ const TableShow = (props) => {
     const [parentId,setParentId] = useState("");
     const url = useSelector(state => state.apiURL);
     const token = useSelector(state => state.token);
+    const { t } = useTranslation();
+    const account = useSelector(state => state.account);
+    console.log(account);
 
     const nav = useNavigate();
     function handleClose() {
@@ -46,7 +51,8 @@ const TableShow = (props) => {
                         {
                             "id":editId,
                             "name": name,
-                            "city_id":parentId
+                            "city_id":parentId,
+                            delivery_price: cost
                         }
                 ,{
                     headers: {
@@ -76,7 +82,7 @@ const TableShow = (props) => {
                     "country_id": props.country_id
                 } : {
                     "name": name,
-                    "delivery_price":11,
+                    "delivery_price":cost,
                     "city_id": props.city_id
                 },{
                     headers: {
@@ -96,9 +102,9 @@ const TableShow = (props) => {
                 })
         }
     }
-    const handleDelete = (id) => {
+    const handleBlock = (id) => {
         setLoad(true);
-        axios.get(url+props.delete+id,{
+        axios.get(url+"blockAddresse/"+id,{
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token
@@ -113,32 +119,32 @@ const TableShow = (props) => {
         })
     }
     return(
-        <>
+        <div className="tableShow">
             <Loading loading={load}/>
             <Table striped bordered hover>
                 {props.header === "" ? "" :
                 <thead>
                     <tr>
                         <th className="main_color">{props.header}</th>
-                        {!props.page && <th className="main_color">Cost</th>}
-                        <th className="main_color">Action</th>
+                        {!props.page && <th className="main_color">{t("locations.cost")}</th>}
+                        <th className="main_color">{t("locations.action")}</th>
                     </tr>
                 </thead>}
                 <tbody>
-                    {props.arr.length === 0 ? <tr><td colSpan={12}>{load ? "Loading..." : "Not Found"}</td></tr> :
+                    {props.arr.length === 0 ? <tr><td colSpan={12}>{load ? "Loading..." : t("locations.n_f")}</td></tr> :
                     props.arr.map((el,key)=>
                     <tr key={key}>
-                        <td onClick={()=> props.page ? nav(`/employee/locations/${props.page}/${el.id}`):""} className="text-center w-50">
-                            {props.header === "Addresses" ? el.addresse_name : el.name}
+                        <td onClick={()=> props.page ? account === "1" ? nav(`/admin/locations/${props.page}/${el.id}`):nav(`/employee/locations/${props.page}/${el.id}`): ""} className="text-center w-50">
+                            {props.header === "Addresses" || props.header === "المدن" ? el.addresse_name : el.name}
                         </td>
                         {!props.page && <td className="w-25">
-                            {el.delivery_price === null ? "Not Found" : el.delivery_price + "JOD"}
+                            {el.delivery_price === null ? t("locations.n_f"): el.delivery_price + "JOD"}
                         </td>}
                         <td className={`${props.page ? "w-50" : "w-25"}`}>
                             <button className="btn me-2 app_button_1" onClick={()=> 
                                 {
                                     if(!props.page){
-                                        setCost(el.cost);
+                                        setCost(el.delivery_price);
                                         setName(el.addresse_name);
                                     }else{
                                         setName(el.name);
@@ -150,15 +156,15 @@ const TableShow = (props) => {
                                     setParentId(props.city_id) : 
                                     setParentId("");
                                     setOpen(true)}
-                                }>Edit</button>
-                            <button onClick={() => handleDelete(el.id)} className="btn app_button_1">Delete</button>
-                        </td>
+                                }>{t("locations.edit")}</button>
+                                {!props.page && <button onClick={() => handleBlock(el.id)} className="btn app_button_1">{el.blocked === 0 ? t("locations.block") : t("locations.unBlock")}</button>
+}                        </td>
                     </tr>)}
                 </tbody>
             </Table>
             {props.add && <div className="add mt-3">
                 <button className="btn app_button_2 me-0" onClick={()=> setOpen1(true)}>
-                    New
+                    {t("locations.new")}
                 </button>
             </div>}
             <Dialog
@@ -168,25 +174,20 @@ const TableShow = (props) => {
         aria-describedby="alert-dialog-description"
         >
         <DialogTitle className="fs-5" id="alert-dialog-title">
-            {"Enter tne information"}
+            {t("locations.enter")}
         </DialogTitle>
         <DialogContent>
             <form className='d-flex flex-column'>
             <TextField
-                label="Name"
+                label={t("locations.name")}
                 id="outlined-start-adornment"
                 className='w-100 my-3'
                 value={name}
                 onChange={(e)=> setName(e.target.value)}
                 sx={{ width: '25ch' }}
-                slotProps={{
-                    input: {
-                        startAdornment: <InputAdornment position="start">N</InputAdornment>,
-                    },
-                }}
             />
         {!props.page && <TextField
-          label="Cost"
+          label={t("locations.cost")}
           id="outlined-start-adornment"
           className='w-100 my-3'
           value={cost}
@@ -201,13 +202,13 @@ const TableShow = (props) => {
         </form>
         </DialogContent>
         <DialogActions>
-          <Button className="btn app_button_2" onClick={handleClose}>cancel</Button>
+          <Button className="btn app_button_2" onClick={handleClose}>{t("locations.cancel")}</Button>
           <Button className="btn app_button_2" onClick={handleOk} autoFocus>
-            Ok
+            {t("locations.ok")}
           </Button>
         </DialogActions>
         </Dialog>
-        </>
+        </div>
     )
 }
 export default TableShow;

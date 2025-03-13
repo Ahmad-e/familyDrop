@@ -7,7 +7,6 @@ import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
 import PublicIcon from '@mui/icons-material/Public';
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';

@@ -123,7 +123,7 @@ export default function WithdrawOrder(){
                                 <StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>
-                                            <img loading="auto" src={row.images_array.slice(2, -2)} className='product_img' />
+                                            <img loading="auto" src={row.images_array[0]} className='product_img' />
                                         </div>    
                                     </StyledTableCell>
                                     <StyledTableCell align="center">{row.name}</StyledTableCell>

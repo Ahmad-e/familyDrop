@@ -17,6 +17,9 @@ import Loading from '../../component/loading';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
+import PhoneInput from 'react-phone-input-2'
+
+
 
 
 export default function EditProfile (props){
@@ -49,6 +52,8 @@ export default function EditProfile (props){
     const [password, setPassword] = React.useState('');
     const [load,setLoad] = React.useState(true);
     const [errPassword, setErrPassword] = React.useState(false);
+    const [errPhoneNumber, setErrPhoneNumber] = React.useState(false);
+    
     
 
     React.useEffect(()=>{
@@ -85,6 +90,20 @@ export default function EditProfile (props){
             setErrNumber(true)
         else
             setErrNumber(false)
+    }
+
+    const changePhoneNumber=(e)=>{
+        if (e.startsWith('972')) {
+            setErrPhoneNumber(true);
+            setPhoneNumber('');
+            return
+        }
+        setPhoneNumber(e);
+        console.log(e)
+        if(e.length<7)
+            setErrPhoneNumber(true)
+        else
+            setErrPhoneNumber(false)
     }
 
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -183,6 +202,18 @@ export default function EditProfile (props){
                         <FormHelperText >{ t("auth.password_t") }</FormHelperText>
                     </FormControl>
                 </div>
+                <div dir='ltr' className='auth_item'>
+                    <FormControl style={{ marginTop: "15px" }}>
+                        <PhoneInput
+                            country={"jo"}
+                            excludeCountries={"Is"}
+                            style={ errPhoneNumber ? { color:"gray", width:"200px" , border:"solid 1px #c5222a" } : { color:"gray", width:"250px"  }}
+                            value={phoneNumber}
+                            onChange={phone => changePhoneNumber( phone )}
+                        />
+                        <FormHelperText error={errPhoneNumber} > { t("auth.phone") } </FormHelperText>
+                    </FormControl>
+                </div>
                 <div className='auth_item'>
                     <FormControl fullWidth style={{ margin:" 15px  0px"  }}  className='auth_item' dir='ltr' >
                         <InputLabel id="demo-simple-select-label">{ t("basket.Country") }</InputLabel>
@@ -196,7 +227,6 @@ export default function EditProfile (props){
                             {Countries.map(el => <MenuItem value={el.id}>{el.name}</MenuItem>)}
                         </Select>
                     </FormControl>
-                    <TextField helperText={"Phone Number"} error={errNumber} onChange={changeNumber} value={phoneNumber} fullWidth label={"Phone Number"} variant="standard" />
                 </div>
             </div>
         </div>

@@ -47,7 +47,9 @@
         "Ubadget": "Pending Profits",
         "search_to": "Enter Product Name...",
         "search_p": "Search Filters",
-        "search": "Search"
+        "search": "Search",
+        "platform_":"The platform or store you used to sell the order",
+        "vid_show":"You can watch a video about the product"
     },
     "merchant": {
         "new_products": "Products Under Review",
@@ -112,17 +114,17 @@
         "w_q": "What we offer you at Family Drop",
         "qs": "Frequently Asked Questions",
         "h_1": "About the platform",
-        "q_1": "Will I need capital to start my business with Makhzen?",
+        "q_1": "Will I need capital to start my business with Family Drop?",
         "an_1": "You will not need capital as we provide you with products without the need to purchase, store, or ship them.",
-        "q_2": "How do I receive my profits in Makhzen?",
-        "an_2": "Makhzen offers you several different ways to transfer your profits.",
+        "q_2": "How do I receive my profits in Family Drop?",
+        "an_2": "Family Drop offers you several different ways to transfer your profits.",
         "q_3": "Can I market the products while I am outside of Jordan?",
         "an_3": "Yes, you can! You do not need to be present in the country where you are marketing; you can work from any country.",
         "q_5": "Is there a minimum limit for withdrawing profits?",
         "an_5": "There is no minimum limit for withdrawing profits.",
         "q_4": "When will my profits be transferred?",
         "an_4": "You can withdraw your profits directly by submitting a request to withdraw your earnings.",
-        "q_6": "Which countries does Makhzen support?",
+        "q_6": "Which countries does Family Drop support?",
         "an_6": "Currently, we provide dropshipping services only in Jordan."
       },
       "orders": {
@@ -159,7 +161,7 @@
         "min_s": "Minimum Selling Price",
         "salary": "Selling Price",
         "quan": "Quantity",
-        "t_s": "Total Price",
+        "t_s": "Total price without delivery",
         "o_d": "Order Details",
         "total": "Total",
         "Add_order": "Confirm Order",
@@ -295,6 +297,55 @@
         "mer_3": "We will take care of selling the product and delivering it to consumers, and after completing any purchase, you will receive your profits directly.",
         "mer_4": "At any moment, you can request a withdrawal of products, and you will be able to withdraw the rest of your unsold products easily and securely and receive the profits from the sold products.",
         "end": "Family Drop is an innovative business model that provides an opportunity for individuals to start their own businesses without needing a large investment. However, success in it requires good planning and continuous research for opportunities and challenges. If you are looking for a way to enter the world of e-commerce, Family Drop may be the ideal choice for you."
+    },
+    "card":{
+        "cost_price":"cose prise",
+        "selling_price":"selling price",
+        "a_c":"add to card",
+        "m_d":"More details"
+    },
+    "productInfo":{
+        "colors":"Colors",
+        "disc":"Discription",
+        "sizes":"Sizes",
+        "search": "Search",
+        "s_t" : "Select type",
+        "max_p": "Max Price",
+        "min_p": "Min Price"
+    },
+    "userInfo":{
+        "from": "From",
+        "to_com": "To Communication",
+        "all_req": "All Requests",
+        "all_ord": "All Orders",
+        "badget": "Badget",
+        "t_p_r": "Total pull request",
+        "p_r": "Pull request",
+        "c_o": "Cancelled order",
+        "e_o": "Ended orders",
+        "f_o": "Finished orders",
+        "n_o": "New orders",
+        "o_w_o": "On working orders",
+        "u_d_o": "Under dilevery orders",
+        "all_pro": "All Products",
+        "t_p_q": "Total products quantity",
+        "products": "Products"
+    },
+    "locations": {
+        "coun": "Countries",
+        "cit": "Citties",
+        "add": "Addresses",
+        "edit": "Edit",
+        "block": "Block",
+        "unBlock": "Un block",
+        "new": "New",
+        "ok": "Ok",
+        "cancel": "Cancel",
+        "cost": "Cost",
+        "name": "Name",
+        "enter": "Enter the information",
+        "action": "Action",
+        "n_f": "Not found"
     }
     
     

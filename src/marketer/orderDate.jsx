@@ -46,12 +46,11 @@ export default function CustomizedTables(props) {
             <Col lg={10} md={12}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 500 }} aria-label="customized table">
-                        {/* <caption>
-                          <button   className='btn app_button_1 text-lg mx-2'>{ t("orders.o_cancel") }</button>
-                        </caption> */}
+                        
                         <TableHead>
                             <TableRow>
-                            <StyledTableCell align="center">code</StyledTableCell>
+                                <StyledTableCell align="center">code</StyledTableCell>
+                                <StyledTableCell align="center">{ t("basket.p_img") }</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.p_name") }</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.color") }</StyledTableCell>
                                 <StyledTableCell align="center">{ t("orders.size") }</StyledTableCell>
@@ -64,6 +63,11 @@ export default function CustomizedTables(props) {
                           {props.product.map((row) => (
                               <StyledTableRow key={row.id}>
                                 <StyledTableCell align="center">FD_{row.product_id}</StyledTableCell>
+                                <StyledTableCell align="center">
+                                  <div className='flex justify-center'>
+                                      <img src={row.images_array[0]} className='product_img' />
+                                  </div>
+                                </StyledTableCell>
                                 <StyledTableCell align="center">{row.product_name}</StyledTableCell>
                                 <StyledTableCell style={{ backgroundColor:row.code}} align="center">{row.color}</StyledTableCell>
                                 <StyledTableCell align="center">{row.size}</StyledTableCell>

@@ -87,16 +87,8 @@ export default function Products(){
 
 
     const [openDelete, setOpenDelete] = React.useState(false);
-
-    const [idToDelete, setIdToDelete] = React.useState(0);
-    const handleClickOpenDelete = (data) => {
-      setOpenDelete(true);
-      setIdToDelete(data.id)
-    };
   
-    const handleCloseDelete = () => {
-      setOpenDelete(false);
-    };
+
     
     const [data, setData] = React.useState([]);
     React.useEffect(() => {
