@@ -214,6 +214,7 @@ export default function FullScreenDialog( props ) {
 
     const [video, setVideo]=React.useState("");
     const handleVideoChange = (event) => {  
+        console.log("start uploading")
         const files = (event.target.files[0]);
 
         var form = new FormData();
@@ -313,7 +314,7 @@ export default function FullScreenDialog( props ) {
                   console.log("img changed")
             }
 
-            if(video!=="")
+            
                 form.append('video_url', video);
 
             setLoading(true)
@@ -491,17 +492,14 @@ export default function FullScreenDialog( props ) {
                 <input onChange={handleFileChangeToChange} accept="image/*" id="img-upload-change" multiple type="file" />
             </Col>
             <Col lg={4} md={6} sm={12} className="add_item  text-center">
-                <label for="file-upload" className='btn app_button_1  m-1 text-lg' >
+                <label for="file-upload-to-change" className='btn app_button_1  m-1 text-lg' >
                 { t("emp.vid") } <OndemandVideoRoundedIcon />
                 </label>
-                <input onChange={handleVideoChange} accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
+                <input onChange={handleVideoChange} accept="video/mp4,video/x-m4v,video/*" id="file-upload-to-change" type="file" />
             </Col>
             <Col lg={12} sm={12} className="add_item text-center">
                 <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' >{ t("emp.save") }</button>
             </Col>
-            
-
-            
         </Row>
         </Container>
       </Dialog>

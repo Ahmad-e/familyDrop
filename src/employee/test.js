@@ -117,7 +117,7 @@ function App( data ) {
 
                 <TableRow >
                   <TableCell style={{ color:"black" }} align="center">{ t("auth.phone_number") }</TableCell>
-                  <TableCell style={{ color:"black" }} align="center">{props.phone_no}</TableCell>
+                  <TableCell style={{ color:"black" }} align="center">{props.customer_number}</TableCell>
                 </TableRow>
 
 
@@ -139,7 +139,7 @@ function App( data ) {
                 </TableRow>
                 <TableRow >
                   <TableCell style={{ color:"black" }} align="center">{ t("orders.o_s_price") }</TableCell>
-                  <TableCell style={{ color:"black" }} align="center">{props.total_price + props.delivery_price} JOD </TableCell>
+                  <TableCell style={{ color:"black" }} align="center">{props.total_price} JOD </TableCell>
                 </TableRow>
 
             </TableBody>

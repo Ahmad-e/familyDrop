@@ -204,7 +204,7 @@ export default function Products({onAdd}){
     };
     
     const [video, setVideo]=React.useState('');
-    const handleVideoChange = (event) => {  
+    const handleVideoChangeToAdd = (event) => {  
         const files = (event.target.files[0]);
 
         var form = new FormData();
@@ -452,8 +452,9 @@ export default function Products({onAdd}){
                 <label for="file-upload" className='btn app_button_1  m-1 text-lg' >
                 { t("emp.vid") } <OndemandVideoRoundedIcon />
                 </label>
-                <input onChange={handleVideoChange} accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
+                <input onChange={handleVideoChangeToAdd} accept="video/mp4,video/x-m4v,video/*" id="file-upload" type="file" />
             </Col>
+
             <Col lg={12} sm={12} className="add_item">
                 <button onClick={()=>Add_Product()} className='btn app_button_2 text-lg' > { t("emp.save") }</button>
             </Col>

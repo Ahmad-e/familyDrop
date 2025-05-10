@@ -19,14 +19,14 @@ import Col from 'react-bootstrap/Col';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import { MenuItem } from "@mui/material";
+
 
 import Slide from '@mui/material/Slide';
 import axios from "axios";
 import Loading from '../component/loading'
 import Register from '../admin/components/register'
 import { useSelector } from 'react-redux';
-
+import { InputAdornment, MenuItem, TextField } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -119,7 +119,8 @@ export default function Products(){
               setLoading(false) });
   }
   const [fillterType, setFillterType]=React.useState(0);
-
+  const [fillterID, setFillterID]=React.useState("");
+  const [fillterPhoneNo, setFillterPhoneNo]=React.useState("");
     return(
 
           <Container>
@@ -142,6 +143,26 @@ export default function Products(){
                         <MenuItem value={4}> { t("emp.marketer") }</MenuItem>
                       </Select>
                   </FormControl>
+                </Col>
+                <Col className='my-4' lg={3} md={4} sm={6}>
+                <TextField dir="ltr"
+                    
+                    value={fillterID} 
+                    onChange={(e)=>{setFillterID(e.target.value) }} 
+                    fullWidth 
+                    label={ t("auth.email") }
+                    variant="outlined" 
+                  />
+                </Col>
+                <Col className='my-4' lg={3} md={4} sm={6}>
+                <TextField dir="ltr"
+                    
+                    value={fillterPhoneNo} 
+                    onChange={(e)=>{setFillterPhoneNo(e.target.value) }} 
+                    fullWidth 
+                    label={ t("auth.phone_number") }
+                    variant="outlined" 
+                  />
                 </Col>
               </Row>
             <Row className='flex justify-center'> 
@@ -172,6 +193,8 @@ export default function Products(){
                             <TableBody>
                             {data.map((row) => {
                               if( fillterType===0 || fillterType===parseInt(row.type_id) )
+                                if( fillterID==="" || fillterID===(row.email) )
+                                  if( fillterPhoneNo==="" || fillterPhoneNo===(row.phone_no) )
                                 return(<StyledTableRow key={row.id}>
                                     <StyledTableCell align="center">
                                         <div className='flex justify-center'>

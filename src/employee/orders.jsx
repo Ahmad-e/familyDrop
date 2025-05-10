@@ -329,11 +329,55 @@ export default function CollapsibleTable() {
 
     const [fillterID, setFillterID]=React.useState(0);
     const [fillterType, setFillterType]=React.useState(0);
-    
+    const [fillterUserID, setFillterUserID]=React.useState(0);
+    const [fillterUserrPhoneNo, setFillterUserPhoneNo]=React.useState("");
+    const [fillterPhoneNo, setFillterPhoneNo]=React.useState("");
 
   return (
     <>
-              <Row_ className='flex justify-center'> 
+            <Row_ className='flex justify-center'> 
+                <Col className='my-4' lg={2} md={3} sm={6}>
+                  <TextField dir="ltr"
+                    slotProps={{
+                      input: {
+                                  startAdornment: <InputAdornment  position="start">id_</InputAdornment>,
+                              },
+                          }} 
+                    value={fillterUserID} 
+                    onChange={(e)=>{
+                      setFillterUserID(parseInt(e.target.value))  
+                      console.log(e.target.value)
+                    }} 
+                    fullWidth 
+                    type='number' 
+                    label={"id_" + t("emp.marketer") }
+                    variant="outlined" 
+                  />
+                </Col>
+                <Col className='my-4' lg={2} md={3} sm={6}>
+                <TextField dir="ltr"
+                    
+                    value={fillterPhoneNo} 
+                    onChange={(e)=>{setFillterPhoneNo(e.target.value) }} 
+                    fullWidth 
+                    label={ t("auth.phone_number") +  t("emp.marketer") }
+                    variant="outlined" 
+                  />
+                </Col>
+
+
+                <Col className='my-4' lg={2} md={3} sm={6}>
+                <TextField dir="ltr"
+                    
+                    value={fillterUserrPhoneNo} 
+                    onChange={(e)=>{setFillterUserPhoneNo(e.target.value) }} 
+                    fullWidth 
+                    label={ t("orders.o_user_ph_no") }
+                    variant="outlined" 
+                  />
+                </Col>
+
+                
                 <Col className='my-4' lg={2} md={3} sm={6}>
                   <TextField dir="ltr"
                     slotProps={{
@@ -352,6 +396,7 @@ export default function CollapsibleTable() {
                     variant="outlined" 
                   />
                 </Col>
+                
                 <Col className='my-4' lg={3} md={4} sm={6}>
                   <FormControl fullWidth  className='auth_item' dir='ltr' >
                       <InputLabel id="demo-simple-select-label">{ t("orders.o_state") }</InputLabel>
@@ -401,13 +446,16 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => {
-            if( fillterID===0 || fillterID===parseInt(row.id) )
-              if( fillterType===0 || fillterType===parseInt(row.state_id) )
-                return(
-                  <Row key={row.name} row={row}  />
-                )}
-              )}
+          {data.slice().reverse().map((row) => {
+            if( fillterUserID===0 || fillterUserID===parseInt(row.user_id) )
+              if( fillterID===0 || fillterID===parseInt(row.id) )
+                if( fillterType===0 || fillterType===parseInt(row.state_id) )
+                  if( fillterPhoneNo==="" || fillterPhoneNo===(row.phone_no) )
+                    if( fillterUserrPhoneNo==="" || fillterUserrPhoneNo===(row.customer_number) )
+                      return(
+                        <Row key={row.name} row={row}  />
+                      )}
+                    )}
         </TableBody>
       </Table>
     </TableContainer>

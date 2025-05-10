@@ -8,11 +8,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Badge from '@mui/material/Badge';
-
+import Container from 'react-bootstrap/Container';
+import Row_ from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from "axios";
 import Loading from '../component/loading'
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import { InputAdornment, MenuItem, TextField } from "@mui/material";
 
 import Button from '@mui/material/Button';
 
@@ -42,6 +49,9 @@ function Row(props) {
     setOpen(false);
   };
   const { t } = useTranslation();
+
+
+  
   return (
       <TableRow  sx={{ '& > *': { borderBottom: 'unset' }   }}>
         <TableCell align="center" >{row.id}</TableCell>
@@ -50,11 +60,12 @@ function Row(props) {
         </TableCell>
         <TableCell align="center">{row.customer_name}</TableCell>
         <TableCell align="center">{row.account_name}</TableCell>
+        <TableCell align="center">{row.customer_number}</TableCell>
         <TableCell align="center">{ row.country +"-"+ row.city +"-"+row.addresse }</TableCell>
-        <TableCell align="center">{row.delivery_price}</TableCell>
-        <TableCell align="center">{row.total_quantity}</TableCell>
-        <TableCell align="center">{row.total_price}</TableCell>
-        <TableCell align="center">{row.total_profit}</TableCell>
+        <TableCell align="center">{row.delivery_price} JOD </TableCell>
+        <TableCell align="center">{row.total_quantity} </TableCell>
+        <TableCell align="center">{row.total_price} JOD </TableCell>
+        <TableCell align="center">{row.total_profit} JOD </TableCell>
         <TableCell align="center">{row.title}</TableCell>
         
         <TableCell align="center">{row.state_name}</TableCell>
@@ -127,9 +138,71 @@ export default function CollapsibleTable() {
          });
     }, []);
 
-
+    const [fillterID, setFillterID]=React.useState(0);
+    const [fillterType, setFillterType]=React.useState(0);
+    const [fillterUserID, setFillterUserID]=React.useState(0);
+    const [fillterUserrPhoneNo, setFillterUserPhoneNo]=React.useState("");
+    const [fillterPhoneNo, setFillterPhoneNo]=React.useState("");
   return (
     <>
+    <Row_ className='flex justify-center'> 
+
+
+
+                <Col className='my-4' lg={2} md={3} sm={6}>
+                <TextField dir="ltr"
+                    
+                    value={fillterUserrPhoneNo} 
+                    onChange={(e)=>{setFillterUserPhoneNo(e.target.value) }} 
+                    fullWidth 
+                    label={ t("orders.o_user_ph_no") }
+                    variant="outlined" 
+                  />
+                </Col>
+
+                
+                <Col className='my-4' lg={2} md={3} sm={6}>
+                  <TextField dir="ltr"
+                    slotProps={{
+                      input: {
+                                  startAdornment: <InputAdornment  position="start">id_</InputAdornment>,
+                              },
+                          }} 
+                    value={fillterID} 
+                    onChange={(e)=>{
+                      setFillterID(parseInt(e.target.value))  
+                      console.log(e.target.value)
+                    }} 
+                    fullWidth 
+                    type='number' 
+                    label={ t("orders.o_n") }
+                    variant="outlined" 
+                  />
+                </Col>
+                
+                <Col className='my-4' lg={3} md={4} sm={6}>
+                  <FormControl fullWidth  className='auth_item' dir='ltr' >
+                      <InputLabel id="demo-simple-select-label">{ t("orders.o_state") }</InputLabel>
+                      <Select
+                      
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={fillterType}
+                          label={ t("orders.o_state") }
+                          onChange={(e)=>setFillterType(e.target.value)}
+                      >
+                        <MenuItem value={0}> All data </MenuItem>
+                        <MenuItem value={1}>{ t("marketer.n_order") } </MenuItem>
+                        <MenuItem value={2}> { t("marketer.w_order") } </MenuItem>
+                        <MenuItem value={3}>{ t("marketer.e_order") } </MenuItem>
+                        <MenuItem value={4}> { t("marketer.del_order") }</MenuItem>
+                        <MenuItem value={5}> { t("marketer.c_order") }</MenuItem>
+                        <MenuItem value={6}> { t("marketer.done_order") }</MenuItem>
+                        
+                      </Select>
+                  </FormControl>
+                </Col>
+              </Row_>
       <Loading loading={loading} />
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
@@ -139,6 +212,7 @@ export default function CollapsibleTable() {
                             <TableCell align="center">{ t("orders.o_date") }</TableCell>
                             <TableCell align="center">{ t("orders.platform") }</TableCell>
                             <TableCell align="center">{ t("orders.O_user_name") }</TableCell>
+                            <TableCell align="center">{ t("orders.o_user_ph_no") }</TableCell>
                             <TableCell align="center">{ t("orders.o_address") }</TableCell>
                             <TableCell align="center">{ t("emp.del_price") }</TableCell>
                             <TableCell align="center">{ t("orders.o_p_quantity") }</TableCell>
@@ -150,9 +224,16 @@ export default function CollapsibleTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data.map((row) => (
-                        <Row key={row.id} row={row} />
-                    ))}
+                    {data.map((row) => 
+                      {
+                        if( fillterID===0 || fillterID===parseInt(row.id) )
+                          if( fillterType===0 || fillterType===parseInt(row.state_id) )
+                            if( fillterUserrPhoneNo==="" || fillterUserrPhoneNo===(row.customer_number) )
+                              return(
+                                <Row key={row.id} row={row} />
+                              )    
+                      }
+                    )}
                     </TableBody>
                 </Table>
                 </TableContainer>

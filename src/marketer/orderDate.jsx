@@ -72,8 +72,8 @@ export default function CustomizedTables(props) {
                                 <StyledTableCell style={{ backgroundColor:row.code}} align="center">{row.color}</StyledTableCell>
                                 <StyledTableCell align="center">{row.size}</StyledTableCell>
                                 <StyledTableCell align="center">{row.quantity}</StyledTableCell>
-                                <StyledTableCell align="center">{row.selling_price}</StyledTableCell>
-                                <StyledTableCell align="center">{row.cost_price}</StyledTableCell>
+                                <StyledTableCell align="center">{row.selling_price} JOD</StyledTableCell>
+                                <StyledTableCell align="center">{row.cost_price} JOD</StyledTableCell>
                               </StyledTableRow>
                           ))}
                         </TableBody>
